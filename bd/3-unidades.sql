@@ -1,5 +1,6 @@
-INSERT INTO public.unidades (id,unidade) VALUES
-	 (1,'Alegre'),
-	 (2,'Goiabeiras'),
-	 (3,'Maruípe'),
-	 (4,'São Mateus');
+INSERT INTO public.unidades (unidade) VALUES
+	('Alegre'),
+	('Goiabeiras'),
+	('Maruípe'),
+	('São Mateus')
+;
