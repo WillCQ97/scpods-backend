@@ -103,7 +103,7 @@ CREATE TABLE public.acoes (
 	id_meta varchar NOT NULL,
 	titulo varchar NOT NULL,
 	descricao varchar NOT NULL,
-	localizacao point NOT NULL,
+	localizacao geography(POINT) NOT NULL,
 	id_coordenador int4 NOT NULL,
 	id_departamento int4 NOT NULL,
 	CONSTRAINT acoes_pk PRIMARY KEY (id)
@@ -116,3 +116,18 @@ ALTER TABLE public.acoes ADD CONSTRAINT acoes_fk_coordenador FOREIGN KEY (id_coo
 ALTER TABLE public.acoes ADD CONSTRAINT acoes_fk_departamento FOREIGN KEY (id_departamento) REFERENCES public.departamentos(id);
 ALTER TABLE public.acoes ADD CONSTRAINT acoes_fk_meta FOREIGN KEY (id_meta) REFERENCES public.metas(id);
 
+
+CREATE TABLE public.submissoes (
+	data_submissao timestamp NOT NULL,
+	id int NOT NULL,
+	acao varchar NOT NULL,
+	id_meta int NOT NULL,
+	descricao varchar NOT NULL,
+	id_departamento int NOT NULL,
+	localizacao point NOT NULL,
+	coordenador_nome varchar NOT NULL,
+	coordenador_papel varchar NOT NULL,
+	id_objetivo int NOT NULL,
+	CONSTRAINT submissoes_pk PRIMARY KEY (id),
+	CONSTRAINT submissoes_fk_meta FOREIGN KEY (id_meta,id_objetivo) REFERENCES public.metas(id_meta,id_objetivo)
+);

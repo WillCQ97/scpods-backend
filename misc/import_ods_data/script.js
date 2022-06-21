@@ -1,5 +1,5 @@
-import odsData from './ods_goals.json' assert {type: "json"};
-import projectsData from './projects_alegre.json' assert {type: "json"};
+import odsData from './data/ods_goals.json' assert {type: "json"};
+import projectsData from './data/projects_alegre.json' assert {type: "json"};
 import fs from 'fs';
 
 let sql_query_objetivos = ' INSERT INTO public.objetivos(id, nome, descricao, cor) VALUES \n';
