@@ -1,4 +1,6 @@
-INSERT INTO public.centros(id_unidade, nome, sigla) VALUES
+INSERT INTO public.centros_ufes
+(id_unidade, nome, sigla)
+VALUES
     (1, 'Centro de Ciências Agrárias e Engenharias', 'CCAE'),
     (1, 'Centro de Ciências Exatas, Naturais e da Saúde', 'CCENS'),
     (4, 'Centro Universitário Norte do Espírito Santo', 'Ceunes'),

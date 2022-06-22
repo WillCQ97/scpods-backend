@@ -1,4 +1,6 @@
-INSERT INTO public.departamentos(id_centro, nome) VALUES
+INSERT INTO public.departamentos_ufes
+(id_centro, nome)
+VALUES
     (2, 'Biologia'),
     (2, 'Computação'),
     (2, 'Farmácia e Nutrição'),

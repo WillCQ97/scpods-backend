@@ -1,4 +1,4 @@
-INSERT INTO public.unidades (unidade) VALUES
+INSERT INTO public.unidades (campus) VALUES
 	('Alegre'),
 	('Goiabeiras'),
 	('Maruípe'),
