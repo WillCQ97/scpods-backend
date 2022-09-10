@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-SistemaCadastroProjetosODSApplication<SistemaCadastroProjetosODS>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "br.ufes.scpods.SistemaCadastroProjetosODSApplication",
+            "projectName": "SistemaCadastroProjetosODS",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}
