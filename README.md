@@ -1,4 +1,5 @@
-# TCC 2
+# Sistema para Cadastro de Projetos relacionados com os ODS
 
-- Cópia dos arquivos do projeto escrito.
-- Cópia da implementação do sistema.
+- ODS são os Objetivos de Desenvolvimento Sustentável definidos pela [Agenda 2030](http://www.agenda2030.com.br/).
+- Este repositório contém a implementação do *back-end* em Java de um sistema para a realização de cadastros de projetos relacionados com a ODS na UFES.
+- Tudo isso faz parte do meu TCC para obtenção do título de Bacharel em Ciência da Computação, na UFES de Alegre.
