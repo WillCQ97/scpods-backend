@@ -1,0 +1,74 @@
+[
+  {
+    "id": 1,
+    "action": "Produção de Mudas de Cana-de-açúcar",
+    "target_id": "2.4",
+    "description": "Promove a distribuição dessas mudas para auxiliar pequenos produtores rurais da região sul do Espírito Santo. Os pesquisadores testam as variedades por, pelo menos, três anos e depois fazem a distribuição das melhores unidades, que são as consideradas como mais produtivas, resistentes e fáceis de manipular.",
+    "location": {
+      "center": "Ciências Agrárias e Engenharias (CCAE)",
+      "departament": "Agronomia",
+      "coord": [
+        -20.761913,
+        -41.536721
+      ]
+    },
+    "coordinator": {
+      "name": "Leandro Pin",
+      "role": "Professor"
+    }
+  },
+  {
+    "id": 2,
+    "action": "Produção de álcool 70 em solução e gel para o campus de Alegre da UFES e para a secretaria municipal de saúde",
+    "target_id": "3.3",
+    "description": "Realiza a produção e doação de álcool para o combate a pandemia de COVID-19 na universidade e no município.",
+    "location": {
+      "center": "Ciências Exatas, Naturais e da Saúde (CCENS)",
+      "departament": "Farmácia",
+      "coord": [
+        -20.762294,
+        -41.535509
+      ]
+    },
+    "coordinator": {
+      "name": "Janaina Cecília Oliveira Villanova",
+      "role": "Professora"
+    }
+  },
+  {
+    "id": 3,
+    "action": "Máscaras Solidárias em Alegre",
+    "target_id": "3.3",
+    "description": "Produção de aproximadamente 5 mil máscaras a partir de materiais recomendados pelo Ministério da Saúde para posterior distribuição no município.",
+    "location": {
+      "center": "Ciências Exatas, Naturais e da Saúde (CCENS)",
+      "departament": "Farmácia",
+      "coord": [
+        -20.762364,
+        -41.53546
+      ]
+    },
+    "coordinator": {
+      "name": "Juliana Severi",
+      "role": "Professora"
+    }
+  },
+  {
+    "id": 4,
+    "action": "Desenvolvimento do Polo de Fruticultura da Região do Caparaó",
+    "target_id": "8.2",
+    "description": "Visa contribuir para a diversificação da produção agrícola gerando novas fontes de renda, e consequentemente, melhoria socioeconômica da população envolvida.",
+    "location": {
+      "center": "Ciências Agrárias e Engenharias (CCAE)",
+      "departament": "Agronomia",
+      "coord": [
+        -20.762148,
+        -41.535375
+      ]
+    },
+    "coordinator": {
+      "name": "Dirceu Pratissoli",
+      "role": "Professor"
+    }
+  }
+]
