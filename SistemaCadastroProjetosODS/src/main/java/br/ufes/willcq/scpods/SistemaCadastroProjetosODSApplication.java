@@ -1,4 +1,4 @@
-package br.ufes.scpods;
+package br.ufes.willcq.scpods;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -8,7 +8,6 @@ public class SistemaCadastroProjetosODSApplication {
 
 	public static void main( String[] args ) {
 		SpringApplication.run( SistemaCadastroProjetosODSApplication.class, args );
-		System.out.println( "Executei aqui" );
 	}
 
 }
