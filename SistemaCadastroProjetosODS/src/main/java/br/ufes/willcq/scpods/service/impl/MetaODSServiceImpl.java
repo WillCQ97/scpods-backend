@@ -21,4 +21,14 @@ public class MetaODSServiceImpl implements MetaODSService {
         return metaODSRepository.findAll();
     }
 
+    @Override
+    public MetaODS buscar( String id ) {
+        var meta = metaODSRepository.findById( id );
+
+        if( meta.isPresent() ) {
+            return meta.get();
+        } else {
+            throw new RuntimeException( "Não foi encontrada a meta com o id informado!" );
+        }
+    }
 }

@@ -25,4 +25,5 @@ public class MetaODS {
     private Long idObjetivo;
 
     private String descricao;
+
 }

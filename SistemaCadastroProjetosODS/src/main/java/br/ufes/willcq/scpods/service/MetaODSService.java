@@ -8,4 +8,7 @@ import br.ufes.willcq.scpods.model.MetaODS;
 public interface MetaODSService {
 
     public Iterable<MetaODS> listar();
+
+    public MetaODS buscar( String id );
+
 }
