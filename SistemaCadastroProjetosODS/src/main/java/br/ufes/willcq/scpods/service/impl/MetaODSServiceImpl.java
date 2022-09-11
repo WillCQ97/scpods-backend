@@ -1,9 +1,8 @@
 package br.ufes.willcq.scpods.service.impl;
 
-import javax.transaction.Transactional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import br.ufes.willcq.scpods.model.MetaODS;
 import br.ufes.willcq.scpods.repository.MetaODSRepository;
@@ -23,11 +22,12 @@ public class MetaODSServiceImpl implements MetaODSService {
 
     @Override
     public MetaODS buscar( String id ) {
-        var meta = metaODSRepository.findById( id );
+        var metaOptional = metaODSRepository.findById( id );
 
-        if( meta.isPresent() ) {
-            return meta.get();
+        if( metaOptional.isPresent() ) {
+            return metaOptional.get();
         } else {
+            // TODO: implementar uma exception própria
             throw new RuntimeException( "Não foi encontrada a meta com o id informado!" );
         }
     }
