@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table( name = "metas_ods" )
+@Table( name = "tb_metas_ods" )
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
@@ -19,7 +19,6 @@ import lombok.Setter;
 public class MetaODS {
 
     @Id
-    @Column( name = "id_meta" )
     private String id;
 
     @Column( name = "id_objetivo" )

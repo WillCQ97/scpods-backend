@@ -14,7 +14,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table( name = "objetivos_ods" )
+@Table( name = "tb_objetivos_ods" )
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
@@ -22,7 +22,6 @@ import lombok.Setter;
 public class ObjetivoODS {
 
     @Id
-    @Column( name = "id_objetivo" )
     private Long id;
 
     private String titulo;
