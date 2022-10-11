@@ -1,6 +1,4 @@
-INSERT INTO public.objetivos_ods
-(id_objetivo, titulo, descricao, cod_cor_hexadecimal)
-VALUES
+INSERT INTO public.tb_objetivos_ods(id, titulo, descricao, cod_cor) VALUES
     (1, 'Erradicação da pobreza', 'Acabar com a pobreza em todas as suas formas, em todos os lugares', '#e5233d'),
     (2, 'Fome zero e agricultura sustentável', 'Acabar com a fome, alcançar a segurança alimentar e melhoria da nutrição e promover a agricultura sustentável', '#dda73a'),
     (3, 'Saúde e bem-estar', 'Assegurar uma vida saudável e promover o bem-estar para todos, em todas as idades', '#4ca146'),
