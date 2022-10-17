@@ -1,4 +1,4 @@
-INSERT INTO public.tb_metas_ods(id, id_objetivo, descricao) VALUES
+INSERT INTO public.tb_metas(id, id_objetivo, descricao) VALUES
     ('1.1', 1, 'Até 2030, erradicar a pobreza extrema para todas as pessoas em todos os lugares, atualmente medida como pessoas vivendo com menos de US$ 1,25 por dia'),
     ('1.2', 1, 'Até 2030, reduzir pelo menos à metade a proporção de homens, mulheres e crianças, de todas as idades, que vivem na pobreza, em todas as suas dimensões, de acordo com as definições nacionais'),
     ('1.3', 1, 'Implementar, em nível nacional, medidas e sistemas de proteção social apropriados, para todos, incluindo pisos, e até 2030 atingir a cobertura substancial dos pobres e vulneráveis'),
