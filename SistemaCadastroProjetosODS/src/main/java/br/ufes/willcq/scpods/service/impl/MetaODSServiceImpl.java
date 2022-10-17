@@ -13,21 +13,20 @@ import br.ufes.willcq.scpods.service.MetaODSService;
 public class MetaODSServiceImpl implements MetaODSService {
 
     @Autowired
-    private MetaODSRepository metaODSRepository;
+    private MetaODSRepository repository;
 
     @Override
     public Iterable<MetaODS> listar() {
-        return metaODSRepository.findAll();
+        return repository.findAll();
     }
 
     @Override
     public MetaODS buscar( String id ) {
-        var metaOptional = metaODSRepository.findById( id );
+        var metaOptional = repository.findById( id );
 
         if( metaOptional.isPresent() ) {
             return metaOptional.get();
         } else {
-            // TODO: implementar uma exception própria
             throw new RuntimeException( "Não foi encontrada a meta com o id informado!" );
         }
     }

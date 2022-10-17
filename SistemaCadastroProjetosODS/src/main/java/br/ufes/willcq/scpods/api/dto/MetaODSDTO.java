@@ -7,11 +7,12 @@ import lombok.Setter;
 
 @AllArgsConstructor
 @NoArgsConstructor
-@Setter
 @Getter
+@Setter
 public class MetaODSDTO {
 
     private String id;
+    private Long idObjetivo;
     private String descricao;
 
 }

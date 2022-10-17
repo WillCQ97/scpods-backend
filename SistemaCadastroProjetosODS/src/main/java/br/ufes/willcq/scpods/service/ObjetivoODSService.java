@@ -10,4 +10,5 @@ public interface ObjetivoODSService {
     public Iterable<ObjetivoODS> listar();
 
     public ObjetivoODS buscar( Long id );
+
 }

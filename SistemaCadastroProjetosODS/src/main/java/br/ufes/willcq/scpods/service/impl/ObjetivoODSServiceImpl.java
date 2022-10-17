@@ -10,26 +10,24 @@ import br.ufes.willcq.scpods.service.ObjetivoODSService;
 
 @Service
 @Transactional
-public class ObjetivoODSServiceImple implements ObjetivoODSService {
+public class ObjetivoODSServiceImpl implements ObjetivoODSService {
 
-    // TODO: verificar o que faz essa anotação
     @Autowired
-    private ObjetivoODSRepository objetivoODSRepository;
+    private ObjetivoODSRepository repository;
 
     @Override
     public Iterable<ObjetivoODS> listar() {
-        return objetivoODSRepository.findAll();
+        return repository.findAll();
     }
 
     @Override
     public ObjetivoODS buscar( Long id ) {
-        var objetivoOptional = objetivoODSRepository.findById( id );
+        var objetivoOptional = repository.findById( id );
 
         if( objetivoOptional.isPresent() ) {
             return objetivoOptional.get();
         } else {
-            // TODO: implementar uma exception própria
-            throw new RuntimeException( "Não foi encontrado um objetivo com o id informado!" );
+            throw new RuntimeException( "Não foi encontrado o objetivo de ODS com o id informado!" );
         }
     }
 

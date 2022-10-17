@@ -33,4 +33,5 @@ public class ObjetivoODS {
 
     @OneToMany( mappedBy = "idObjetivo" )
     private List<MetaODS> metas;
+
 }
