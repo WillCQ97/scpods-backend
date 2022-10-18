@@ -122,10 +122,11 @@ CREATE TABLE public.tb_acoes (
 	id_estrutura_organizacional int4 NOT NULL,
 	titulo varchar NOT NULL,
 	descricao varchar NOT NULL,
-	localizacao public.geography(point, 4326) NULL,
+	localizacao public.geography(point, 4326) NOT NULL,
 	data_inicio date NOT NULL,
 	data_fim date NULL,
 	fl_aceito bool NOT NULL,
+	data_submissao date NOT NULL,
 	CONSTRAINT tb_acoes_pk PRIMARY KEY (id)
 );
 
