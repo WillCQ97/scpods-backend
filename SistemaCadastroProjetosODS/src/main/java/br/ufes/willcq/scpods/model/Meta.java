@@ -1,11 +1,8 @@
 package br.ufes.willcq.scpods.model;
 
-import java.util.List;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
@@ -14,24 +11,19 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table( name = "tb_objetivos_ods" )
+@Table( name = "tb_metas" )
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
-public class ObjetivoODS {
+public class Meta {
 
     @Id
-    private Long id;
+    private String id;
 
-    private String titulo;
+    @Column( name = "id_objetivo" )
+    private Long idObjetivo;
 
     private String descricao;
-
-    @Column( name = "cod_cor" )
-    private String codigoCor;
-
-    @OneToMany( mappedBy = "idObjetivo" )
-    private List<MetaODS> metas;
 
 }

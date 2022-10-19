@@ -11,11 +11,10 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class ObjetivoODSDTO {
+public class ObjetivoDTO {
 
     private Long id;
     private String titulo;
-    private String codigoCor;
-    private List<MetaForObjetivoODSDTO> metas;
+    private List<MetaForObjetivoDTO> metas;
 
 }
