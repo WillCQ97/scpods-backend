@@ -24,8 +24,8 @@ public class Coordenador {
     @Id
     private Long id;
 
-    @Enumerated( EnumType.ORDINAL )
-    @Column( name = "id_vinculo" )
+    @Enumerated( EnumType.STRING )
+    @Column( name = "tipo_vinculo" )
     private TipoVinculoEnum tipoVinculo;
 
     @Column( name = "ds_vinculo" )
