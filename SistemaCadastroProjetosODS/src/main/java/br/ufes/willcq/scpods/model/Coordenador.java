@@ -24,8 +24,8 @@ public class Coordenador {
     @Id
     private Long id;
 
-    @Enumerated( EnumType.STRING )
-    @Column( name = "tipo_vinculo" )
+    @Enumerated( EnumType.ORDINAL )
+    @Column( name = "id_vinculo" )
     private TipoVinculoEnum tipoVinculo;
 
     @Column( name = "ds_vinculo" )
@@ -33,8 +33,11 @@ public class Coordenador {
 
     private String nome;
 
-    public String getVinculo() {
-        return tipoVinculo.getDescricao();
-    }
+    public String getDescricaoVinculo() {
+        if( this.descricaoVinculo == null ) {
+            return tipoVinculo.getDescricao();
+        }
 
+        return this.descricaoVinculo;
+    }
 }
