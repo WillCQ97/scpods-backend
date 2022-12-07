@@ -9,6 +9,11 @@ import br.ufes.willcq.scpods.model.Coordenador;
 import br.ufes.willcq.scpods.repository.CoordenadorRepository;
 import br.ufes.willcq.scpods.service.CoordenadorService;
 
+/**
+ * @deprecated (when: 07-12-2022, why: Não será utilizado diretamente,
+ *             provavelmente)
+ */
+@Deprecated
 @Service
 @Transactional
 public class CoordenadorServiceImpl implements CoordenadorService {

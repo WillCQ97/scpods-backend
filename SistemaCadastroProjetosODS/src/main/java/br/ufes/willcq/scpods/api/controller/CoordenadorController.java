@@ -8,6 +8,10 @@ import org.springframework.web.bind.annotation.RestController;
 import br.ufes.willcq.scpods.model.Coordenador;
 import br.ufes.willcq.scpods.service.CoordenadorService;
 
+/**
+ * @deprecated (when: 07-12-2022, why: Não será utilizado diretamente)
+ */
+@Deprecated
 @RestController
 @RequestMapping( "/api/v0/coordenadores" )
 public class CoordenadorController {

@@ -37,7 +37,6 @@ public class Coordenador {
         if( this.descricaoVinculo == null ) {
             return tipoVinculo.getDescricao();
         }
-
         return this.descricaoVinculo;
     }
 }
