@@ -4,24 +4,24 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import br.ufes.willcq.scpods.model.ObjetivoODS;
-import br.ufes.willcq.scpods.repository.ObjetivoODSRepository;
-import br.ufes.willcq.scpods.service.ObjetivoODSService;
+import br.ufes.willcq.scpods.model.Objetivo;
+import br.ufes.willcq.scpods.repository.ObjetivoRepository;
+import br.ufes.willcq.scpods.service.ObjetivoService;
 
 @Service
 @Transactional
-public class ObjetivoODSServiceImpl implements ObjetivoODSService {
+public class ObjetivoServiceImpl implements ObjetivoService {
 
     @Autowired
-    private ObjetivoODSRepository repository;
+    private ObjetivoRepository repository;
 
     @Override
-    public Iterable<ObjetivoODS> listar() {
+    public Iterable<Objetivo> listar() {
         return repository.findAll();
     }
 
     @Override
-    public ObjetivoODS buscar( Long id ) {
+    public Objetivo buscar( Long id ) {
         var objetivoOptional = repository.findById( id );
 
         if( objetivoOptional.isPresent() ) {
