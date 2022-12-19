@@ -4,13 +4,13 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.7.0</version>
+		<version>2.7.6</version>
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>br.ufes.willcq</groupId>
 	<artifactId>scpods-backend</artifactId>
 	<version>0.1.0-SNAPSHOT</version>
-	<name>BackendCadastroProjetosODS</name>
+	<name>CadastroProjetosODSBackend</name>
 	<description>Backend do sistema para cadastro de projetos relacionados aos ODS na UFES.</description>
 	<properties>
 		<java.version>17</java.version>
@@ -28,7 +28,6 @@
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
-			<version>1.18.24</version>
 			<scope>provided</scope>
 		</dependency>
 
