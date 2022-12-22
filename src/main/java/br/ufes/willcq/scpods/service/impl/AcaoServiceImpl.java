@@ -19,4 +19,17 @@ public class AcaoServiceImpl implements AcaoService {
     public Iterable<Acao> listar() {
         return repository.findAll();
     }
+
+    @Override
+    public Acao buscar( Long id ) {
+
+        var acaoOpt = repository.findById( id );
+
+        if( acaoOpt.isPresent() ) {
+            return acaoOpt.get();
+        } else {
+            throw new RuntimeException( "Não foi encontrada a ação com o id informado!" );
+        }
+    }
+
 }

@@ -9,4 +9,6 @@ public interface AcaoService {
 
     public Iterable<Acao> listar();
 
+    public Acao buscar( Long id );
+
 }
