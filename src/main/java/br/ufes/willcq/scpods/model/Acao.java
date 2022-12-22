@@ -5,7 +5,12 @@ import java.time.LocalDate;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import org.locationtech.jts.geom.Point;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -27,7 +32,7 @@ public class Acao {
 
     private String descricao;
 
-    // private Point localizacao;
+    private Point localizacao;
 
     @Column( name = "data_inicio" )
     private LocalDate dataInicio;
@@ -37,5 +42,17 @@ public class Acao {
 
     @Column( name = "fl_aceito" )
     private Boolean aceito;
+
+    @ManyToOne
+    @JoinColumn( name = "id_meta" )
+    private Meta meta;
+
+    @OneToOne
+    @JoinColumn( name = "id_coordenador" )
+    private Coordenador coordenador;
+
+    @ManyToOne
+    @JoinColumn( name = "id_estrutura_organizacional" )
+    private EstruturaOrganizacional estruturaOrganizacional;
 
 }
