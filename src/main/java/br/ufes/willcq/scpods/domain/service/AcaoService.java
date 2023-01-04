@@ -1,8 +1,8 @@
-package br.ufes.willcq.scpods.service;
+package br.ufes.willcq.scpods.domain.service;
 
 import org.springframework.validation.annotation.Validated;
 
-import br.ufes.willcq.scpods.model.Acao;
+import br.ufes.willcq.scpods.domain.model.Acao;
 
 @Validated
 public interface AcaoService {

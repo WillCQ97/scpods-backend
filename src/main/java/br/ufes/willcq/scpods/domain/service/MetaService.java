@@ -1,8 +1,8 @@
-package br.ufes.willcq.scpods.service;
+package br.ufes.willcq.scpods.domain.service;
 
 import org.springframework.validation.annotation.Validated;
 
-import br.ufes.willcq.scpods.model.Meta;
+import br.ufes.willcq.scpods.domain.model.Meta;
 
 @Validated
 public interface MetaService {

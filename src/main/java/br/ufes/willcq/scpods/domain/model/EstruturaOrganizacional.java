@@ -1,4 +1,4 @@
-package br.ufes.willcq.scpods.model;
+package br.ufes.willcq.scpods.domain.model;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;

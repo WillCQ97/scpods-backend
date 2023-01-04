@@ -1,8 +1,8 @@
-package br.ufes.willcq.scpods.service;
+package br.ufes.willcq.scpods.domain.service;
 
 import org.springframework.validation.annotation.Validated;
 
-import br.ufes.willcq.scpods.model.Objetivo;
+import br.ufes.willcq.scpods.domain.model.Objetivo;
 
 @Validated
 public interface ObjetivoService {

@@ -7,8 +7,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.ufes.willcq.scpods.model.Acao;
-import br.ufes.willcq.scpods.service.AcaoService;
+import br.ufes.willcq.scpods.domain.model.Acao;
+import br.ufes.willcq.scpods.domain.service.AcaoService;
 
 @RestController
 @RequestMapping( "/api/v0/acoes" )

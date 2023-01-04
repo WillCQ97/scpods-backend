@@ -1,13 +1,13 @@
-package br.ufes.willcq.scpods.service.impl;
+package br.ufes.willcq.scpods.domain.service.impl;
 
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import br.ufes.willcq.scpods.model.Coordenador;
-import br.ufes.willcq.scpods.repository.CoordenadorRepository;
-import br.ufes.willcq.scpods.service.CoordenadorService;
+import br.ufes.willcq.scpods.domain.model.Coordenador;
+import br.ufes.willcq.scpods.domain.repository.CoordenadorRepository;
+import br.ufes.willcq.scpods.domain.service.CoordenadorService;
 
 /**
  * @deprecated (when: 07-12-2022, why: Não será utilizado diretamente,

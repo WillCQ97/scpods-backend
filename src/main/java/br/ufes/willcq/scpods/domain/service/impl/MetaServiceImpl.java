@@ -1,12 +1,12 @@
-package br.ufes.willcq.scpods.service.impl;
+package br.ufes.willcq.scpods.domain.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import br.ufes.willcq.scpods.model.Meta;
-import br.ufes.willcq.scpods.repository.MetaRepository;
-import br.ufes.willcq.scpods.service.MetaService;
+import br.ufes.willcq.scpods.domain.model.Meta;
+import br.ufes.willcq.scpods.domain.repository.MetaRepository;
+import br.ufes.willcq.scpods.domain.service.MetaService;
 
 @Service
 @Transactional

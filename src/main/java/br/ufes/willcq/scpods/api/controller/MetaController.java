@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.ufes.willcq.scpods.api.dto.MetaDTO;
-import br.ufes.willcq.scpods.service.MetaService;
+import br.ufes.willcq.scpods.domain.service.MetaService;
 
 @RestController
 @RequestMapping( "/api/v0/metas" )

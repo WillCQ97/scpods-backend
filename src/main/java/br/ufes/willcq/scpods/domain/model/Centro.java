@@ -1,8 +1,9 @@
-package br.ufes.willcq.scpods.model;
+package br.ufes.willcq.scpods.domain.model;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
@@ -15,13 +16,18 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-@Table( name = "tb_unidades" )
-public class Unidade {
+@Table( name = "tb_centros" )
+public class Centro {
 
     @Id
     private Long id;
 
-    @Column( name = "unidade" )
+    @ManyToOne
+    @JoinColumn( name = "id_unidade" )
+    private Unidade unidade;
+
     private String nome;
+
+    private String sigla;
 
 }
