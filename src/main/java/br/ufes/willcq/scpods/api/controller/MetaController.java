@@ -21,7 +21,8 @@ public class MetaController {
     @Autowired
     private MetaService service;
 
-    private ModelMapper modelMapper = new ModelMapper();
+    @Autowired
+    private ModelMapper modelMapper;
 
     @GetMapping
     public Iterable<MetaDTO> listar() {

@@ -22,7 +22,8 @@ public class ObjetivoController {
     @Autowired
     private ObjetivoService service;
 
-    private ModelMapper modelMapper = new ModelMapper();
+    @Autowired
+    private ModelMapper modelMapper;
 
     @GetMapping
     public Iterable<ObjetivoDTO> listar() {
@@ -40,8 +41,8 @@ public class ObjetivoController {
     }
 
     private Iterable<ObjetivoDTO> mapAll( Iterable<Objetivo> objetivos ) {
-        var spliterator = objetivos.spliterator();
 
+        var spliterator = objetivos.spliterator();
         return StreamSupport.stream( spliterator, false ).map( objetivo -> modelMapper.map( objetivo, ObjetivoDTO.class ) ).collect( Collectors.toList() );
     }
 
