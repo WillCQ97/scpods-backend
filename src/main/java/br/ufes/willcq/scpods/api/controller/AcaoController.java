@@ -8,22 +8,33 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.ufes.willcq.scpods.domain.model.Acao;
-import br.ufes.willcq.scpods.domain.service.AcaoService;
+import br.ufes.willcq.scpods.domain.repository.AcaoRepository;
+import br.ufes.willcq.scpods.domain.service.CadastroAcaoService;
 
 @RestController
 @RequestMapping( "/api/v0/acoes" )
 public class AcaoController {
 
     @Autowired
-    private AcaoService service;
+    private CadastroAcaoService service;
+
+    @Autowired
+    private AcaoRepository repository;
 
     @GetMapping
     public Iterable<Acao> listar() {
-        return service.listar();
+        return repository.findAll();
     }
 
     @GetMapping( "/{id}" )
     public ResponseEntity<Acao> buscar( @PathVariable Long id ) {
-        return ResponseEntity.ok().body( service.buscar( id ) );
+
+        var optAcao = repository.findById( id );
+
+        if( optAcao.isPresent() ) {
+            return ResponseEntity.ok().body( optAcao.get() );
+        }
+        return ResponseEntity.notFound().build();
     }
+
 }
