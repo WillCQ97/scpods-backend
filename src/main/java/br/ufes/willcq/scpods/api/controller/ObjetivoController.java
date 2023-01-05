@@ -38,9 +38,7 @@ public class ObjetivoController {
         if( optObjetivo.isPresent() ) {
             return ResponseEntity.ok().body( modelMapper.map( optObjetivo.get(), ObjetivoDTO.class ) );
         }
-
         return ResponseEntity.notFound().build();
-
     }
 
     private Iterable<ObjetivoDTO> mapAll( Iterable<Objetivo> objetivos ) {

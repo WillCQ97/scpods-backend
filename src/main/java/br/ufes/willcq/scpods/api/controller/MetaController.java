@@ -38,7 +38,6 @@ public class MetaController {
         if( optMeta.isPresent() ) {
             return ResponseEntity.ok().body( modelMapper.map( optMeta.get(), MetaDTO.class ) );
         }
-
         return ResponseEntity.notFound().build();
     }
 
