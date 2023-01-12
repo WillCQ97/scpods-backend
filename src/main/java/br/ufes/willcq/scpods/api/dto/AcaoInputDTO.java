@@ -21,6 +21,7 @@ public class AcaoInputDTO {
 
     private LocalDate dataInicio;
     private LocalDate dataFim;
+    private LocalDate dataCadastro;
 
     private Boolean aceito;
 

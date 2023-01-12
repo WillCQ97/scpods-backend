@@ -75,4 +75,17 @@ public class CadastroAcaoServiceImpl implements CadastroAcaoService {
         return acaoRepository.save( acao );
     }
 
+    @Override
+    public Acao atualizar( Acao acao ) {
+
+        var optAcao = acaoRepository.findByTitulo( acao.getTitulo() );
+        if( optAcao.isPresent() && !acao.getId().equals( optAcao.get().getId() ) ) {
+            throw new NegocioException( "Já existe uma ação cadastrada com esse título!" );
+        }
+
+        this.validarAcao( acao );
+        coordenadorRepository.save( acao.getCoordenador() );
+        return acaoRepository.save( acao );
+
+    }
 }

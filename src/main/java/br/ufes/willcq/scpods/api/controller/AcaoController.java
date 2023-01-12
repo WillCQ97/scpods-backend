@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -47,7 +48,20 @@ public class AcaoController {
     }
 
     @PostMapping
-    public ResponseEntity<Acao> salvar( @RequestBody AcaoInputDTO acao ) {
-        return ResponseEntity.status( HttpStatus.CREATED ).body( service.salvar( modelMapper.map( acao, Acao.class ) ) );
+    public ResponseEntity<Acao> salvar( @RequestBody AcaoInputDTO acaoInput ) {
+        return ResponseEntity.status( HttpStatus.CREATED ).body( service.salvar( modelMapper.map( acaoInput, Acao.class ) ) );
+    }
+
+    @PutMapping( "/{id}" )
+    public ResponseEntity<Acao> atualizar( @PathVariable Long id, @RequestBody AcaoInputDTO inputDTO ) {
+
+        if( !repository.existsById( id ) ) {
+            return ResponseEntity.notFound().build();
+        }
+
+        var acao = modelMapper.map( inputDTO, Acao.class );
+        acao.setId( id );
+        return ResponseEntity.ok( service.atualizar( acao ) );
+
     }
 }

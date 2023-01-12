@@ -12,6 +12,7 @@ import lombok.Setter;
 @Setter
 public class CoordenadorInputDTO {
 
+    private Long id;
     private String nome;
     private TipoVinculoEnum tipoVinculo;
 
