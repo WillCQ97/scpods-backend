@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.ufes.willcq.scpods.api.dto.AcaoDTO;
+import br.ufes.willcq.scpods.api.dto.AcaoInputDTO;
 import br.ufes.willcq.scpods.domain.model.Acao;
 import br.ufes.willcq.scpods.domain.repository.AcaoRepository;
 import br.ufes.willcq.scpods.domain.service.CadastroAcaoService;
@@ -46,7 +47,7 @@ public class AcaoController {
     }
 
     @PostMapping
-    public ResponseEntity<Acao> salvar( @RequestBody AcaoDTO acao ) {
+    public ResponseEntity<Acao> salvar( @RequestBody AcaoInputDTO acao ) {
         return ResponseEntity.status( HttpStatus.CREATED ).body( service.salvar( modelMapper.map( acao, Acao.class ) ) );
     }
 }

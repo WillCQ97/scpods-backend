@@ -8,4 +8,5 @@ import br.ufes.willcq.scpods.domain.model.Acao;
 public interface CadastroAcaoService {
 
     public Acao salvar( Acao acao );
+
 }

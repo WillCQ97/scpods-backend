@@ -49,6 +49,10 @@ public class Acao {
     @Column( name = "data_fim" )
     private LocalDate dataFim;
 
+    @Column( name = "data_cadastro" )
+    @NotNull
+    private LocalDate dataCadastro;
+
     @Column( name = "fl_aceito" )
     private Boolean aceito;
 

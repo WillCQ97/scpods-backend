@@ -13,9 +13,8 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class AcaoDTO {
+public class AcaoInputDTO {
 
-    private Long id;
     private String titulo;
     private String descricao;
     private Point localizacao;
@@ -25,9 +24,9 @@ public class AcaoDTO {
 
     private Boolean aceito;
 
-    private MetaDTO meta;
-    private CoordenadorDTO coordenador;
+    private MetaInputDTO meta;
+    private EstruturaOrganizacionalInputDTO estruturaOrganizacional;
 
-    private EstruturaOrganizacionalDTO estruturaOrganizacional;
+    private CoordenadorInputDTO coordenador;
 
 }
