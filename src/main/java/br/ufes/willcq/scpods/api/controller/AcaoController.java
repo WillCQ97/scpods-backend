@@ -1,5 +1,8 @@
 package br.ufes.willcq.scpods.api.controller;
 
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -33,8 +36,8 @@ public class AcaoController {
     private ModelMapper modelMapper;
 
     @GetMapping
-    public Iterable<Acao> listar() {
-        return repository.findAll();
+    public Iterable<AcaoDTO> listar() {
+        return this.mapAll( repository.findAll() );
     }
 
     @GetMapping( "/{id}" )
@@ -76,5 +79,10 @@ public class AcaoController {
         service.excluir( idAcao );
         return ResponseEntity.noContent().build();
 
+    }
+
+    private Iterable<AcaoDTO> mapAll( Iterable<Acao> acoes ) {
+        var spliterator = acoes.spliterator();
+        return StreamSupport.stream( spliterator, false ).map( acao -> modelMapper.map( acao, AcaoDTO.class ) ).collect( Collectors.toList() );
     }
 }
