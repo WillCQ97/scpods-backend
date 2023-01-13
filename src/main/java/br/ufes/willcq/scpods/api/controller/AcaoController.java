@@ -53,13 +53,13 @@ public class AcaoController {
     }
 
     @PutMapping( "/{id}" )
-    public ResponseEntity<Acao> atualizar( @PathVariable Long id, @RequestBody AcaoInputDTO inputDTO ) {
+    public ResponseEntity<Acao> atualizar( @PathVariable Long id, @RequestBody AcaoInputDTO acaoInput ) {
 
         if( !repository.existsById( id ) ) {
             return ResponseEntity.notFound().build();
         }
 
-        var acao = modelMapper.map( inputDTO, Acao.class );
+        var acao = modelMapper.map( acaoInput, Acao.class );
         acao.setId( id );
         return ResponseEntity.ok( service.atualizar( acao ) );
 
