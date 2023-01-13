@@ -88,4 +88,12 @@ public class CadastroAcaoServiceImpl implements CadastroAcaoService {
         return acaoRepository.save( acao );
 
     }
+
+    @Override
+    public void excluir( Long idAcao ) {
+
+        acaoRepository.deleteById( idAcao );
+
+    }
+
 }

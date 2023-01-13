@@ -11,4 +11,6 @@ public interface CadastroAcaoService {
 
     public Acao salvar( Acao acao );
 
+    public void excluir( Long idAcao );
+
 }

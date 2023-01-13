@@ -4,6 +4,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -37,9 +38,9 @@ public class AcaoController {
     }
 
     @GetMapping( "/{id}" )
-    public ResponseEntity<AcaoDTO> buscar( @PathVariable Long id ) {
+    public ResponseEntity<AcaoDTO> buscar( @PathVariable Long idAcao ) {
 
-        var optAcao = repository.findById( id );
+        var optAcao = repository.findById( idAcao );
 
         if( optAcao.isPresent() ) {
             return ResponseEntity.ok().body( modelMapper.map( optAcao.get(), AcaoDTO.class ) );
@@ -48,20 +49,32 @@ public class AcaoController {
     }
 
     @PostMapping
-    public ResponseEntity<Acao> salvar( @RequestBody AcaoInputDTO acaoInput ) {
-        return ResponseEntity.status( HttpStatus.CREATED ).body( service.salvar( modelMapper.map( acaoInput, Acao.class ) ) );
+    public ResponseEntity<Acao> salvar( @RequestBody AcaoInputDTO inputAcao ) {
+        return ResponseEntity.status( HttpStatus.CREATED ).body( service.salvar( modelMapper.map( inputAcao, Acao.class ) ) );
     }
 
     @PutMapping( "/{id}" )
-    public ResponseEntity<Acao> atualizar( @PathVariable Long id, @RequestBody AcaoInputDTO acaoInput ) {
+    public ResponseEntity<Acao> atualizar( @PathVariable Long id, @RequestBody AcaoInputDTO inputAcao ) {
 
         if( !repository.existsById( id ) ) {
             return ResponseEntity.notFound().build();
         }
 
-        var acao = modelMapper.map( acaoInput, Acao.class );
+        var acao = modelMapper.map( inputAcao, Acao.class );
         acao.setId( id );
         return ResponseEntity.ok( service.atualizar( acao ) );
+
+    }
+
+    @DeleteMapping( "/{id}" )
+    public ResponseEntity<Void> deletar( @PathVariable Long idAcao ) {
+
+        if( !repository.existsById( idAcao ) ) {
+            return ResponseEntity.notFound().build();
+        }
+
+        service.excluir( idAcao );
+        return ResponseEntity.noContent().build();
 
     }
 }
