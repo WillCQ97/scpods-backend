@@ -1,8 +1,10 @@
-package br.ufes.willcq.scpods.model;
+package br.ufes.willcq.scpods.domain.model;
 
-import javax.persistence.Column;
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
@@ -15,15 +17,17 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-@Table( name = "tb_metas" )
-public class Meta {
+@Table( name = "tb_objetivos" )
+public class Objetivo {
 
     @Id
-    private String id;
+    private Long id;
 
-    @Column( name = "id_objetivo" )
-    private Long idObjetivo;
+    private String titulo;
 
     private String descricao;
+
+    @OneToMany( mappedBy = "idObjetivo" )
+    private List<Meta> metas;
 
 }

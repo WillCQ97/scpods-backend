@@ -12,36 +12,38 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.ufes.willcq.scpods.api.dto.ObjetivoDTO;
-import br.ufes.willcq.scpods.model.Objetivo;
-import br.ufes.willcq.scpods.service.ObjetivoService;
+import br.ufes.willcq.scpods.domain.model.Objetivo;
+import br.ufes.willcq.scpods.domain.repository.ObjetivoRepository;
 
 @RestController
 @RequestMapping( "/api/v0/objetivos" )
 public class ObjetivoController {
 
     @Autowired
-    private ObjetivoService service;
+    private ObjetivoRepository repository;
 
-    private ModelMapper modelMapper = new ModelMapper();
+    @Autowired
+    private ModelMapper modelMapper;
 
     @GetMapping
     public Iterable<ObjetivoDTO> listar() {
-
-        return this.mapAll( service.listar() );
-
+        return this.mapAll( repository.findAll() );
     }
 
     @GetMapping( "/{id}" )
     public ResponseEntity<ObjetivoDTO> buscar( @PathVariable Long id ) {
 
-        var retorno = modelMapper.map( service.buscar( id ), ObjetivoDTO.class );
-        return ResponseEntity.ok().body( retorno );
+        var optObjetivo = repository.findById( id );
 
+        if( optObjetivo.isPresent() ) {
+            return ResponseEntity.ok().body( modelMapper.map( optObjetivo.get(), ObjetivoDTO.class ) );
+        }
+        return ResponseEntity.notFound().build();
     }
 
     private Iterable<ObjetivoDTO> mapAll( Iterable<Objetivo> objetivos ) {
-        var spliterator = objetivos.spliterator();
 
+        var spliterator = objetivos.spliterator();
         return StreamSupport.stream( spliterator, false ).map( objetivo -> modelMapper.map( objetivo, ObjetivoDTO.class ) ).collect( Collectors.toList() );
     }
 

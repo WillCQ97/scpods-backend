@@ -1,4 +1,4 @@
-package br.ufes.willcq.scpods.model.enums;
+package br.ufes.willcq.scpods.domain.model.enums;
 
 import lombok.Getter;
 

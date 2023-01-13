@@ -6,7 +6,7 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.7.6</version>
+		<version>2.7.7</version>
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>br.ufes.willcq</groupId>
@@ -32,7 +32,6 @@
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-spatial</artifactId>
-			<version>5.6.14.Final</version>
 		</dependency>
 
 		<!-- https://mvnrepository.com/artifact/org.locationtech.jts/jts-core -->
@@ -78,6 +77,11 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-validation</artifactId>
 		</dependency>
 
 		<!-- DEPENDÊNCIA PARA CRIAÇÃO DE DOCUMENTAÇÃO -->

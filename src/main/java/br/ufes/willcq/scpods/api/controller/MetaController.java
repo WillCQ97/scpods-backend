@@ -12,26 +12,39 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.ufes.willcq.scpods.api.dto.MetaDTO;
-import br.ufes.willcq.scpods.service.MetaService;
+import br.ufes.willcq.scpods.domain.model.Meta;
+import br.ufes.willcq.scpods.domain.repository.MetaRepository;
 
 @RestController
 @RequestMapping( "/api/v0/metas" )
 public class MetaController {
 
     @Autowired
-    private MetaService service;
+    private MetaRepository repository;
 
-    private ModelMapper modelMapper = new ModelMapper();
+    @Autowired
+    private ModelMapper modelMapper;
 
     @GetMapping
     public Iterable<MetaDTO> listar() {
-        var metas = service.listar();
-        return StreamSupport.stream( metas.spliterator(), false ).map( meta -> modelMapper.map( meta, MetaDTO.class ) ).collect( Collectors.toList() );
+        return this.mapAll( repository.findAll() );
     }
 
     @GetMapping( "/{id}" )
     public ResponseEntity<MetaDTO> buscar( @PathVariable String id ) {
-        return ResponseEntity.ok().body( modelMapper.map( service.buscar( id ), MetaDTO.class ) );
+
+        var optMeta = repository.findById( id );
+
+        if( optMeta.isPresent() ) {
+            return ResponseEntity.ok().body( modelMapper.map( optMeta.get(), MetaDTO.class ) );
+        }
+        return ResponseEntity.notFound().build();
+    }
+
+    private Iterable<MetaDTO> mapAll( Iterable<Meta> metas ) {
+
+        var spliterator = metas.spliterator();
+        return StreamSupport.stream( spliterator, false ).map( meta -> modelMapper.map( meta, MetaDTO.class ) ).collect( Collectors.toList() );
     }
 
 }
