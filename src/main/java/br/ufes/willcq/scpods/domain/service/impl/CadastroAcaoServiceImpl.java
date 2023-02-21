@@ -30,32 +30,6 @@ public class CadastroAcaoServiceImpl implements CadastroAcaoService {
     @Autowired
     private MetaRepository metaRepository;
 
-    private void validarAcao( Acao acao ) {
-
-        if( acao.getMeta() == null && acao.getMeta().getId() == null ) {
-            throw new NegocioException( "Não foi informada uma meta para a ação!" );
-        }
-
-        if( acao.getEstruturaOrganizacional() == null && acao.getEstruturaOrganizacional().getId() == null ) {
-            throw new NegocioException( "A estrutura organizacional não foi informada!" );
-        }
-
-        var metaOpt = metaRepository.findById( acao.getMeta().getId() );
-        if( metaOpt.isEmpty() ) {
-            throw new NegocioException( "A meta informada para a ação não é válida!" );
-        } else {
-            acao.setMeta( metaOpt.get() );
-        }
-
-        var estruturaOpt = estruturaOrganizacionalRepository.findById( acao.getEstruturaOrganizacional().getId() );
-        if( estruturaOpt.isEmpty() ) {
-            throw new NegocioException( "A estrutura organizacional informada não é válida! " );
-        } else {
-            acao.setEstruturaOrganizacional( estruturaOpt.get() );
-        }
-
-    }
-
     @Override
     public Acao salvar( Acao acao ) {
 
@@ -93,6 +67,32 @@ public class CadastroAcaoServiceImpl implements CadastroAcaoService {
     public void excluir( Long idAcao ) {
 
         acaoRepository.deleteById( idAcao );
+
+    }
+
+    private void validarAcao( Acao acao ) {
+
+        if( acao.getMeta() == null && acao.getMeta().getId() == null ) {
+            throw new NegocioException( "Não foi informada uma meta para a ação!" );
+        }
+
+        if( acao.getEstruturaOrganizacional() == null && acao.getEstruturaOrganizacional().getId() == null ) {
+            throw new NegocioException( "A estrutura organizacional não foi informada!" );
+        }
+
+        var metaOpt = metaRepository.findById( acao.getMeta().getId() );
+        if( metaOpt.isEmpty() ) {
+            throw new NegocioException( "A meta informada para a ação não é válida!" );
+        } else {
+            acao.setMeta( metaOpt.get() );
+        }
+
+        var estruturaOpt = estruturaOrganizacionalRepository.findById( acao.getEstruturaOrganizacional().getId() );
+        if( estruturaOpt.isEmpty() ) {
+            throw new NegocioException( "A estrutura organizacional informada não é válida! " );
+        } else {
+            acao.setEstruturaOrganizacional( estruturaOpt.get() );
+        }
 
     }
 

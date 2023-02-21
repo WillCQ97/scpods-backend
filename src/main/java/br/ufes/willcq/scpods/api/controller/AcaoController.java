@@ -37,7 +37,7 @@ public class AcaoController {
 
     @GetMapping
     public Iterable<AcaoDTO> listar() {
-        return this.mapAll( repository.findAll() );
+        return this.mapAllToAcaoDTO( repository.findAll() );
     }
 
     @GetMapping( "/{id}" )
@@ -46,14 +46,14 @@ public class AcaoController {
         var optAcao = repository.findById( idAcao );
 
         if( optAcao.isPresent() ) {
-            return ResponseEntity.ok().body( modelMapper.map( optAcao.get(), AcaoDTO.class ) );
+            return ResponseEntity.ok().body( this.mapToAcaoDTO( optAcao.get() ) );
         }
         return ResponseEntity.notFound().build();
     }
 
     @PostMapping
     public ResponseEntity<Acao> salvar( @RequestBody AcaoInputDTO inputAcao ) {
-        return ResponseEntity.status( HttpStatus.CREATED ).body( service.salvar( modelMapper.map( inputAcao, Acao.class ) ) );
+        return ResponseEntity.status( HttpStatus.CREATED ).body( service.salvar( this.mapToAcao( inputAcao ) ) );
     }
 
     @PutMapping( "/{id}" )
@@ -63,7 +63,7 @@ public class AcaoController {
             return ResponseEntity.notFound().build();
         }
 
-        var acao = modelMapper.map( inputAcao, Acao.class );
+        var acao = this.mapToAcao( inputAcao );
         acao.setId( id );
         return ResponseEntity.ok( service.atualizar( acao ) );
 
@@ -81,8 +81,16 @@ public class AcaoController {
 
     }
 
-    private Iterable<AcaoDTO> mapAll( Iterable<Acao> acoes ) {
+    private AcaoDTO mapToAcaoDTO( Acao acao ) {
+        return modelMapper.map( acao, AcaoDTO.class );
+    }
+
+    private Acao mapToAcao( AcaoInputDTO dto ) {
+        return modelMapper.map( dto, Acao.class );
+    }
+
+    private Iterable<AcaoDTO> mapAllToAcaoDTO( Iterable<Acao> acoes ) {
         var spliterator = acoes.spliterator();
-        return StreamSupport.stream( spliterator, false ).map( acao -> modelMapper.map( acao, AcaoDTO.class ) ).collect( Collectors.toList() );
+        return StreamSupport.stream( spliterator, false ).map( this::mapToAcaoDTO ).collect( Collectors.toList() );
     }
 }
