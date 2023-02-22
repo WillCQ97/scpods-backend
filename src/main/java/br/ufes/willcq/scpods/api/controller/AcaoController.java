@@ -14,10 +14,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.ufes.willcq.scpods.api.dto.AcaoDTO;
 import br.ufes.willcq.scpods.api.dto.AcaoInputDTO;
+import br.ufes.willcq.scpods.api.util.AcaoSearchCriteriaHandler;
 import br.ufes.willcq.scpods.domain.model.Acao;
 import br.ufes.willcq.scpods.domain.repository.AcaoRepository;
 import br.ufes.willcq.scpods.domain.service.CadastroAcaoService;
@@ -35,10 +37,8 @@ public class AcaoController {
     @Autowired
     private ModelMapper modelMapper;
 
-    @GetMapping
-    public Iterable<AcaoDTO> listar() {
-        return this.mapAllToAcaoDTO( repository.findAll() );
-    }
+    @Autowired
+    private AcaoSearchCriteriaHandler searchHandler;
 
     @GetMapping( "/{id}" )
     public ResponseEntity<AcaoDTO> buscar( @PathVariable Long idAcao ) {
@@ -79,6 +79,11 @@ public class AcaoController {
         service.excluir( idAcao );
         return ResponseEntity.noContent().build();
 
+    }
+
+    @GetMapping( )
+    public Iterable<AcaoDTO> findAll( @RequestParam( value = "search", required = false ) String search ) {
+        return this.mapAllToAcaoDTO( repository.searchAcao( this.searchHandler.handle( search ) ) );
     }
 
     private AcaoDTO mapToAcaoDTO( Acao acao ) {
