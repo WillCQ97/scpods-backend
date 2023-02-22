@@ -12,8 +12,8 @@ public class AcaoSearchCriteriaHandler {
 
         if( search != null ) {
 
-            Pattern pattern = Pattern.compile( "(\\w+?)([:<>])(\\w+?),", Pattern.UNICODE_CHARACTER_CLASS );
-            Matcher matcher = pattern.matcher( search + "," );
+            Pattern pattern = Pattern.compile( "(\\w+?)([:<>])(\\w+?);", Pattern.UNICODE_CHARACTER_CLASS );
+            Matcher matcher = pattern.matcher( search + ";" );
 
             while( matcher.find() ) {
                 params.add( new SearchCriteria( matcher.group( 1 ), matcher.group( 2 ), matcher.group( 3 ) ) );
