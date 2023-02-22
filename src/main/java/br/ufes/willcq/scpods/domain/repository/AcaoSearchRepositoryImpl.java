@@ -12,6 +12,7 @@ import javax.persistence.criteria.Root;
 import org.springframework.stereotype.Repository;
 
 import br.ufes.willcq.scpods.api.util.SearchCriteria;
+import br.ufes.willcq.scpods.domain.exception.NegocioException;
 import br.ufes.willcq.scpods.domain.model.Acao;
 import br.ufes.willcq.scpods.domain.repository.search.AcaoSearchQueryCriteriaConsumer;
 
@@ -23,19 +24,25 @@ public class AcaoSearchRepositoryImpl implements AcaoSearchRepository {
 
     @Override
     public Iterable<Acao> searchAcao( List<SearchCriteria> params ) {
+        try {
 
-        final CriteriaBuilder builder = entityManager.getCriteriaBuilder();
-        final CriteriaQuery<Acao> query = builder.createQuery( Acao.class );
-        final Root<Acao> root = query.from( Acao.class );
+            final CriteriaBuilder builder = entityManager.getCriteriaBuilder();
+            final CriteriaQuery<Acao> query = builder.createQuery( Acao.class );
+            final Root<Acao> root = query.from( Acao.class );
 
-        Predicate predicate = builder.conjunction();
-        var searchConsumer = new AcaoSearchQueryCriteriaConsumer( predicate, builder, root );
+            Predicate predicate = builder.conjunction();
+            var searchConsumer = new AcaoSearchQueryCriteriaConsumer( predicate, builder, root );
 
-        params.stream().forEach( searchConsumer );
-        predicate = searchConsumer.getPredicate();
-        query.where( predicate );
+            params.stream().forEach( searchConsumer );
+            predicate = searchConsumer.getPredicate();
+            query.where( predicate );
 
-        return entityManager.createQuery( query ).getResultList();
+            return entityManager.createQuery( query ).getResultList();
+        } catch ( Exception e ) {
+            // throw new NegocioException( "Não foi possível processar a busca, verifique os
+            // parâmetros informados!\n" + e.getMessage() );
+            throw new NegocioException( "Não foi possível processar a busca: " + e.getMessage() );
+        }
 
     }
 
