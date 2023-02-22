@@ -22,6 +22,8 @@ public class AcaoSearchQueryCriteriaConsumer implements Consumer<SearchCriteria>
     @Override
     public void accept( SearchCriteria param ) {
 
+        // TODO: realizar o processamento de acordo com os tipos informados
+
         if( param.getOperation().equalsIgnoreCase( ">" ) ) {
             predicate = builder.and( predicate, builder.greaterThanOrEqualTo( root.get( param.getKey() ), param.getValue().toString() ) );
         } else if( param.getOperation().equalsIgnoreCase( "<" ) ) {
