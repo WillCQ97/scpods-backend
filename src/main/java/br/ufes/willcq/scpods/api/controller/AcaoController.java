@@ -1,5 +1,8 @@
 package br.ufes.willcq.scpods.api.controller;
 
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -11,10 +14,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.ufes.willcq.scpods.api.dto.AcaoDTO;
 import br.ufes.willcq.scpods.api.dto.AcaoInputDTO;
+import br.ufes.willcq.scpods.api.util.AcaoSearchCriteriaHandler;
 import br.ufes.willcq.scpods.domain.model.Acao;
 import br.ufes.willcq.scpods.domain.repository.AcaoRepository;
 import br.ufes.willcq.scpods.domain.service.CadastroAcaoService;
@@ -32,10 +37,8 @@ public class AcaoController {
     @Autowired
     private ModelMapper modelMapper;
 
-    @GetMapping
-    public Iterable<Acao> listar() {
-        return repository.findAll();
-    }
+    @Autowired
+    private AcaoSearchCriteriaHandler searchHandler;
 
     @GetMapping( "/{id}" )
     public ResponseEntity<AcaoDTO> buscar( @PathVariable Long idAcao ) {
@@ -43,14 +46,14 @@ public class AcaoController {
         var optAcao = repository.findById( idAcao );
 
         if( optAcao.isPresent() ) {
-            return ResponseEntity.ok().body( modelMapper.map( optAcao.get(), AcaoDTO.class ) );
+            return ResponseEntity.ok().body( this.mapToAcaoDTO( optAcao.get() ) );
         }
         return ResponseEntity.notFound().build();
     }
 
     @PostMapping
     public ResponseEntity<Acao> salvar( @RequestBody AcaoInputDTO inputAcao ) {
-        return ResponseEntity.status( HttpStatus.CREATED ).body( service.salvar( modelMapper.map( inputAcao, Acao.class ) ) );
+        return ResponseEntity.status( HttpStatus.CREATED ).body( service.salvar( this.mapToAcao( inputAcao ) ) );
     }
 
     @PutMapping( "/{id}" )
@@ -60,7 +63,7 @@ public class AcaoController {
             return ResponseEntity.notFound().build();
         }
 
-        var acao = modelMapper.map( inputAcao, Acao.class );
+        var acao = this.mapToAcao( inputAcao );
         acao.setId( id );
         return ResponseEntity.ok( service.atualizar( acao ) );
 
@@ -76,5 +79,23 @@ public class AcaoController {
         service.excluir( idAcao );
         return ResponseEntity.noContent().build();
 
+    }
+
+    @GetMapping( )
+    public Iterable<AcaoDTO> findAll( @RequestParam( value = "search", required = false ) String search ) {
+        return this.mapAllToAcaoDTO( repository.searchAcao( this.searchHandler.handle( search ) ) );
+    }
+
+    private AcaoDTO mapToAcaoDTO( Acao acao ) {
+        return modelMapper.map( acao, AcaoDTO.class );
+    }
+
+    private Acao mapToAcao( AcaoInputDTO dto ) {
+        return modelMapper.map( dto, Acao.class );
+    }
+
+    private Iterable<AcaoDTO> mapAllToAcaoDTO( Iterable<Acao> acoes ) {
+        var spliterator = acoes.spliterator();
+        return StreamSupport.stream( spliterator, false ).map( this::mapToAcaoDTO ).collect( Collectors.toList() );
     }
 }
