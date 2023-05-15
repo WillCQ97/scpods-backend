@@ -20,6 +20,7 @@ public class AcaoDTO {
     private String descricao;
     private Point localizacao;
 
+    private LocalDate dataCadastro;
     private LocalDate dataInicio;
     private LocalDate dataFim;
 

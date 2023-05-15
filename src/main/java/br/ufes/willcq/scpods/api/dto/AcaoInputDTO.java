@@ -19,9 +19,9 @@ public class AcaoInputDTO {
     private String descricao;
     private Point localizacao;
 
+    private LocalDate dataCadastro;
     private LocalDate dataInicio;
     private LocalDate dataFim;
-    private LocalDate dataCadastro;
 
     private Boolean aceito;
 

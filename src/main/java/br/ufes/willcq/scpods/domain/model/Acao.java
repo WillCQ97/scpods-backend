@@ -42,16 +42,16 @@ public class Acao {
     @NotNull( message = "Não foi informado o local onde a ação é realizada!" )
     private Point localizacao;
 
+    @Column( name = "data_cadastro" )
+    @NotNull
+    private LocalDate dataCadastro;
+
     @Column( name = "data_inicio" )
     @NotNull( message = "Não foi informada a data de início do ação!" )
     private LocalDate dataInicio;
 
     @Column( name = "data_fim" )
     private LocalDate dataFim;
-
-    @Column( name = "data_cadastro" )
-    @NotNull
-    private LocalDate dataCadastro;
 
     @Column( name = "fl_aceito" )
     private Boolean aceito;
