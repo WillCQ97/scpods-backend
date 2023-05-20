@@ -1,6 +1,7 @@
 package br.ufes.willcq.scpods.domain.service.impl;
 
 import java.time.LocalDate;
+import java.util.stream.StreamSupport;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
