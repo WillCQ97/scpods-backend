@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -41,10 +42,22 @@ public class ObjetivoController {
         return ResponseEntity.notFound().build();
     }
 
+    //TODO: verificar necessidade deste método
+    @PutMapping( )
+    public ResponseEntity<ObjetivoDTO> atualizar() {
+        return ResponseEntity.ok().build();
+    }
+
+    //TODO: verificar necessidade deste método
+    private ObjetivoDTO mapObjetivoToObjetivoDTO( Objetivo objetivo ) {
+        return this.modelMapper.map( objetivo, ObjetivoDTO.class );
+    }
+
     private Iterable<ObjetivoDTO> mapAll( Iterable<Objetivo> objetivos ) {
 
         var spliterator = objetivos.spliterator();
         return StreamSupport.stream( spliterator, false ).map( objetivo -> modelMapper.map( objetivo, ObjetivoDTO.class ) ).collect( Collectors.toList() );
+
     }
 
 }
