@@ -41,7 +41,7 @@ public class AcaoController {
     private AcaoSearchCriteriaHandler searchHandler;
 
     @GetMapping( "/{id}" )
-    public ResponseEntity<AcaoDTO> buscar( @PathVariable Long id ) {
+    public ResponseEntity<AcaoDTO> buscarPorId( @PathVariable Long id ) {
 
         var optAcao = repository.findById( id );
 
@@ -84,7 +84,7 @@ public class AcaoController {
     }
     
     @GetMapping()
-    public Iterable<AcaoDTO> search( @RequestParam( value = "search", required = false ) String search ) {
+    public Iterable<AcaoDTO> buscar( @RequestParam( value = "search", required = false ) String search ) {
         return this.mapAllToAcaoDTO( repository.searchAcao( this.searchHandler.handle( search ) ) );
     }
 
