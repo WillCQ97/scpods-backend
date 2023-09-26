@@ -11,7 +11,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class EstruturaOrganizacionalDTO {
+public class EstruturaOrganizacional {
 
     private Long id;
     private CentroDTO centro;

@@ -32,6 +32,8 @@ public class EstruturaOrganizacional {
     @JoinColumn( name = "id_unidade" )
     private Unidade unidade;
 
+    private String nome;
+
     private Point localizacao;
 
 }

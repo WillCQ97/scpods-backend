@@ -29,6 +29,6 @@ public class AcaoDTO {
     private MetaDTO meta;
     private CoordenadorDTO coordenador;
 
-    private EstruturaOrganizacionalDTO estruturaOrganizacional;
+    private EstruturaOrganizacional estruturaOrganizacional;
 
 }
