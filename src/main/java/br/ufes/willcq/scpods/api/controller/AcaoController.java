@@ -41,9 +41,9 @@ public class AcaoController {
     private AcaoSearchCriteriaHandler searchHandler;
 
     @GetMapping( "/{id}" )
-    public ResponseEntity<AcaoDTO> buscar( @PathVariable Long idAcao ) {
+    public ResponseEntity<AcaoDTO> buscar( @PathVariable Long id ) {
 
-        var optAcao = repository.findById( idAcao );
+        var optAcao = repository.findById( id );
 
         if( optAcao.isPresent() ) {
             return ResponseEntity.ok().body( this.mapToAcaoDTO( optAcao.get() ) );
@@ -72,19 +72,19 @@ public class AcaoController {
     }
 
     @DeleteMapping( "/{id}" )
-    public ResponseEntity<Void> deletar( @PathVariable Long idAcao ) {
+    public ResponseEntity<Void> deletar( @PathVariable Long id ) {
 
-        if( !repository.existsById( idAcao ) ) {
+        if( !repository.existsById( id ) ) {
             return ResponseEntity.notFound().build();
         }
 
-        service.excluir( idAcao );
+        service.excluir( id );
         return ResponseEntity.noContent().build();
 
     }
-
-    @GetMapping( )
-    public Iterable<AcaoDTO> findAll( @RequestParam( value = "search", required = false ) String search ) {
+    
+    @GetMapping()
+    public Iterable<AcaoDTO> search( @RequestParam( value = "search", required = false ) String search ) {
         return this.mapAllToAcaoDTO( repository.searchAcao( this.searchHandler.handle( search ) ) );
     }
 
