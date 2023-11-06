@@ -14,8 +14,6 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
-import org.locationtech.jts.geom.Point;
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -39,16 +37,16 @@ public class Acao {
     @NotBlank( message = "Não foi informada a descrição da ação!" )
     private String descricao;
 
-    @Column( name = "data_cadastro" )
+    @Column( name = "dt_cadastro" )
     @NotNull
     private LocalDate dataCadastro;
 
-    @Column( name = "data_inicio" )
+    @Column( name = "dt_inicio" )
     @NotNull( message = "Não foi informada a data de início do ação!" )
     private LocalDate dataInicio;
 
-    @Column( name = "data_fim" )
-    private LocalDate dataFim;
+    @Column( name = "dt_encerramento" )
+    private LocalDate dataEncerramento;
 
     @Column( name = "fl_aceito" )
     private Boolean aceito;
