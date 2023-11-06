@@ -27,7 +27,7 @@ public class Objetivo {
 
     private String descricao;
 
-    @OneToMany( mappedBy = "idObjetivo" )
+    @OneToMany( mappedBy = "objetivo" )
     private List<Meta> metas;
 
 }

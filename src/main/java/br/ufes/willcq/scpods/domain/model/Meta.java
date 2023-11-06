@@ -3,6 +3,8 @@ package br.ufes.willcq.scpods.domain.model;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
@@ -21,9 +23,10 @@ public class Meta {
     @Id
     private String id;
 
-    @Column( name = "id_objetivo" )
-    private Long idObjetivo;
-
     private String descricao;
+
+    @ManyToOne
+    @JoinColumn(name = "idObjetivo")
+    private Objetivo objetivo;
 
 }

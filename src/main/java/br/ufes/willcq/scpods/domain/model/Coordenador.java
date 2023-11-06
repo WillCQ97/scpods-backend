@@ -22,28 +22,38 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-@Table( name = "tb_coordenadores" )
+@Table(name = "tb_coordenadores")
 public class Coordenador {
 
     @Id
-    @GeneratedValue( strategy = GenerationType.IDENTITY )
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @Enumerated( EnumType.STRING )
-    @Column( name = "tipo_vinculo" )
-    @NotNull
-    private TipoVinculoEnum tipoVinculo;
-
-    @Column( name = "ds_vinculo" )
-    private String descricaoVinculo;
 
     @NotBlank
     private String nome;
 
+    @NotBlank
+    private String email;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "tipo_vinculo")
+    @NotNull
+    private TipoVinculoEnum tipoVinculo;
+
+    @Column(name = "ds_vinculo")
+    private String descricaoVinculo;
+
     public String getDescricaoVinculo() {
-        if( this.descricaoVinculo == null ) {
+        if (this.descricaoVinculo == null) {
             return tipoVinculo.getDescricao();
         }
         return this.descricaoVinculo;
+    }
+
+    public void setDescricaoVinculo(String descricaoVinculo) {
+        if (TipoVinculoEnum.OUTRO.equals(this.tipoVinculo)) {
+            this.descricaoVinculo = descricaoVinculo;
+        }
+        this.descricaoVinculo = null;
     }
 }

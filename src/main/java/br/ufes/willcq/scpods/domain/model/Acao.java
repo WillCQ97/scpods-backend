@@ -26,49 +26,41 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-@Table( name = "tb_acoes" )
+@Table(name = "tb_acoes")
 public class Acao {
 
     @Id
-    @GeneratedValue( strategy = GenerationType.IDENTITY )
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank( message = "Não foi informada o título da ação!" )
+    @NotBlank(message = "Não foi informada o título da ação!")
     private String titulo;
 
-    @NotBlank( message = "Não foi informada a descrição da ação!" )
+    @NotBlank(message = "Não foi informada a descrição da ação!")
     private String descricao;
 
-    @NotNull( message = "Não foi informado o local onde a ação é realizada!" )
-    private Point localizacao;
-
-    @Column( name = "data_cadastro" )
+    @Column(name = "data_cadastro")
     @NotNull
     private LocalDate dataCadastro;
 
-    @Column( name = "data_inicio" )
-    @NotNull( message = "Não foi informada a data de início do ação!" )
+    @Column(name = "data_inicio")
+    @NotNull(message = "Não foi informada a data de início do ação!")
     private LocalDate dataInicio;
 
-    @Column( name = "data_fim" )
+    @Column(name = "data_fim")
     private LocalDate dataFim;
 
-    @Column( name = "fl_aceito" )
+    @Column(name = "fl_aceito")
     private Boolean aceito;
 
-    @ManyToOne
-    @JoinColumn( name = "id_meta" )
-    @NotNull( message = "Não foi informada uma meta para a ação!" )
-    private Meta meta;
-
     @OneToOne
-    @JoinColumn( name = "id_coordenador" )
-    @NotNull( message = "Não foi informado um coordenador para essa ação!" )
+    @JoinColumn(name = "id_coordenador")
+    @NotNull(message = "Não foi informado um coordenador para essa ação!")
     private Coordenador coordenador;
 
     @ManyToOne
-    @JoinColumn( name = "id_estrutura_organizacional" )
-    @NotNull( message = "Não foi informada qual a estrutura organizacional relacionada com a ação!" )
-    private EstruturaOrganizacional estruturaOrganizacional;
+    @JoinColumn(name = "id_meta")
+    @NotNull(message = "Não foi informada uma meta para a ação!")
+    private Meta meta;
 
 }

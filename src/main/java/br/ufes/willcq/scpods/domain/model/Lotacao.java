@@ -11,8 +11,9 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class Local {
+public class Lotacao {
 
+    private String nome;
     private Point localizacao;
 
 }

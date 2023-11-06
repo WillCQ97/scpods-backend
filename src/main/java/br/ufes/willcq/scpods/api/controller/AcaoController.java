@@ -28,8 +28,8 @@ import br.ufes.willcq.scpods.domain.service.CadastroAcaoService;
 @RequestMapping( "/api/v0/acoes" )
 public class AcaoController {
 
-    @Autowired
-    private CadastroAcaoService service;
+    //@Autowired
+    //private CadastroAcaoService service;
 
     @Autowired
     private AcaoRepository repository;
@@ -54,7 +54,8 @@ public class AcaoController {
     // TODO: Trocar o retorno para AcaoDTO
     @PostMapping
     public ResponseEntity<Acao> salvar( @RequestBody AcaoInputDTO inputAcao ) {
-        return ResponseEntity.status( HttpStatus.CREATED ).body( service.salvar( this.mapToAcao( inputAcao ) ) );
+        //service.salvar( this.mapToAcao( inputAcao ) 
+        return ResponseEntity.status( HttpStatus.CREATED ).body( null );
     }
 
     // TODO: Trocar o retorno para AcaoDTO
@@ -67,7 +68,8 @@ public class AcaoController {
 
         var acao = this.mapToAcao( inputAcao );
         acao.setId( id );
-        return ResponseEntity.ok( service.atualizar( acao ) );
+        //service.atualizar( acao )
+        return ResponseEntity.ok( null );
 
     }
 
@@ -78,7 +80,7 @@ public class AcaoController {
             return ResponseEntity.notFound().build();
         }
 
-        service.excluir( id );
+        //service.excluir( id );
         return ResponseEntity.noContent().build();
 
     }
