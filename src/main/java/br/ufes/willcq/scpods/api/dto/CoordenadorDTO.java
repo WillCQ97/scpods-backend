@@ -12,7 +12,9 @@ import lombok.Setter;
 public class CoordenadorDTO {
 
     private Long id;
+    private String nome;
+
     private String tipoVinculo;
     private String descricaoVinculo;
-    private String nome;
+
 }

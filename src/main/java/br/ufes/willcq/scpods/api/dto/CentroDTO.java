@@ -12,8 +12,8 @@ import lombok.Setter;
 public class CentroDTO {
 
     private Long id;
-    private UnidadeDTO unidade;
     private String nome;
     private String sigla;
+    private String campus;
 
 }

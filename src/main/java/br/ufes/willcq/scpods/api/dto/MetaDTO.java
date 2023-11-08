@@ -12,7 +12,8 @@ import lombok.Setter;
 public class MetaDTO {
 
     private String id;
-    private Long idObjetivo;
     private String descricao;
+
+    private Long idObjetivo;
 
 }

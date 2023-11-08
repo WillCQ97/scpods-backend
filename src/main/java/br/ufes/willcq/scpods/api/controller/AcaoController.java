@@ -35,6 +35,11 @@ public class AcaoController {
     @Autowired
     private ModelMapper modelMapper;
 
+    @GetMapping
+    public Iterable<AcaoDTO> listar() {
+        return this.mapAllToAcaoDTO( repository.findAll() );
+    }
+
     @GetMapping( "/{id}" )
     public ResponseEntity<AcaoDTO> buscarPorId( @PathVariable Long id ) {
 

@@ -13,5 +13,6 @@ public class UnidadeDTO {
 
     private Long id;
     private String nome;
+    private String campus;
 
 }

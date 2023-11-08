@@ -11,11 +11,13 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class EstruturaOrganizacional {
+public class LotacaoDTO {
 
     private Long id;
+    private String nome;
+    private Point localizacao;
+
     private CentroDTO centro;
     private UnidadeDTO unidade;
 
-    private Point localizacao;
 }
