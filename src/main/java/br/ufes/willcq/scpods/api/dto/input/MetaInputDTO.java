@@ -1,4 +1,4 @@
-package br.ufes.willcq.scpods.api.dto;
+package br.ufes.willcq.scpods.api.dto.input;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

@@ -1,4 +1,4 @@
-package br.ufes.willcq.scpods.api.dto;
+package br.ufes.willcq.scpods.api.dto.input;
 
 import br.ufes.willcq.scpods.domain.model.enums.TipoVinculoEnum;
 import lombok.AllArgsConstructor;
