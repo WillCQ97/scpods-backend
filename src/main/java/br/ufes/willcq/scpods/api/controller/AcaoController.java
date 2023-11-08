@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.ufes.willcq.scpods.api.dto.AcaoDTO;
@@ -27,11 +26,11 @@ import br.ufes.willcq.scpods.domain.service.CadastroAcaoService;
 @RequestMapping( "/api/acoes" )
 public class AcaoController {
 
-    // @Autowired
-    // private CadastroAcaoService service;
-
     @Autowired
     private AcaoRepository repository;
+
+    @Autowired
+    private CadastroAcaoService service;
 
     @Autowired
     private ModelMapper modelMapper;
@@ -50,7 +49,7 @@ public class AcaoController {
     // TODO: Trocar o retorno para AcaoDTO
     @PostMapping
     public ResponseEntity<Acao> salvar( @RequestBody AcaoInputDTO inputAcao ) {
-        // service.salvar( this.mapToAcao( inputAcao )
+        service.salvar( this.mapToAcao( inputAcao ) );
         return ResponseEntity.status( HttpStatus.CREATED ).body( null );
     }
 
@@ -64,7 +63,7 @@ public class AcaoController {
 
         var acao = this.mapToAcao( inputAcao );
         acao.setId( id );
-        // service.atualizar( acao )
+        service.atualizar( acao );
         return ResponseEntity.ok( null );
 
     }
@@ -76,7 +75,7 @@ public class AcaoController {
             return ResponseEntity.notFound().build();
         }
 
-        // service.excluir( id );
+        service.excluir( id );
         return ResponseEntity.noContent().build();
 
     }
