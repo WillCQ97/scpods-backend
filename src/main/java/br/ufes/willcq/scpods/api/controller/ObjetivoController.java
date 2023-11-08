@@ -16,7 +16,7 @@ import br.ufes.willcq.scpods.domain.model.Objetivo;
 import br.ufes.willcq.scpods.domain.repository.ObjetivoRepository;
 
 @RestController
-@RequestMapping( "/api/v0/objetivos" )
+@RequestMapping( "/api/objetivos" )
 public class ObjetivoController {
 
     @Autowired
