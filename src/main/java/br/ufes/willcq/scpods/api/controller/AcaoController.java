@@ -19,7 +19,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.ufes.willcq.scpods.api.dto.AcaoDTO;
 import br.ufes.willcq.scpods.api.dto.input.AcaoInputDTO;
-import br.ufes.willcq.scpods.api.util.AcaoSearchCriteriaHandler;
 import br.ufes.willcq.scpods.domain.model.Acao;
 import br.ufes.willcq.scpods.domain.repository.AcaoRepository;
 import br.ufes.willcq.scpods.domain.service.CadastroAcaoService;
@@ -36,9 +35,6 @@ public class AcaoController {
 
     @Autowired
     private ModelMapper modelMapper;
-
-    @Autowired
-    private AcaoSearchCriteriaHandler searchHandler;
 
     @GetMapping( "/{id}" )
     public ResponseEntity<AcaoDTO> buscarPorId( @PathVariable Long id ) {
@@ -83,11 +79,6 @@ public class AcaoController {
         // service.excluir( id );
         return ResponseEntity.noContent().build();
 
-    }
-
-    @GetMapping( )
-    public Iterable<AcaoDTO> buscar( @RequestParam( value = "search", required = false ) String search ) {
-        return this.mapAllToAcaoDTO( repository.searchAcao( this.searchHandler.handle( search ) ) );
     }
 
     private AcaoDTO mapToAcaoDTO( Acao acao ) {
