@@ -1,6 +1,5 @@
 package br.ufes.willcq.scpods.domain.model;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -26,7 +25,7 @@ public class Meta {
     private String descricao;
 
     @ManyToOne
-    @JoinColumn(name = "idObjetivo")
+    @JoinColumn( name = "idObjetivo" )
     private Objetivo objetivo;
 
 }

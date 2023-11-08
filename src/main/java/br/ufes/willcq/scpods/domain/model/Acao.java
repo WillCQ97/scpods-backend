@@ -61,4 +61,8 @@ public class Acao {
     @NotNull( message = "Não foi informada uma meta para a ação!" )
     private Meta meta;
 
+    @ManyToOne
+    @JoinColumn( name = "id_lotacao" )
+    private Lotacao lotacao;
+
 }
