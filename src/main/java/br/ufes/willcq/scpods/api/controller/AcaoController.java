@@ -16,8 +16,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.ufes.willcq.scpods.api.dto.AcaoDTO;
 import br.ufes.willcq.scpods.api.dto.input.AcaoInputDTO;
+import br.ufes.willcq.scpods.api.dto.response.AcaoResponseDTO;
 import br.ufes.willcq.scpods.domain.model.Acao;
 import br.ufes.willcq.scpods.domain.repository.AcaoRepository;
 import br.ufes.willcq.scpods.domain.service.CadastroAcaoService;
@@ -36,12 +36,12 @@ public class AcaoController {
     private ModelMapper modelMapper;
 
     @GetMapping
-    public Iterable<AcaoDTO> listar() {
-        return this.mapAllToAcaoDTO( repository.findAll() );
+    public Iterable<AcaoResponseDTO> listar() {
+        return this.mapAllToAcaoDTO( repository.findByAceito( true ) );
     }
 
     @GetMapping( "/{id}" )
-    public ResponseEntity<AcaoDTO> buscarPorId( @PathVariable Long id ) {
+    public ResponseEntity<AcaoResponseDTO> buscarPorId( @PathVariable Long id ) {
 
         var optAcao = repository.findById( id );
 
@@ -85,15 +85,15 @@ public class AcaoController {
 
     }
 
-    private AcaoDTO mapToAcaoDTO( Acao acao ) {
-        return modelMapper.map( acao, AcaoDTO.class );
+    private AcaoResponseDTO mapToAcaoDTO( Acao acao ) {
+        return modelMapper.map( acao, AcaoResponseDTO.class );
     }
 
     private Acao mapToAcao( AcaoInputDTO dto ) {
         return modelMapper.map( dto, Acao.class );
     }
 
-    private Iterable<AcaoDTO> mapAllToAcaoDTO( Iterable<Acao> acoes ) {
+    private Iterable<AcaoResponseDTO> mapAllToAcaoDTO( Iterable<Acao> acoes ) {
         var spliterator = acoes.spliterator();
         return StreamSupport.stream( spliterator, false ).map( this::mapToAcaoDTO ).collect( Collectors.toList() );
     }
