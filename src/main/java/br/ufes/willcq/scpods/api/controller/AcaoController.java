@@ -1,5 +1,6 @@
 package br.ufes.willcq.scpods.api.controller;
 
+import java.util.ArrayList;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
@@ -14,12 +15,15 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.ufes.willcq.scpods.api.dto.input.AcaoInputDTO;
 import br.ufes.willcq.scpods.api.dto.response.AcaoResponseDTO;
 import br.ufes.willcq.scpods.domain.model.Acao;
+import br.ufes.willcq.scpods.domain.model.enums.CampusEnum;
 import br.ufes.willcq.scpods.domain.repository.AcaoRepository;
+import br.ufes.willcq.scpods.domain.repository.CentroRepository;
 import br.ufes.willcq.scpods.domain.service.CadastroAcaoService;
 
 @RestController
@@ -27,23 +31,39 @@ import br.ufes.willcq.scpods.domain.service.CadastroAcaoService;
 public class AcaoController {
 
     @Autowired
-    private AcaoRepository repository;
+    private AcaoRepository acaoRepository;
 
     @Autowired
     private CadastroAcaoService service;
 
     @Autowired
+    private CentroRepository centroRepository;
+
+    @Autowired
     private ModelMapper modelMapper;
 
     @GetMapping
-    public Iterable<AcaoResponseDTO> listarAcoes() {
-        return this.mapAllToAcaoDTO( repository.findByAceito( true ) );
+    public Iterable<AcaoResponseDTO> listarAcoesPorCampus( @RequestParam( required = false ) String campus ) {
+
+        if( campus == null ) {
+            return this.mapAllToAcaoDTO( acaoRepository.findAll() );
+        }
+
+        var centros = centroRepository.findByCampus( CampusEnum.obterEnum( campus ) );
+        var acoes = new ArrayList<Acao>();
+        for( var centro : centros ) {
+            for( var lotacao : centro.getLotacoes() ) {
+                acoes.addAll( lotacao.getAcoes() );
+            }
+        }
+
+        return this.mapAllToAcaoDTO( acoes );
     }
 
     @GetMapping( "/{id}" )
     public ResponseEntity<AcaoResponseDTO> buscarPorId( @PathVariable Long id ) {
 
-        var optAcao = repository.findById( id );
+        var optAcao = acaoRepository.findById( id );
 
         if( optAcao.isPresent() ) {
             return ResponseEntity.ok().body( this.mapToAcaoDTO( optAcao.get() ) );
@@ -62,7 +82,7 @@ public class AcaoController {
     @PutMapping( "/{id}" )
     public ResponseEntity<Acao> atualizar( @PathVariable Long id, @RequestBody AcaoInputDTO inputAcao ) {
 
-        if( !repository.existsById( id ) ) {
+        if( !acaoRepository.existsById( id ) ) {
             return ResponseEntity.notFound().build();
         }
 
@@ -76,7 +96,7 @@ public class AcaoController {
     @DeleteMapping( "/{id}" )
     public ResponseEntity<Void> deletar( @PathVariable Long id ) {
 
-        if( !repository.existsById( id ) ) {
+        if( !acaoRepository.existsById( id ) ) {
             return ResponseEntity.notFound().build();
         }
 

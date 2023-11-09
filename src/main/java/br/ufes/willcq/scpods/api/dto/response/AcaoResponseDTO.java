@@ -21,6 +21,8 @@ public class AcaoResponseDTO {
     private LocalDate dataInicio;
     private LocalDate dataEncerramento;
 
+    private boolean aceito;
+
     private CoordenadorResponseDTO coordenador;
     private MetaResponseDTO meta;
     private LotacaoResponseDTO lotacao;
