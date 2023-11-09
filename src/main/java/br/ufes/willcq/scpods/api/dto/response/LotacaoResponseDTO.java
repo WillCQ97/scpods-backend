@@ -1,4 +1,4 @@
-package br.ufes.willcq.scpods.api.dto;
+package br.ufes.willcq.scpods.api.dto.response;
 
 import org.locationtech.jts.geom.Point;
 
@@ -11,13 +11,13 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class LotacaoDTO {
+public class LotacaoResponseDTO {
 
     private Long id;
     private String nome;
     private Point localizacao;
 
-    private CentroDTO centro;
-    private UnidadeDTO unidade;
+    private CentroResponseDTO centro;
+    private UnidadeReponseDTO unidade;
 
 }

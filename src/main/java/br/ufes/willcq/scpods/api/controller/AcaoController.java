@@ -36,7 +36,7 @@ public class AcaoController {
     private ModelMapper modelMapper;
 
     @GetMapping
-    public Iterable<AcaoResponseDTO> listar() {
+    public Iterable<AcaoResponseDTO> listarAcoes() {
         return this.mapAllToAcaoDTO( repository.findByAceito( true ) );
     }
 

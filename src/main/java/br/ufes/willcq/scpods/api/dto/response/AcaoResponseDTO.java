@@ -2,7 +2,6 @@ package br.ufes.willcq.scpods.api.dto.response;
 
 import java.time.LocalDate;
 
-import br.ufes.willcq.scpods.api.dto.LotacaoDTO;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -24,6 +23,6 @@ public class AcaoResponseDTO {
 
     private CoordenadorResponseDTO coordenador;
     private MetaResponseDTO meta;
-    private LotacaoDTO lotacao;
+    private LotacaoResponseDTO lotacao;
 
 }
