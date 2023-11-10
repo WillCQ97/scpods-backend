@@ -1,27 +1,47 @@
 package br.ufes.willcq.scpods.domain.service.impl;
 
+import java.util.stream.Collectors;
+
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import br.ufes.willcq.scpods.api.dto.response.CampusInfoDTO;
+import br.ufes.willcq.scpods.api.dto.response.UnidadeInfoDTO;
+import br.ufes.willcq.scpods.domain.exception.NegocioException;
+import br.ufes.willcq.scpods.domain.model.Unidade;
+import br.ufes.willcq.scpods.domain.model.enums.CampusEnum;
+import br.ufes.willcq.scpods.domain.repository.UnidadeRepository;
 import br.ufes.willcq.scpods.domain.service.InfoService;
 
 @Service
 @Transactional
 public class InfoServiceImpl implements InfoService {
 
-    private Long obterQuantidadeProjetosTotais() {
-        return 0l;
+    @Autowired
+    private UnidadeRepository unidadeRepository;
+
+    @Autowired
+    private ModelMapper modelMapper;
+
+    @Override
+    public CampusInfoDTO obterContabilizacaoAcoes( String campus ) {
+        var campusEnum = CampusEnum.obterEnum( campus );
+        if( campusEnum == null ) {
+            throw new NegocioException( "O campus informado não é válido!" );
+        }
+
+        var unidades = unidadeRepository.findByCampus( campusEnum );
+
+        var campusInfo = new CampusInfoDTO();
+        campusInfo.setCampus( campusEnum );
+        campusInfo.setUnidades( unidades.stream().map( this::mapUnidadeToUnidadeInfo ).collect( Collectors.toList() ) );
+
+        return campusInfo;
     }
 
-    private Long obterQuantidadeProjetosAtivos() {
-        return 0l;
-    }
-
-    private Long obterQuantidadeObjetivosAtendidos() {
-        return 0l;
-    }
-
-    private Long obterObjetivoMaisAtendido() {
-        return 0l;
+    private UnidadeInfoDTO mapUnidadeToUnidadeInfo( Unidade unidade ) {
+        return modelMapper.map( unidade, UnidadeInfoDTO.class );
     }
 }
