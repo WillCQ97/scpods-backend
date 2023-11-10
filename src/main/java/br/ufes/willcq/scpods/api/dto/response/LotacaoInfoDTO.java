@@ -17,9 +17,9 @@ public class LotacaoInfoDTO {
     private String nome;
     private Point localizacao;
 
-    private Long quantidadeProjetos;
-    private Long projetosAtivos;
-    private Long quantidadeOdsAtendidos;
-    private Long odsMaisAtendido;
+    private Long quantidadeProjetosTotais;
+    private Long quantidadeProjetosAtivos;
+    private Long quantidadeObjetivosAtendidos;
+    private Long idObjetivoMaisAtendido;
 
 }

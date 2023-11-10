@@ -60,7 +60,7 @@ public class Lotacao {
         return acoes.stream().map( acao -> acao.getIdObjetivo() ).distinct().count();
     }
 
-    public Long getObjetivoMaisAtendido() {
+    public Long getIdObjetivoMaisAtendido() {
         var contagemAcoes = acoes.stream().map( acao -> acao.getIdObjetivo() ).collect( Collectors.groupingBy( e -> e, Collectors.counting() ) );
         var idOdsMaisAtendido = contagemAcoes.entrySet().stream().max( Map.Entry.comparingByValue() );
 

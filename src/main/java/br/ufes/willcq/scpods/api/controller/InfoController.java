@@ -19,8 +19,8 @@ public class InfoController {
 
     @GetMapping( "/{campus}" )
     public ResponseEntity<CampusInfoDTO> obterContabilizacaoAcoes( @PathVariable String campus ) {
-        // TODO: CHAMA A SERVICE E FAZ ALGO
-        return ResponseEntity.badRequest().build();
+        var campusInfo = service.obterContabilizacaoAcoes( campus );
+        return ResponseEntity.ok().body( campusInfo );
     }
 
 }
