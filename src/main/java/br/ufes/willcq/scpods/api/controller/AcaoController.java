@@ -21,7 +21,7 @@ import br.ufes.willcq.scpods.api.dto.input.AcaoInputDTO;
 import br.ufes.willcq.scpods.api.dto.response.AcaoResponseDTO;
 import br.ufes.willcq.scpods.domain.model.Acao;
 import br.ufes.willcq.scpods.domain.repository.AcaoRepository;
-import br.ufes.willcq.scpods.domain.service.CadastroAcaoService;
+import br.ufes.willcq.scpods.domain.service.AcaoService;
 
 @RestController
 @RequestMapping( "/api/acoes" )
@@ -31,7 +31,7 @@ public class AcaoController {
     private AcaoRepository acaoRepository;
 
     @Autowired
-    private CadastroAcaoService service;
+    private AcaoService service;
 
     @Autowired
     private ModelMapper modelMapper;

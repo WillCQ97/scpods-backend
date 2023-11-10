@@ -19,11 +19,11 @@ import br.ufes.willcq.scpods.domain.repository.CentroRepository;
 import br.ufes.willcq.scpods.domain.repository.CoordenadorRepository;
 import br.ufes.willcq.scpods.domain.repository.LotacaoRepository;
 import br.ufes.willcq.scpods.domain.repository.MetaRepository;
-import br.ufes.willcq.scpods.domain.service.CadastroAcaoService;
+import br.ufes.willcq.scpods.domain.service.AcaoService;
 
 @Service
 @Transactional
-public class CadastroAcaoServiceImpl implements CadastroAcaoService {
+public class AcaoServiceImpl implements AcaoService {
 
     @Autowired
     private AcaoRepository acaoRepository;

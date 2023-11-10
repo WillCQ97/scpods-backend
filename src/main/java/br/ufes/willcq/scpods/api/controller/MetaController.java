@@ -25,11 +25,6 @@ public class MetaController {
     @Autowired
     private ModelMapper modelMapper;
 
-    @GetMapping
-    public Iterable<MetaResponseDTO> listar() {
-        return this.mapAll( repository.findAll() );
-    }
-
     @GetMapping( "/{id}" )
     public ResponseEntity<MetaResponseDTO> buscar( @PathVariable String id ) {
 

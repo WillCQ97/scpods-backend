@@ -8,7 +8,7 @@ import org.springframework.validation.annotation.Validated;
 import br.ufes.willcq.scpods.domain.model.Acao;
 
 @Validated
-public interface CadastroAcaoService {
+public interface AcaoService {
 
     public Optional<Acao> buscarPeloId( Long id );
 
