@@ -114,6 +114,20 @@ public class AcaoServiceImpl implements AcaoService {
 
     }
 
+    @Override
+    public void aceitarSubmissao( Long idAcao ) {
+
+        var acao = acaoRepository.findById( idAcao ).get();
+
+        if( acao.getAceito() ) {
+            throw new NegocioException( "A submissão informada já foi aceita!" );
+        }
+
+        acao.setAceito( Boolean.TRUE );
+        acaoRepository.save( acao );
+
+    }
+
     private void validarAcao( Acao acao ) {
 
         if( acao.getMeta() == null && acao.getMeta().getId() == null ) {

@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.ufes.willcq.scpods.api.dto.input.AcaoInputDTO;
+import br.ufes.willcq.scpods.api.dto.input.SubmissaoInputDTO;
 import br.ufes.willcq.scpods.api.dto.response.AcaoResponseDTO;
 import br.ufes.willcq.scpods.domain.model.Acao;
 import br.ufes.willcq.scpods.domain.repository.AcaoRepository;
@@ -88,6 +89,17 @@ public class AcaoController {
         service.excluir( id );
         return ResponseEntity.noContent().build();
 
+    }
+
+    @PostMapping( "/aceitar" )
+    public ResponseEntity<Void> aceitarSubmissao( @RequestBody SubmissaoInputDTO inputSubmissao ) {
+
+        if( !acaoRepository.existsById( inputSubmissao.getId() ) ) {
+            return ResponseEntity.notFound().build();
+        }
+
+        service.aceitarSubmissao( inputSubmissao.getId() );
+        return ResponseEntity.ok().build();
     }
 
     private AcaoResponseDTO mapToAcaoDTO( Acao acao ) {

@@ -22,4 +22,5 @@ public interface AcaoService {
 
     public void excluir( Long idAcao );
 
+    public void aceitarSubmissao( Long idAcao );
 }
