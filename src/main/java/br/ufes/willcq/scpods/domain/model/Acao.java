@@ -65,4 +65,7 @@ public class Acao {
     @JoinColumn( name = "id_lotacao" )
     private Lotacao lotacao;
 
+    public Long getIdObjetivo() {
+        return this.getMeta().getObjetivo().getId();
+    }
 }

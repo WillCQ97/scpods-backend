@@ -1,6 +1,8 @@
 package br.ufes.willcq.scpods.domain.model;
 
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -46,4 +48,22 @@ public class Lotacao {
     @OneToMany( mappedBy = "lotacao" )
     private List<Acao> acoes;
 
+    public Long getQuantidadeProjetosTotais() {
+        return Long.valueOf( acoes.size() );
+    }
+
+    public Long getQuantidadeProjetosAtivos() {
+        return acoes.stream().filter( acao -> acao.getDataCadastro() != null ).count();
+    }
+
+    public Long getQuantidadeObjetivosAtendidos() {
+        return acoes.stream().map( acao -> acao.getIdObjetivo() ).distinct().count();
+    }
+
+    public Long getObjetivoMaisAtendido() {
+        var contagemAcoes = acoes.stream().map( acao -> acao.getIdObjetivo() ).collect( Collectors.groupingBy( e -> e, Collectors.counting() ) );
+        var idOdsMaisAtendido = contagemAcoes.entrySet().stream().max( Map.Entry.comparingByValue() );
+
+        return idOdsMaisAtendido.isPresent() ? idOdsMaisAtendido.get().getKey() : null;
+    }
 }
