@@ -23,8 +23,8 @@ public class AcaoResponseDTO {
 
     private boolean aceito;
 
-    private CoordenadorResponseDTO coordenador;
-    private MetaResponseDTO meta;
-    private LotacaoResponseDTO lotacao;
+    private CoordenadorAcaoResponseDTO coordenador;
+    private MetaAcaoResponseDTO meta;
+    private LotacaoAcaoResponseDTO lotacao;
 
 }

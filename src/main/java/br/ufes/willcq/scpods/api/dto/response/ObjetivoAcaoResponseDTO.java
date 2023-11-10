@@ -9,7 +9,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class ObjetivoResponseDTO {
+public class ObjetivoAcaoResponseDTO {
 
     private Long id;
     private String titulo;

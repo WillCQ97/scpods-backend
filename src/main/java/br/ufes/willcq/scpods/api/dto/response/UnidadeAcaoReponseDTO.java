@@ -9,12 +9,10 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class CoordenadorResponseDTO {
+public class UnidadeAcaoReponseDTO {
 
     private Long id;
     private String nome;
-
-    private String tipoVinculo;
-    private String descricaoVinculo;
+    private String campus;
 
 }
