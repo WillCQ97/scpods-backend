@@ -6,8 +6,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class SistemaCadastroProjetosODSApplication {
 
-	public static void main( String[] args ) {
-		SpringApplication.run( SistemaCadastroProjetosODSApplication.class, args );
-	}
+    public static void main( String[] args ) {
+        SpringApplication.run( SistemaCadastroProjetosODSApplication.class, args );
+    }
 
 }
