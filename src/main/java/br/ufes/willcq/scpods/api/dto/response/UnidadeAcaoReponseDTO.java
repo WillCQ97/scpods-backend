@@ -1,6 +1,4 @@
-package br.ufes.willcq.scpods.api.dto;
-
-import java.util.List;
+package br.ufes.willcq.scpods.api.dto.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -11,10 +9,10 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class ObjetivoDTO {
+public class UnidadeAcaoReponseDTO {
 
     private Long id;
-    private String titulo;
-    private List<MetaForObjetivoDTO> metas;
+    private String nome;
+    private String campus;
 
 }

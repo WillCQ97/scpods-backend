@@ -9,7 +9,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Setter
 @Getter
-public class MetaForObjetivoDTO {
+public class MetaObjetivoResponseDTO {
 
     private String id;
     private String descricao;

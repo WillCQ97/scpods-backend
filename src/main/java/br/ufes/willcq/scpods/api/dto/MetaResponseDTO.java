@@ -1,5 +1,6 @@
-package br.ufes.willcq.scpods.api.dto.response;
+package br.ufes.willcq.scpods.api.dto;
 
+import br.ufes.willcq.scpods.api.dto.response.ObjetivoAcaoResponseDTO;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,6 +15,6 @@ public class MetaResponseDTO {
     private String id;
     private String descricao;
 
-    private ObjetivoResponseDTO objetivo;
+    private ObjetivoAcaoResponseDTO objetivo;
 
 }

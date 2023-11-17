@@ -1,7 +1,5 @@
 package br.ufes.willcq.scpods.api.dto.response;
 
-import org.locationtech.jts.geom.Point;
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,13 +9,10 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class LocalResponseDTO {
+public class ObjetivoAcaoResponseDTO {
 
     private Long id;
-    private String nome;
-    private Point coordenadas;
-
-    private CentroResponseDTO centro;
-    private UnidadeReponseDTO unidade;
+    private String titulo;
+    private String descricao;
 
 }

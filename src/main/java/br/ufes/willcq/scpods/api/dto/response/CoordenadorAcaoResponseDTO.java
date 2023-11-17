@@ -9,10 +9,12 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class ObjetivoResponseDTO {
+public class CoordenadorAcaoResponseDTO {
 
     private Long id;
-    private String titulo;
-    private String descricao;
+    private String nome;
+
+    private String tipoVinculo;
+    private String descricaoVinculo;
 
 }

@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.ufes.willcq.scpods.api.dto.response.MetaResponseDTO;
+import br.ufes.willcq.scpods.api.dto.MetaResponseDTO;
 import br.ufes.willcq.scpods.domain.model.Meta;
 import br.ufes.willcq.scpods.domain.repository.MetaRepository;
 

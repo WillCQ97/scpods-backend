@@ -9,11 +9,11 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class CentroResponseDTO {
+public class MetaAcaoResponseDTO {
 
-    private Long id;
-    private String nome;
-    private String sigla;
-    private String campus;
+    private String id;
+    private String descricao;
+
+    private ObjetivoAcaoResponseDTO objetivo;
 
 }
