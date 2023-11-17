@@ -25,6 +25,6 @@ public class AcaoResponseDTO {
 
     private CoordenadorResponseDTO coordenador;
     private MetaResponseDTO meta;
-    private LotacaoResponseDTO lotacao;
+    private LocalResponseDTO local;
 
 }

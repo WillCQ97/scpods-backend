@@ -16,5 +16,5 @@ public class UnidadeInfoDTO {
     private Long id;
     private String nome;
 
-    private List<LotacaoInfoDTO> lotacoes;
+    private List<LocalInfoDTO> locais;
 }

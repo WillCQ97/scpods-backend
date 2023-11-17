@@ -11,11 +11,11 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class LotacaoResponseDTO {
+public class LocalResponseDTO {
 
     private Long id;
     private String nome;
-    private Point localizacao;
+    private Point coordenadas;
 
     private CentroResponseDTO centro;
     private UnidadeReponseDTO unidade;

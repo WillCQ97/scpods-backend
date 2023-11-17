@@ -17,7 +17,7 @@ import br.ufes.willcq.scpods.domain.model.enums.CampusEnum;
 import br.ufes.willcq.scpods.domain.repository.AcaoRepository;
 import br.ufes.willcq.scpods.domain.repository.CentroRepository;
 import br.ufes.willcq.scpods.domain.repository.CoordenadorRepository;
-import br.ufes.willcq.scpods.domain.repository.LotacaoRepository;
+import br.ufes.willcq.scpods.domain.repository.LocalRepository;
 import br.ufes.willcq.scpods.domain.repository.MetaRepository;
 import br.ufes.willcq.scpods.domain.service.AcaoService;
 
@@ -35,7 +35,7 @@ public class AcaoServiceImpl implements AcaoService {
     private CentroRepository centroRepository;
 
     @Autowired
-    private LotacaoRepository lotacaoRepository;
+    private LocalRepository localRepository;
 
     @Autowired
     private MetaRepository metaRepository;
@@ -62,8 +62,8 @@ public class AcaoServiceImpl implements AcaoService {
         var centros = centroRepository.findByCampus( campusEnum );
         var acoes = new ArrayList<Acao>();
         for( var centro : centros ) {
-            for( var lotacao : centro.getLotacoes() ) {
-                acoes.addAll( lotacao.getAcoes() );
+            for( var local : centro.getLocais() ) {
+                acoes.addAll( local.getAcoes() );
             }
         }
 
@@ -141,15 +141,15 @@ public class AcaoServiceImpl implements AcaoService {
             acao.setMeta( metaOpt.get() );
         }
 
-        if( acao.getLotacao() == null && acao.getLotacao().getId() == null ) {
-            throw new NegocioException( "A lotação da ação não foi informada!" );
+        if( acao.getLocal() == null && acao.getLocal().getId() == null ) {
+            throw new NegocioException( "O local da ação não foi informado!" );
         }
 
-        var lotacaoOpt = lotacaoRepository.findById( acao.getLotacao().getId() );
-        if( lotacaoOpt.isEmpty() ) {
-            throw new NegocioException( "A lotação informada não é válida!" );
+        var localOpt = localRepository.findById( acao.getLocal().getId() );
+        if( localOpt.isEmpty() ) {
+            throw new NegocioException( "O local informado não é válido!" );
         } else {
-            acao.setLotacao( lotacaoOpt.get() );
+            acao.setLocal( localOpt.get() );
         }
 
         this.validarCoordenador( acao.getCoordenador() );

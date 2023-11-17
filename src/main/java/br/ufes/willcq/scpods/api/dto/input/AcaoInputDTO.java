@@ -21,7 +21,7 @@ public class AcaoInputDTO {
     private LocalDate dataEncerramento;
 
     private MetaInputDTO meta;
-    private LotacaoInputDTO lotacao;
+    private LocalInputDTO local;
 
     private CoordenadorInputDTO coordenador;
 

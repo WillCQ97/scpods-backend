@@ -62,8 +62,8 @@ public class Acao {
     private Meta meta;
 
     @ManyToOne
-    @JoinColumn( name = "id_lotacao" )
-    private Lotacao lotacao;
+    @JoinColumn( name = "id_local" )
+    private Local local;
 
     public Long getIdObjetivo() {
         return this.getMeta().getObjetivo().getId();

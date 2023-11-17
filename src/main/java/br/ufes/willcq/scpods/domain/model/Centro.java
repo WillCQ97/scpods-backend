@@ -39,6 +39,6 @@ public class Centro {
     private CampusEnum campus;
 
     @OneToMany( mappedBy = "centro" )
-    private List<Lotacao> lotacoes;
+    private List<Local> locais;
 
 }

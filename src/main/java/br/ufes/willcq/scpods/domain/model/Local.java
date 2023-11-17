@@ -25,8 +25,8 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-@Table( name = "tb_lotacoes" )
-public class Lotacao {
+@Table( name = "tb_locais" )
+public class Local {
 
     @Id
     private Long id;
@@ -45,7 +45,7 @@ public class Lotacao {
     @JoinColumn( name = "id_unidade" )
     private Unidade unidade;
 
-    @OneToMany( mappedBy = "lotacao" )
+    @OneToMany( mappedBy = "local" )
     private List<Acao> acoes;
 
     public Long getQuantidadeProjetosTotais() {
@@ -66,4 +66,5 @@ public class Lotacao {
 
         return idOdsMaisAtendido.isPresent() ? idOdsMaisAtendido.get().getKey() : null;
     }
+
 }

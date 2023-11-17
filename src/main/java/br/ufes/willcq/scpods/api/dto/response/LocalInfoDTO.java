@@ -11,7 +11,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class LotacaoInfoDTO {
+public class LocalInfoDTO {
 
     private Long id;
     private String nome;
