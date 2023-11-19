@@ -110,6 +110,11 @@ public class AcaoServiceImpl implements AcaoService {
     @Override
     public void excluir( Long idAcao ) {
 
+        var optAcao = acaoRepository.findById( idAcao );
+        if( optAcao.isPresent() ) {
+            coordenadorRepository.deleteById( optAcao.get().getCoordenador().getId() );
+        }
+
         acaoRepository.deleteById( idAcao );
 
     }
