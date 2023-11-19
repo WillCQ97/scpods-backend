@@ -14,7 +14,10 @@ import lombok.Setter;
 public class LocalInfoDTO {
 
     private Long id;
-    private String nome;
+    private Long idd;
+    private String nomePrincipal;
+    private String nomeSecundario;
+    private String nomeTerciario;
     private Point localizacao;
 
     private Long quantidadeProjetosTotais;

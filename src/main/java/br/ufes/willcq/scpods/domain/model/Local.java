@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
@@ -32,8 +33,21 @@ public class Local {
     @Id
     private Long id;
 
+    private Long idd;
+
+    private Long zona;
+
+    private String filename;
+
     @NotBlank
-    private String nome;
+    @Column( name = "nome_principal" )
+    private String nomePrincipal;
+
+    @Column( name = "nome_secundario" )
+    private String nomeSecundario;
+
+    @Column( name = "nome_terciario" )
+    private String nomeTerciario;
 
     @NotNull
     private Point localizacao;

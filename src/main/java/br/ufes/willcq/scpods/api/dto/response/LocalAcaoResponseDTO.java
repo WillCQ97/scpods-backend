@@ -14,7 +14,10 @@ import lombok.Setter;
 public class LocalAcaoResponseDTO {
 
     private Long id;
-    private String nome;
+    private Long idd;
+    private String nomePrincipal;
+    private String nomeSecundario;
+    private String nomeTerciario;
     private Point localizacao;
 
     private UnidadeAcaoReponseDTO unidade;
