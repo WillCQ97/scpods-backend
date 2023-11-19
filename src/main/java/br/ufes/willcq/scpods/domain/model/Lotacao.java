@@ -1,12 +1,14 @@
 package br.ufes.willcq.scpods.domain.model;
 
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 
 import br.ufes.willcq.scpods.domain.model.enums.CampusEnum;
 import lombok.AllArgsConstructor;
@@ -19,21 +21,22 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-@Table( name = "tb_centros" )
-@Deprecated // TODO: Caso o centro não for utilizado, então poderá ser removido
-public class Centro {
+@Table( name = "tb_lotacoes" )
+public class Lotacao {
 
     @Id
     private Long id;
 
     @NotBlank
-    private String nome;
+    private String descricao;
 
     @NotBlank
     private String sigla;
 
-    @NotNull
     @Enumerated( EnumType.STRING )
     private CampusEnum campus;
+
+    @OneToMany( mappedBy = "lotacao" )
+    private List<Acao> acoes;
 
 }

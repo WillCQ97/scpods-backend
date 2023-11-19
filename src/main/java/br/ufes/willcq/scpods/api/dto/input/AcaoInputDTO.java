@@ -24,5 +24,6 @@ public class AcaoInputDTO {
     private LocalInputDTO local;
 
     private CoordenadorInputDTO coordenador;
+    private LotacaoInputDTO lotacao;
 
 }

@@ -26,5 +26,6 @@ public class AcaoResponseDTO {
     private CoordenadorAcaoResponseDTO coordenador;
     private MetaAcaoResponseDTO meta;
     private LocalAcaoResponseDTO local;
+    private LotacaoAcaoResponseDTO lotacao;
 
 }

@@ -4,12 +4,11 @@ import java.util.List;
 
 import org.springframework.data.repository.CrudRepository;
 
-import br.ufes.willcq.scpods.domain.model.Centro;
+import br.ufes.willcq.scpods.domain.model.Lotacao;
 import br.ufes.willcq.scpods.domain.model.enums.CampusEnum;
 
-@Deprecated
-public interface CentroRepository extends CrudRepository<Centro, Long> {
+public interface LotacaoRepository extends CrudRepository<Lotacao, Long> {
 
-    List<Centro> findByCampus( CampusEnum campus );
+    List<Lotacao> findByCampus( CampusEnum campus );
 
 }
