@@ -17,7 +17,6 @@ public class LocalAcaoResponseDTO {
     private String nome;
     private Point localizacao;
 
-    private CentroAcaoResponseDTO centro;
     private UnidadeAcaoReponseDTO unidade;
 
 }

@@ -1,12 +1,9 @@
 package br.ufes.willcq.scpods.domain.model;
 
-import java.util.List;
-
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -23,6 +20,7 @@ import lombok.Setter;
 @Setter
 @Entity
 @Table( name = "tb_centros" )
+@Deprecated // TODO: Caso o centro não for utilizado, então poderá ser removido
 public class Centro {
 
     @Id
@@ -37,8 +35,5 @@ public class Centro {
     @NotNull
     @Enumerated( EnumType.STRING )
     private CampusEnum campus;
-
-    @OneToMany( mappedBy = "centro" )
-    private List<Local> locais;
 
 }

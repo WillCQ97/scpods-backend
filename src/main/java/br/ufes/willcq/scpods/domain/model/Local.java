@@ -39,10 +39,6 @@ public class Local {
     private Point localizacao;
 
     @ManyToOne
-    @JoinColumn( name = "id_centro" )
-    private Centro centro;
-
-    @ManyToOne
     @JoinColumn( name = "id_unidade" )
     private Unidade unidade;
 

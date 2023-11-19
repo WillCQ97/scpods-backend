@@ -15,10 +15,10 @@ import br.ufes.willcq.scpods.domain.model.Acao;
 import br.ufes.willcq.scpods.domain.model.Coordenador;
 import br.ufes.willcq.scpods.domain.model.enums.CampusEnum;
 import br.ufes.willcq.scpods.domain.repository.AcaoRepository;
-import br.ufes.willcq.scpods.domain.repository.CentroRepository;
 import br.ufes.willcq.scpods.domain.repository.CoordenadorRepository;
 import br.ufes.willcq.scpods.domain.repository.LocalRepository;
 import br.ufes.willcq.scpods.domain.repository.MetaRepository;
+import br.ufes.willcq.scpods.domain.repository.UnidadeRepository;
 import br.ufes.willcq.scpods.domain.service.AcaoService;
 
 @Service
@@ -32,7 +32,7 @@ public class AcaoServiceImpl implements AcaoService {
     private CoordenadorRepository coordenadorRepository;
 
     @Autowired
-    private CentroRepository centroRepository;
+    private UnidadeRepository unidadeRepository;
 
     @Autowired
     private LocalRepository localRepository;
@@ -59,10 +59,10 @@ public class AcaoServiceImpl implements AcaoService {
             throw new NegocioException( "O valor campus informado não é válido!" );
         }
 
-        var centros = centroRepository.findByCampus( campusEnum );
+        var unidades = unidadeRepository.findByCampus( campusEnum );
         var acoes = new ArrayList<Acao>();
-        for( var centro : centros ) {
-            for( var local : centro.getLocais() ) {
+        for( var unidade : unidades ) {
+            for( var local : unidade.getLocais() ) {
                 acoes.addAll( local.getAcoes() );
             }
         }
