@@ -36,12 +36,17 @@ public class InfoServiceImpl implements InfoService {
 
         var campusInfo = new CampusInfoDTO();
         campusInfo.setCampus( campusEnum );
-        campusInfo.setUnidades( unidades.stream().map( this::mapUnidadeToUnidadeInfo ).collect( Collectors.toList() ) );
+        campusInfo.setUnidades( unidades.stream().map( this::mapUnidadeToUnidadeInfo ).filter( this::isUnidadePossuiLocaisComProjetos ).collect( Collectors.toList() ) );
 
         return campusInfo;
     }
 
     private UnidadeInfoDTO mapUnidadeToUnidadeInfo( Unidade unidade ) {
         return modelMapper.map( unidade, UnidadeInfoDTO.class );
+    }
+
+    private boolean isUnidadePossuiLocaisComProjetos( UnidadeInfoDTO unidadeInfo ) {
+        unidadeInfo.getLocais().removeIf( local -> local.getQuantidadeProjetosTotais() <= 0 );
+        return !unidadeInfo.getLocais().isEmpty();
     }
 }

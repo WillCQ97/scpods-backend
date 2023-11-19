@@ -1,21 +1,16 @@
 package br.ufes.willcq.scpods.domain.model;
 
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
 
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 
-import org.locationtech.jts.geom.Point;
-
+import br.ufes.willcq.scpods.domain.model.enums.CampusEnum;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -33,58 +28,15 @@ public class Lotacao {
     private Long id;
 
     @NotBlank
-    private String nome;
+    private String descricao;
 
-    @NotNull
-    private Point localizacao;
+    @NotBlank
+    private String sigla;
 
-    @ManyToOne
-    @JoinColumn( name = "id_centro" )
-    private Centro centro;
-
-    @ManyToOne
-    @JoinColumn( name = "id_unidade" )
-    private Unidade unidade;
+    @Enumerated( EnumType.STRING )
+    private CampusEnum campus;
 
     @OneToMany( mappedBy = "lotacao" )
     private List<Acao> acoes;
 
-    @Transient
-    private List<Acao> acoesAtivas;
-
-    @Transient
-    private List<Acao> submissoes;
-
-    public List<Acao> getAcoesAtivas() {
-        if( acoesAtivas == null || acoesAtivas.isEmpty() ) {
-            acoesAtivas = acoes.stream().filter( acao -> acao.getAceito() ).collect( Collectors.toList() );
-        }
-        return acoesAtivas;
-    }
-
-    public List<Acao> getSubmissoes() {
-        if( submissoes == null || submissoes.isEmpty() ) {
-            submissoes = acoes.stream().filter( acao -> !acao.getAceito() ).collect( Collectors.toList() );
-        }
-        return submissoes;
-    }
-
-    public Long getQuantidadeProjetosTotais() {
-        return Long.valueOf( this.getAcoesAtivas().size() );
-    }
-
-    public Long getQuantidadeProjetosAtivos() {
-        return this.getAcoesAtivas().stream().filter( acao -> acao.getDataEncerramento() != null ).count();
-    }
-
-    public Long getQuantidadeObjetivosAtendidos() {
-        return this.getAcoesAtivas().stream().map( acao -> acao.getIdObjetivo() ).distinct().count();
-    }
-
-    public Long getIdObjetivoMaisAtendido() {
-        var contagemAcoes = this.getAcoesAtivas().stream().map( acao -> acao.getIdObjetivo() ).collect( Collectors.groupingBy( e -> e, Collectors.counting() ) );
-        var idOdsMaisAtendido = contagemAcoes.entrySet().stream().max( Map.Entry.comparingByValue() );
-
-        return idOdsMaisAtendido.isPresent() ? idOdsMaisAtendido.get().getKey() : null;
-    }
 }

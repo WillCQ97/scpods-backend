@@ -62,7 +62,13 @@ public class Acao {
     private Meta meta;
 
     @ManyToOne
+    @JoinColumn( name = "id_local" )
+    @NotNull( message = "Não foi informado um local para a ação!" )
+    private Local local;
+
+    @ManyToOne
     @JoinColumn( name = "id_lotacao" )
+    @NotNull( message = "Não foi informada uma lotação para a ação!" )
     private Lotacao lotacao;
 
     public Long getIdObjetivo() {

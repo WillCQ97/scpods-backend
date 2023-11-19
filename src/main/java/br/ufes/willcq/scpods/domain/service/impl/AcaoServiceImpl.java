@@ -15,10 +15,10 @@ import br.ufes.willcq.scpods.domain.model.Acao;
 import br.ufes.willcq.scpods.domain.model.Coordenador;
 import br.ufes.willcq.scpods.domain.model.enums.CampusEnum;
 import br.ufes.willcq.scpods.domain.repository.AcaoRepository;
-import br.ufes.willcq.scpods.domain.repository.CentroRepository;
 import br.ufes.willcq.scpods.domain.repository.CoordenadorRepository;
-import br.ufes.willcq.scpods.domain.repository.LotacaoRepository;
+import br.ufes.willcq.scpods.domain.repository.LocalRepository;
 import br.ufes.willcq.scpods.domain.repository.MetaRepository;
+import br.ufes.willcq.scpods.domain.repository.UnidadeRepository;
 import br.ufes.willcq.scpods.domain.service.AcaoService;
 
 @Service
@@ -32,10 +32,10 @@ public class AcaoServiceImpl implements AcaoService {
     private CoordenadorRepository coordenadorRepository;
 
     @Autowired
-    private CentroRepository centroRepository;
+    private UnidadeRepository unidadeRepository;
 
     @Autowired
-    private LotacaoRepository lotacaoRepository;
+    private LocalRepository localRepository;
 
     @Autowired
     private MetaRepository metaRepository;
@@ -59,11 +59,11 @@ public class AcaoServiceImpl implements AcaoService {
             throw new NegocioException( "O valor campus informado não é válido!" );
         }
 
-        var centros = centroRepository.findByCampus( campusEnum );
+        var unidades = unidadeRepository.findByCampus( campusEnum );
         var acoes = new ArrayList<Acao>();
-        for( var centro : centros ) {
-            for( var lotacao : centro.getLotacoes() ) {
-                acoes.addAll( lotacao.getAcoes() );
+        for( var unidade : unidades ) {
+            for( var local : unidade.getLocais() ) {
+                acoes.addAll( local.getAcoes() );
             }
         }
 
@@ -110,6 +110,11 @@ public class AcaoServiceImpl implements AcaoService {
     @Override
     public void excluir( Long idAcao ) {
 
+        var optAcao = acaoRepository.findById( idAcao );
+        if( optAcao.isPresent() ) {
+            coordenadorRepository.deleteById( optAcao.get().getCoordenador().getId() );
+        }
+
         acaoRepository.deleteById( idAcao );
 
     }
@@ -141,15 +146,15 @@ public class AcaoServiceImpl implements AcaoService {
             acao.setMeta( metaOpt.get() );
         }
 
-        if( acao.getLotacao() == null && acao.getLotacao().getId() == null ) {
-            throw new NegocioException( "A lotação da ação não foi informada!" );
+        if( acao.getLocal() == null && acao.getLocal().getId() == null ) {
+            throw new NegocioException( "O local da ação não foi informado!" );
         }
 
-        var lotacaoOpt = lotacaoRepository.findById( acao.getLotacao().getId() );
-        if( lotacaoOpt.isEmpty() ) {
-            throw new NegocioException( "A lotação informada não é válida!" );
+        var localOpt = localRepository.findById( acao.getLocal().getId() );
+        if( localOpt.isEmpty() ) {
+            throw new NegocioException( "O local informado não é válido!" );
         } else {
-            acao.setLotacao( lotacaoOpt.get() );
+            acao.setLocal( localOpt.get() );
         }
 
         this.validarCoordenador( acao.getCoordenador() );

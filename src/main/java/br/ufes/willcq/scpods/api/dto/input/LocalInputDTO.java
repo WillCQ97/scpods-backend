@@ -1,6 +1,4 @@
-package br.ufes.willcq.scpods.api.dto.response;
-
-import java.util.List;
+package br.ufes.willcq.scpods.api.dto.input;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -11,10 +9,8 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class UnidadeInfoDTO {
+public class LocalInputDTO {
 
     private Long id;
-    private String nome;
 
-    private List<LocalInfoDTO> locais;
 }

@@ -36,6 +36,6 @@ public class Unidade {
     private CampusEnum campus;
 
     @OneToMany( mappedBy = "unidade" )
-    private List<Lotacao> lotacoes;
+    private List<Local> locais;
 
 }
