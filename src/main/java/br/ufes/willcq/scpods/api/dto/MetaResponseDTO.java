@@ -1,6 +1,6 @@
 package br.ufes.willcq.scpods.api.dto;
 
-import br.ufes.willcq.scpods.domain.model.enums.TipoVinculoEnum;
+import br.ufes.willcq.scpods.api.dto.response.ObjetivoAcaoResponseDTO;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -10,10 +10,11 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class CoordenadorInputDTO {
+public class MetaResponseDTO {
 
-    private Long id;
-    private String nome;
-    private TipoVinculoEnum tipoVinculo;
+    private String id;
+    private String descricao;
+
+    private ObjetivoAcaoResponseDTO objetivo;
 
 }

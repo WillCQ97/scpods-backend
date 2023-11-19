@@ -1,5 +1,6 @@
-package br.ufes.willcq.scpods.api.dto;
+package br.ufes.willcq.scpods.api.dto.input;
 
+import br.ufes.willcq.scpods.domain.model.enums.TipoVinculoEnum;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -9,11 +10,11 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class CentroDTO {
+public class CoordenadorInputDTO {
 
     private Long id;
-    private UnidadeDTO unidade;
     private String nome;
-    private String sigla;
+    private String email;
+    private TipoVinculoEnum tipoVinculo;
 
 }

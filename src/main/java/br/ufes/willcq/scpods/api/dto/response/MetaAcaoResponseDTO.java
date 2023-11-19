@@ -1,4 +1,4 @@
-package br.ufes.willcq.scpods.api.dto;
+package br.ufes.willcq.scpods.api.dto.response;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -7,11 +7,13 @@ import lombok.Setter;
 
 @AllArgsConstructor
 @NoArgsConstructor
-@Setter
 @Getter
-public class MetaForObjetivoDTO {
+@Setter
+public class MetaAcaoResponseDTO {
 
     private String id;
     private String descricao;
+
+    private ObjetivoAcaoResponseDTO objetivo;
 
 }

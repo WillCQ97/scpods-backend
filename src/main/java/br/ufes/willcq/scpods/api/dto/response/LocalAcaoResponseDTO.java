@@ -1,4 +1,4 @@
-package br.ufes.willcq.scpods.api.dto;
+package br.ufes.willcq.scpods.api.dto.response;
 
 import org.locationtech.jts.geom.Point;
 
@@ -11,11 +11,15 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class EstruturaOrganizacionalDTO {
+public class LocalAcaoResponseDTO {
 
     private Long id;
-    private CentroDTO centro;
-    private UnidadeDTO unidade;
-
+    private Long idd;
+    private String nomePrincipal;
+    private String nomeSecundario;
+    private String nomeTerciario;
     private Point localizacao;
+
+    private UnidadeAcaoReponseDTO unidade;
+
 }
