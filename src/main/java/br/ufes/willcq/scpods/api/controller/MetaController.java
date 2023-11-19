@@ -12,7 +12,7 @@ import br.ufes.willcq.scpods.api.dto.MetaResponseDTO;
 import br.ufes.willcq.scpods.domain.repository.MetaRepository;
 
 @RestController
-@RequestMapping( "/api/metas" )
+@RequestMapping( "/metas" )
 public class MetaController {
 
     @Autowired

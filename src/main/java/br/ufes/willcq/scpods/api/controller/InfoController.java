@@ -11,7 +11,7 @@ import br.ufes.willcq.scpods.api.dto.response.CampusInfoDTO;
 import br.ufes.willcq.scpods.domain.service.InfoService;
 
 @RestController
-@RequestMapping( "/api/info" )
+@RequestMapping( "/info" )
 public class InfoController {
 
     @Autowired
