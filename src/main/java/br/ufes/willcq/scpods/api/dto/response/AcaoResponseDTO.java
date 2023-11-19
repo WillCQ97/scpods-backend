@@ -1,8 +1,6 @@
-package br.ufes.willcq.scpods.api.dto;
+package br.ufes.willcq.scpods.api.dto.response;
 
 import java.time.LocalDate;
-
-import org.locationtech.jts.geom.Point;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -13,22 +11,21 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class AcaoDTO {
+public class AcaoResponseDTO {
 
     private Long id;
     private String titulo;
     private String descricao;
-    private Point localizacao;
 
     private LocalDate dataCadastro;
     private LocalDate dataInicio;
-    private LocalDate dataFim;
+    private LocalDate dataEncerramento;
 
-    private Boolean aceito;
+    private boolean aceito;
 
-    private MetaDTO meta;
-    private CoordenadorDTO coordenador;
-
-    private EstruturaOrganizacionalDTO estruturaOrganizacional;
+    private CoordenadorAcaoResponseDTO coordenador;
+    private MetaAcaoResponseDTO meta;
+    private LocalAcaoResponseDTO local;
+    private LotacaoAcaoResponseDTO lotacao;
 
 }

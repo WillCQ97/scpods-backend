@@ -1,8 +1,6 @@
-package br.ufes.willcq.scpods.api.dto;
+package br.ufes.willcq.scpods.api.dto.input;
 
 import java.time.LocalDate;
-
-import org.locationtech.jts.geom.Point;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -17,17 +15,15 @@ public class AcaoInputDTO {
 
     private String titulo;
     private String descricao;
-    private Point localizacao;
 
     private LocalDate dataCadastro;
     private LocalDate dataInicio;
-    private LocalDate dataFim;
-
-    private Boolean aceito;
+    private LocalDate dataEncerramento;
 
     private MetaInputDTO meta;
-    private EstruturaOrganizacionalInputDTO estruturaOrganizacional;
+    private LocalInputDTO local;
 
     private CoordenadorInputDTO coordenador;
+    private LotacaoInputDTO lotacao;
 
 }

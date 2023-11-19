@@ -14,8 +14,6 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
-import org.locationtech.jts.geom.Point;
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -33,42 +31,47 @@ public class Acao {
     @GeneratedValue( strategy = GenerationType.IDENTITY )
     private Long id;
 
-    @NotBlank( message = "Não foi informada o título da ação!" )
+    @NotBlank( message = "Não foi informado o título da ação!" )
     private String titulo;
 
     @NotBlank( message = "Não foi informada a descrição da ação!" )
     private String descricao;
 
-    @NotNull( message = "Não foi informado o local onde a ação é realizada!" )
-    private Point localizacao;
-
-    @Column( name = "data_cadastro" )
+    @Column( name = "dt_cadastro" )
     @NotNull
     private LocalDate dataCadastro;
 
-    @Column( name = "data_inicio" )
+    @Column( name = "dt_inicio" )
     @NotNull( message = "Não foi informada a data de início do ação!" )
     private LocalDate dataInicio;
 
-    @Column( name = "data_fim" )
-    private LocalDate dataFim;
+    @Column( name = "dt_encerramento" )
+    private LocalDate dataEncerramento;
 
     @Column( name = "fl_aceito" )
     private Boolean aceito;
+
+    @OneToOne
+    @JoinColumn( name = "id_coordenador" )
+    @NotNull( message = "Não foi informado o coordenador da ação!" )
+    private Coordenador coordenador;
 
     @ManyToOne
     @JoinColumn( name = "id_meta" )
     @NotNull( message = "Não foi informada uma meta para a ação!" )
     private Meta meta;
 
-    @OneToOne
-    @JoinColumn( name = "id_coordenador" )
-    @NotNull( message = "Não foi informado um coordenador para essa ação!" )
-    private Coordenador coordenador;
+    @ManyToOne
+    @JoinColumn( name = "id_local" )
+    @NotNull( message = "Não foi informado um local para a ação!" )
+    private Local local;
 
     @ManyToOne
-    @JoinColumn( name = "id_estrutura_organizacional" )
-    @NotNull( message = "Não foi informada qual a estrutura organizacional relacionada com a ação!" )
-    private EstruturaOrganizacional estruturaOrganizacional;
+    @JoinColumn( name = "id_lotacao" )
+    @NotNull( message = "Não foi informada uma lotação para a ação!" )
+    private Lotacao lotacao;
 
+    public Long getIdObjetivo() {
+        return this.getMeta().getObjetivo().getId();
+    }
 }

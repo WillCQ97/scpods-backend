@@ -29,6 +29,12 @@ public class Coordenador {
     @GeneratedValue( strategy = GenerationType.IDENTITY )
     private Long id;
 
+    @NotBlank
+    private String nome;
+
+    @NotBlank
+    private String email;
+
     @Enumerated( EnumType.STRING )
     @Column( name = "tipo_vinculo" )
     @NotNull
@@ -37,13 +43,17 @@ public class Coordenador {
     @Column( name = "ds_vinculo" )
     private String descricaoVinculo;
 
-    @NotBlank
-    private String nome;
-
     public String getDescricaoVinculo() {
         if( this.descricaoVinculo == null ) {
             return tipoVinculo.getDescricao();
         }
         return this.descricaoVinculo;
+    }
+
+    public void setDescricaoVinculo( String descricaoVinculo ) {
+        if( TipoVinculoEnum.OUTRO.equals( this.tipoVinculo ) ) {
+            this.descricaoVinculo = descricaoVinculo;
+        }
+        this.descricaoVinculo = null;
     }
 }

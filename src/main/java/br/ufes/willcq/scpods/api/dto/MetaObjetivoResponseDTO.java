@@ -7,10 +7,11 @@ import lombok.Setter;
 
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter
 @Setter
-public class MetaInputDTO {
+@Getter
+public class MetaObjetivoResponseDTO {
 
     private String id;
+    private String descricao;
 
 }

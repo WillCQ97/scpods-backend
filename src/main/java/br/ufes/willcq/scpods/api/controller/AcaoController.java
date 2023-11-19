@@ -17,33 +17,41 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.ufes.willcq.scpods.api.dto.AcaoDTO;
-import br.ufes.willcq.scpods.api.dto.AcaoInputDTO;
-import br.ufes.willcq.scpods.api.util.AcaoSearchCriteriaHandler;
+import br.ufes.willcq.scpods.api.dto.input.AcaoInputDTO;
+import br.ufes.willcq.scpods.api.dto.input.SubmissaoInputDTO;
+import br.ufes.willcq.scpods.api.dto.response.AcaoResponseDTO;
 import br.ufes.willcq.scpods.domain.model.Acao;
 import br.ufes.willcq.scpods.domain.repository.AcaoRepository;
-import br.ufes.willcq.scpods.domain.service.CadastroAcaoService;
+import br.ufes.willcq.scpods.domain.service.AcaoService;
 
 @RestController
-@RequestMapping( "/api/v0/acoes" )
+@RequestMapping( "/api/acoes" )
 public class AcaoController {
 
     @Autowired
-    private CadastroAcaoService service;
+    private AcaoRepository acaoRepository;
 
     @Autowired
-    private AcaoRepository repository;
+    private AcaoService service;
 
     @Autowired
     private ModelMapper modelMapper;
 
-    @Autowired
-    private AcaoSearchCriteriaHandler searchHandler;
+    @GetMapping
+    public Iterable<AcaoResponseDTO> listarAcoes( @RequestParam( required = true ) Boolean aceito, @RequestParam( required = false ) String campus ) {
+
+        if( campus == null ) {
+            return this.mapAllToAcaoDTO( service.listar( aceito ) );
+        } else {
+            return this.mapAllToAcaoDTO( service.listarPorCampus( aceito, campus ) );
+        }
+
+    }
 
     @GetMapping( "/{id}" )
-    public ResponseEntity<AcaoDTO> buscar( @PathVariable Long idAcao ) {
+    public ResponseEntity<AcaoResponseDTO> buscarPorId( @PathVariable Long id ) {
 
-        var optAcao = repository.findById( idAcao );
+        var optAcao = service.buscarPeloId( id );
 
         if( optAcao.isPresent() ) {
             return ResponseEntity.ok().body( this.mapToAcaoDTO( optAcao.get() ) );
@@ -51,52 +59,58 @@ public class AcaoController {
         return ResponseEntity.notFound().build();
     }
 
-    // TODO: Trocar o retorno para AcaoDTO
     @PostMapping
-    public ResponseEntity<Acao> salvar( @RequestBody AcaoInputDTO inputAcao ) {
-        return ResponseEntity.status( HttpStatus.CREATED ).body( service.salvar( this.mapToAcao( inputAcao ) ) );
+    public ResponseEntity<AcaoResponseDTO> salvar( @RequestBody AcaoInputDTO inputAcao ) {
+        service.salvar( this.mapToAcao( inputAcao ) );
+        return ResponseEntity.status( HttpStatus.CREATED ).build();
     }
 
-    // TODO: Trocar o retorno para AcaoDTO
     @PutMapping( "/{id}" )
-    public ResponseEntity<Acao> atualizar( @PathVariable Long id, @RequestBody AcaoInputDTO inputAcao ) {
+    public ResponseEntity<AcaoResponseDTO> atualizar( @PathVariable Long id, @RequestBody AcaoInputDTO inputAcao ) {
 
-        if( !repository.existsById( id ) ) {
+        if( !acaoRepository.existsById( id ) ) {
             return ResponseEntity.notFound().build();
         }
 
         var acao = this.mapToAcao( inputAcao );
         acao.setId( id );
-        return ResponseEntity.ok( service.atualizar( acao ) );
+        service.atualizar( acao );
+        return ResponseEntity.ok().build();
 
     }
 
     @DeleteMapping( "/{id}" )
-    public ResponseEntity<Void> deletar( @PathVariable Long idAcao ) {
+    public ResponseEntity<Void> deletar( @PathVariable Long id ) {
 
-        if( !repository.existsById( idAcao ) ) {
+        if( !acaoRepository.existsById( id ) ) {
             return ResponseEntity.notFound().build();
         }
 
-        service.excluir( idAcao );
+        service.excluir( id );
         return ResponseEntity.noContent().build();
 
     }
 
-    @GetMapping( )
-    public Iterable<AcaoDTO> findAll( @RequestParam( value = "search", required = false ) String search ) {
-        return this.mapAllToAcaoDTO( repository.searchAcao( this.searchHandler.handle( search ) ) );
+    @PostMapping( "/aceitar" )
+    public ResponseEntity<Void> aceitarSubmissao( @RequestBody SubmissaoInputDTO inputSubmissao ) {
+
+        if( !acaoRepository.existsById( inputSubmissao.getId() ) ) {
+            return ResponseEntity.notFound().build();
+        }
+
+        service.aceitarSubmissao( inputSubmissao.getId() );
+        return ResponseEntity.ok().build();
     }
 
-    private AcaoDTO mapToAcaoDTO( Acao acao ) {
-        return modelMapper.map( acao, AcaoDTO.class );
+    private AcaoResponseDTO mapToAcaoDTO( Acao acao ) {
+        return modelMapper.map( acao, AcaoResponseDTO.class );
     }
 
     private Acao mapToAcao( AcaoInputDTO dto ) {
         return modelMapper.map( dto, Acao.class );
     }
 
-    private Iterable<AcaoDTO> mapAllToAcaoDTO( Iterable<Acao> acoes ) {
+    private Iterable<AcaoResponseDTO> mapAllToAcaoDTO( Iterable<Acao> acoes ) {
         var spliterator = acoes.spliterator();
         return StreamSupport.stream( spliterator, false ).map( this::mapToAcaoDTO ).collect( Collectors.toList() );
     }

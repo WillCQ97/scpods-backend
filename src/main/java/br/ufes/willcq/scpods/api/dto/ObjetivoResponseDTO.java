@@ -11,12 +11,10 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class InfoAlegreDTO {
+public class ObjetivoResponseDTO {
 
-    private List<InfoEstruturaOrganizacionalDTO> sede;
-
-    private List<InfoEstruturaOrganizacionalDTO> jeronimo;
-
-    private List<InfoEstruturaOrganizacionalDTO> rive;
+    private Long id;
+    private String titulo;
+    private List<MetaObjetivoResponseDTO> metas;
 
 }
