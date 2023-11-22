@@ -63,6 +63,9 @@ public class Local {
     private List<Acao> acoesAceitas;
 
     @Transient
+    private List<Acao> acoesAtivas;
+
+    @Transient
     private List<Acao> submissoes;
 
     public List<Acao> getAcoesAceitas() {
@@ -70,6 +73,13 @@ public class Local {
             acoesAceitas = acoes.stream().filter( acao -> acao.getAceito() ).collect( Collectors.toList() );
         }
         return acoesAceitas;
+    }
+
+    public List<Acao> getAcoesAtivas() {
+        if( acoesAtivas == null || acoesAtivas.isEmpty() ) {
+            acoesAtivas = this.getAcoesAceitas().stream().filter( acao -> acao.getDataEncerramento() == null ).collect( Collectors.toList() );
+        }
+        return acoesAtivas;
     }
 
     public List<Acao> getSubmissoes() {
