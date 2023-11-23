@@ -13,11 +13,11 @@ import br.ufes.willcq.scpods.domain.exception.NegocioException;
 import br.ufes.willcq.scpods.domain.model.Unidade;
 import br.ufes.willcq.scpods.domain.model.enums.CampusEnum;
 import br.ufes.willcq.scpods.domain.repository.UnidadeRepository;
-import br.ufes.willcq.scpods.domain.service.InfoService;
+import br.ufes.willcq.scpods.domain.service.CampusService;
 
 @Service
 @Transactional
-public class InfoServiceImpl implements InfoService {
+public class CampusServiceImpl implements CampusService {
 
     @Autowired
     private UnidadeRepository unidadeRepository;
@@ -26,8 +26,8 @@ public class InfoServiceImpl implements InfoService {
     private ModelMapper modelMapper;
 
     @Override
-    public CampusInfoDTO obterContabilizacaoAcoes( String campus ) {
-        var campusEnum = CampusEnum.obterEnum( campus );
+    public CampusInfoDTO obterContabilizacaoAcoes( String nomeCampus ) {
+        var campusEnum = CampusEnum.obterEnum( nomeCampus );
         if( campusEnum == null ) {
             throw new NegocioException( "O campus informado não é válido!" );
         }
