@@ -1,4 +1,4 @@
-package br.ufes.willcq.scpods.api.dto;
+package br.ufes.willcq.scpods.api.dto.response;
 
 import java.util.List;
 

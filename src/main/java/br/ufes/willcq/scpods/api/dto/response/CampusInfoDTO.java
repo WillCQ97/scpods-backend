@@ -14,7 +14,7 @@ import lombok.Setter;
 @Setter
 public class CampusInfoDTO {
 
-    CampusEnum campus;
-    List<UnidadeInfoDTO> unidades;
+    private CampusEnum campus;
+    private List<UnidadeInfoDTO> unidades;
 
 }

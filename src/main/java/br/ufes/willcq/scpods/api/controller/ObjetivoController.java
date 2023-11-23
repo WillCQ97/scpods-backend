@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.ufes.willcq.scpods.api.dto.ObjetivoResponseDTO;
+import br.ufes.willcq.scpods.api.dto.response.ObjetivoResponseDTO;
 import br.ufes.willcq.scpods.domain.model.Objetivo;
 import br.ufes.willcq.scpods.domain.repository.ObjetivoRepository;
 

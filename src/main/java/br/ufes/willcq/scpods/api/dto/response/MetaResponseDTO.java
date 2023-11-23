@@ -1,6 +1,5 @@
-package br.ufes.willcq.scpods.api.dto;
+package br.ufes.willcq.scpods.api.dto.response;
 
-import br.ufes.willcq.scpods.api.dto.response.ObjetivoAcaoResponseDTO;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
