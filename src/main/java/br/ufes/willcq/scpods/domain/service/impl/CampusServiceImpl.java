@@ -8,7 +8,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import br.ufes.willcq.scpods.api.dto.response.CampusInfoDTO;
+import br.ufes.willcq.scpods.api.dto.response.CampusResponseDTO;
 import br.ufes.willcq.scpods.api.dto.response.UnidadeInfoDTO;
+import br.ufes.willcq.scpods.api.dto.response.UnidadeResponseDTO;
 import br.ufes.willcq.scpods.domain.exception.NegocioException;
 import br.ufes.willcq.scpods.domain.model.Unidade;
 import br.ufes.willcq.scpods.domain.model.enums.CampusEnum;
@@ -27,26 +29,51 @@ public class CampusServiceImpl implements CampusService {
 
     @Override
     public CampusInfoDTO obterContabilizacaoAcoes( String nomeCampus ) {
+
+        var campusEnum = obterCampusEnum( nomeCampus );
+        var unidades = unidadeRepository.findByCampus( campusEnum );
+
+        var campusInfoDTO = new CampusInfoDTO();
+        campusInfoDTO.setCampus( campusEnum );
+        campusInfoDTO.setUnidades( unidades.stream().map( this::mapUnidadeToUnidadeInfo ).collect( Collectors.toList() ) );
+
+        return campusInfoDTO;
+    }
+
+    @Override
+    public CampusResponseDTO obterLocaisPorUnidade( String nomeCampus ) {
+
+        var campusEnum = obterCampusEnum( nomeCampus );
+        var unidades = unidadeRepository.findByCampus( campusEnum );
+
+        var campusResponseDTO = new CampusResponseDTO();
+        campusResponseDTO.setCampus( campusEnum );
+        campusResponseDTO.setUnidades( unidades.stream().map( this::mapUnidadeToUnidadeResponseDTO ).collect( Collectors.toList() ) );
+
+        return campusResponseDTO;
+    }
+
+    private CampusEnum obterCampusEnum( String nomeCampus ) {
+
         var campusEnum = CampusEnum.obterEnum( nomeCampus );
         if( campusEnum == null ) {
             throw new NegocioException( "O campus informado não é válido!" );
         }
 
-        var unidades = unidadeRepository.findByCampus( campusEnum );
-
-        var campusInfo = new CampusInfoDTO();
-        campusInfo.setCampus( campusEnum );
-        campusInfo.setUnidades( unidades.stream().map( this::mapUnidadeToUnidadeInfo ).collect( Collectors.toList() ) );
-
-        return campusInfo;
+        return campusEnum;
     }
 
     private UnidadeInfoDTO mapUnidadeToUnidadeInfo( Unidade unidade ) {
         return modelMapper.map( unidade, UnidadeInfoDTO.class );
     }
 
+    private UnidadeResponseDTO mapUnidadeToUnidadeResponseDTO( Unidade unidade ) {
+        return modelMapper.map( unidade, UnidadeResponseDTO.class );
+    }
+
     private boolean isUnidadePossuiLocaisComProjetos( UnidadeInfoDTO unidadeInfo ) {
         unidadeInfo.getLocais().removeIf( local -> local.getQuantidadeProjetosTotais() <= 0 );
         return !unidadeInfo.getLocais().isEmpty();
     }
+
 }

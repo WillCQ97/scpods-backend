@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.ufes.willcq.scpods.api.dto.response.CampusInfoDTO;
+import br.ufes.willcq.scpods.api.dto.response.CampusResponseDTO;
 import br.ufes.willcq.scpods.domain.service.CampusService;
 
 @RestController
@@ -21,6 +22,12 @@ public class CampusController {
     public ResponseEntity<CampusInfoDTO> obterContabilizacaoAcoes( @RequestParam( required = true ) String nome ) {
         var campusInfo = service.obterContabilizacaoAcoes( nome );
         return ResponseEntity.ok().body( campusInfo );
+    }
+
+    @GetMapping( "/locais" )
+    public ResponseEntity<CampusResponseDTO> obterLocaisPorUnidade( @RequestParam( required = true ) String nome ) {
+        var campusResponse = service.obterLocaisPorUnidade( nome );
+        return ResponseEntity.ok().body( campusResponse );
     }
 
 }
