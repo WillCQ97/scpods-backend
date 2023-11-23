@@ -36,7 +36,7 @@ public class InfoServiceImpl implements InfoService {
 
         var campusInfo = new CampusInfoDTO();
         campusInfo.setCampus( campusEnum );
-        campusInfo.setUnidades( unidades.stream().map( this::mapUnidadeToUnidadeInfo ).filter( this::isUnidadePossuiLocaisComProjetos ).collect( Collectors.toList() ) );
+        campusInfo.setUnidades( unidades.stream().map( this::mapUnidadeToUnidadeInfo ).collect( Collectors.toList() ) );
 
         return campusInfo;
     }
