@@ -94,7 +94,7 @@ public class Local {
     }
 
     public Long getQuantidadeProjetosAtivos() {
-        return this.getAcoesAceitas().stream().filter( acao -> acao.getDataEncerramento() != null ).count();
+        return this.getAcoesAceitas().stream().filter( acao -> acao.getDataEncerramento() == null ).count();
     }
 
     public Long getQuantidadeObjetivosAtendidos() {
