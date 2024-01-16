@@ -60,14 +60,24 @@ public class Local {
     private List<Acao> acoes;
 
     @Transient
+    private List<Acao> acoesAceitas;
+
+    @Transient
     private List<Acao> acoesAtivas;
 
     @Transient
     private List<Acao> submissoes;
 
+    public List<Acao> getAcoesAceitas() {
+        if( acoesAceitas == null || acoesAceitas.isEmpty() ) {
+            acoesAceitas = acoes.stream().filter( acao -> acao.getAceito() ).collect( Collectors.toList() );
+        }
+        return acoesAceitas;
+    }
+
     public List<Acao> getAcoesAtivas() {
         if( acoesAtivas == null || acoesAtivas.isEmpty() ) {
-            acoesAtivas = acoes.stream().filter( acao -> acao.getAceito() ).collect( Collectors.toList() );
+            acoesAtivas = this.getAcoesAceitas().stream().filter( acao -> acao.getDataEncerramento() == null ).collect( Collectors.toList() );
         }
         return acoesAtivas;
     }
@@ -80,19 +90,19 @@ public class Local {
     }
 
     public Long getQuantidadeProjetosTotais() {
-        return Long.valueOf( this.getAcoesAtivas().size() );
+        return Long.valueOf( this.getAcoesAceitas().size() );
     }
 
     public Long getQuantidadeProjetosAtivos() {
-        return this.getAcoesAtivas().stream().filter( acao -> acao.getDataEncerramento() != null ).count();
+        return this.getAcoesAceitas().stream().filter( acao -> acao.getDataEncerramento() == null ).count();
     }
 
     public Long getQuantidadeObjetivosAtendidos() {
-        return this.getAcoesAtivas().stream().map( acao -> acao.getIdObjetivo() ).distinct().count();
+        return this.getAcoesAceitas().stream().map( acao -> acao.getIdObjetivo() ).distinct().count();
     }
 
     public Long getIdObjetivoMaisAtendido() {
-        var contagemAcoes = this.getAcoesAtivas().stream().map( acao -> acao.getIdObjetivo() ).collect( Collectors.groupingBy( e -> e, Collectors.counting() ) );
+        var contagemAcoes = this.getAcoesAceitas().stream().map( acao -> acao.getIdObjetivo() ).collect( Collectors.groupingBy( e -> e, Collectors.counting() ) );
         var idOdsMaisAtendido = contagemAcoes.entrySet().stream().max( Map.Entry.comparingByValue() );
 
         return idOdsMaisAtendido.isPresent() ? idOdsMaisAtendido.get().getKey() : null;

@@ -84,7 +84,7 @@
 			<artifactId>spring-boot-starter-validation</artifactId>
 		</dependency>
 
-		<!-- DEPENDÊNCIA PARA CRIAÇÃO DE DOCUMENTAÇÃO -->
+		<!-- TODO: DEPENDÊNCIA PARA CRIAÇÃO DE DOCUMENTAÇÃO -->
 		<!-- 
 			<dependency>
 				<groupId>org.springdoc</groupId>

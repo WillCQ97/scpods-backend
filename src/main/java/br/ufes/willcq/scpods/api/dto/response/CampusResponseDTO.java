@@ -12,9 +12,9 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class CampusInfoDTO {
+public class CampusResponseDTO {
 
     private CampusEnum campus;
-    private List<UnidadeInfoDTO> unidades;
+    private List<UnidadeResponseDTO> unidades;
 
 }

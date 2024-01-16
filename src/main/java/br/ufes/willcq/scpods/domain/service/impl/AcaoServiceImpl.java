@@ -17,6 +17,7 @@ import br.ufes.willcq.scpods.domain.model.enums.CampusEnum;
 import br.ufes.willcq.scpods.domain.repository.AcaoRepository;
 import br.ufes.willcq.scpods.domain.repository.CoordenadorRepository;
 import br.ufes.willcq.scpods.domain.repository.LocalRepository;
+import br.ufes.willcq.scpods.domain.repository.LotacaoRepository;
 import br.ufes.willcq.scpods.domain.repository.MetaRepository;
 import br.ufes.willcq.scpods.domain.repository.UnidadeRepository;
 import br.ufes.willcq.scpods.domain.service.AcaoService;
@@ -32,13 +33,16 @@ public class AcaoServiceImpl implements AcaoService {
     private CoordenadorRepository coordenadorRepository;
 
     @Autowired
-    private UnidadeRepository unidadeRepository;
-
-    @Autowired
     private LocalRepository localRepository;
 
     @Autowired
+    private LotacaoRepository lotacaoRepository;
+
+    @Autowired
     private MetaRepository metaRepository;
+
+    @Autowired
+    private UnidadeRepository unidadeRepository;
 
     @Override
     public Optional<Acao> buscarPeloId( Long id ) {
@@ -135,7 +139,7 @@ public class AcaoServiceImpl implements AcaoService {
 
     private void validarAcao( Acao acao ) {
 
-        if( acao.getMeta() == null && acao.getMeta().getId() == null ) {
+        if( acao.getMeta() == null || acao.getMeta().getId() == null ) {
             throw new NegocioException( "Não foi informada uma meta para a ação!" );
         }
 
@@ -146,7 +150,7 @@ public class AcaoServiceImpl implements AcaoService {
             acao.setMeta( metaOpt.get() );
         }
 
-        if( acao.getLocal() == null && acao.getLocal().getId() == null ) {
+        if( acao.getLocal() == null || acao.getLocal().getId() == null ) {
             throw new NegocioException( "O local da ação não foi informado!" );
         }
 
@@ -155,6 +159,17 @@ public class AcaoServiceImpl implements AcaoService {
             throw new NegocioException( "O local informado não é válido!" );
         } else {
             acao.setLocal( localOpt.get() );
+        }
+
+        if( acao.getLotacao() == null || acao.getLotacao().getId() == null ) {
+            throw new NegocioException( "A lotação da ação não foi informada!" );
+        }
+
+        var lotacaoOpt = lotacaoRepository.findById( acao.getLotacao().getId() );
+        if( lotacaoOpt.isEmpty() ) {
+            throw new NegocioException( "A lotação informada não é válida!" );
+        } else {
+            acao.setLotacao( lotacaoOpt.get() );
         }
 
         this.validarCoordenador( acao.getCoordenador() );

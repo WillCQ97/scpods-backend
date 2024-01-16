@@ -25,7 +25,7 @@ import br.ufes.willcq.scpods.domain.repository.AcaoRepository;
 import br.ufes.willcq.scpods.domain.service.AcaoService;
 
 @RestController
-@RequestMapping( "/api/acoes" )
+@RequestMapping( "/acoes" )
 public class AcaoController {
 
     @Autowired
