@@ -2,7 +2,6 @@ package br.ufes.willcq.scpods.api.dto.response;
 
 import java.util.List;
 
-import br.ufes.willcq.scpods.domain.model.enums.CampusEnum;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,9 +11,11 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class CampusInfoDTO {
+public class UnidadeResponseDTO {
 
-    private CampusEnum campus;
-    private List<UnidadeInfoDTO> unidades;
+    private Long id;
+    private String nome;
+
+    private List<LocalResponseDTO> locais;
 
 }
