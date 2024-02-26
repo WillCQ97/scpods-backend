@@ -1,3 +1,5 @@
+CREATE EXTENSION postgis;
+
 -- public.tb_objetivos definition
 
 -- Drop table
