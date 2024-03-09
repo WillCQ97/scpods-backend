@@ -1,7 +1,6 @@
 package br.ufes.willcq.scpods.api.controller;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -111,6 +110,6 @@ public class AcaoController {
     }
 
     private List<AcaoResponseDTO> mapAllToAcaoResponseDTO( List<Acao> acoes ) {
-        return acoes.stream().map( this::mapToAcaoResponseDTO ).collect( Collectors.toList() );
+        return acoes.stream().map( this::mapToAcaoResponseDTO ).toList();
     }
 }

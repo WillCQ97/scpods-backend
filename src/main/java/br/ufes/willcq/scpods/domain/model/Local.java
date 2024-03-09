@@ -69,21 +69,21 @@ public class Local {
 
     public List<Acao> getAcoesAceitas() {
         if( acoesAceitas == null || acoesAceitas.isEmpty() ) {
-            acoesAceitas = acoes.stream().filter( acao -> acao.getAceito() ).collect( Collectors.toList() );
+            acoesAceitas = acoes.stream().filter( acao -> acao.getAceito() ).toList();
         }
         return acoesAceitas;
     }
 
     public List<Acao> getAcoesAtivas() {
         if( acoesAtivas == null || acoesAtivas.isEmpty() ) {
-            acoesAtivas = this.getAcoesAceitas().stream().filter( acao -> acao.getDataEncerramento() == null ).collect( Collectors.toList() );
+            acoesAtivas = this.getAcoesAceitas().stream().filter( acao -> acao.getDataEncerramento() == null ).toList();
         }
         return acoesAtivas;
     }
 
     public List<Acao> getSubmissoes() {
         if( submissoes == null || submissoes.isEmpty() ) {
-            submissoes = acoes.stream().filter( acao -> !acao.getAceito() ).collect( Collectors.toList() );
+            submissoes = acoes.stream().filter( acao -> !acao.getAceito() ).toList();
         }
         return submissoes;
     }
