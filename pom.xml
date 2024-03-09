@@ -31,7 +31,7 @@
         <!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-spatial -->
 
         <dependency>
-            <groupId>org.hibernate</groupId>
+            <groupId>org.hibernate.orm</groupId>
             <artifactId>hibernate-spatial</artifactId>
             <version>6.4.4.Final</version>
         </dependency>
