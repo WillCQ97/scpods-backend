@@ -1,7 +1,6 @@
 package br.ufes.willcq.scpods.api.controller;
 
-import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
+import java.util.List;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,8 +25,8 @@ public class ObjetivoController {
     private ModelMapper modelMapper;
 
     @GetMapping
-    public Iterable<ObjetivoResponseDTO> listar() {
-        return this.mapAll( repository.findAll() );
+    public List<ObjetivoResponseDTO> listar() {
+        return this.mapAllToObjetivoResponseDTO( repository.findAll() );
     }
 
     @GetMapping( "/{id}" )
@@ -41,10 +40,8 @@ public class ObjetivoController {
         return ResponseEntity.notFound().build();
     }
 
-    private Iterable<ObjetivoResponseDTO> mapAll( Iterable<Objetivo> objetivos ) {
-
-        var spliterator = objetivos.spliterator();
-        return StreamSupport.stream( spliterator, false ).map( objetivo -> modelMapper.map( objetivo, ObjetivoResponseDTO.class ) ).collect( Collectors.toList() );
+    private List<ObjetivoResponseDTO> mapAllToObjetivoResponseDTO( List<Objetivo> objetivos ) {
+        return objetivos.stream().map( obj -> modelMapper.map( obj, ObjetivoResponseDTO.class ) ).toList();
     }
 
 }

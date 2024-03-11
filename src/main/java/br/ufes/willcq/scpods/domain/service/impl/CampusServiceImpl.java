@@ -1,7 +1,5 @@
 package br.ufes.willcq.scpods.domain.service.impl;
 
-import java.util.stream.Collectors;
-
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -35,7 +33,7 @@ public class CampusServiceImpl implements CampusService {
 
         var campusInfoDTO = new CampusInfoDTO();
         campusInfoDTO.setCampus( campusEnum );
-        campusInfoDTO.setUnidades( unidades.stream().map( this::mapUnidadeToUnidadeInfo ).collect( Collectors.toList() ) );
+        campusInfoDTO.setUnidades( unidades.stream().map( this::mapUnidadeToUnidadeInfo ).toList() );
 
         return campusInfoDTO;
     }
@@ -48,7 +46,7 @@ public class CampusServiceImpl implements CampusService {
 
         var campusResponseDTO = new CampusResponseDTO();
         campusResponseDTO.setCampus( campusEnum );
-        campusResponseDTO.setUnidades( unidades.stream().map( this::mapUnidadeToUnidadeResponseDTO ).collect( Collectors.toList() ) );
+        campusResponseDTO.setUnidades( unidades.stream().map( this::mapUnidadeToUnidadeResponseDTO ).toList() );
 
         return campusResponseDTO;
     }
