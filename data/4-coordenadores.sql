@@ -1,8 +1,8 @@
 INSERT INTO public.tb_coordenadores
-(id_vinculo, nome)
+(nome, tipo_vinculo)
 VALUES
-(1, 'Leandro Pin'),
-(1, 'Janaina Cecília Oliveira Villanova'),
-(1, 'Juliana Severi'),
-(1, 'Dirceu Pratissoli')
+('Leandro Pin', 'PROF'),
+('Janaina Cecília Oliveira Villanova', 'PROF'),
+('Juliana Severi', 'PROF'),
+('Dirceu Pratissoli', 'PROF')
 ;
