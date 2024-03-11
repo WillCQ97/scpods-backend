@@ -4,19 +4,18 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
-import javax.persistence.Transient;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-
 import org.locationtech.jts.geom.Point;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -70,21 +69,21 @@ public class Local {
 
     public List<Acao> getAcoesAceitas() {
         if( acoesAceitas == null || acoesAceitas.isEmpty() ) {
-            acoesAceitas = acoes.stream().filter( acao -> acao.getAceito() ).collect( Collectors.toList() );
+            acoesAceitas = acoes.stream().filter( acao -> acao.getAceito() ).toList();
         }
         return acoesAceitas;
     }
 
     public List<Acao> getAcoesAtivas() {
         if( acoesAtivas == null || acoesAtivas.isEmpty() ) {
-            acoesAtivas = this.getAcoesAceitas().stream().filter( acao -> acao.getDataEncerramento() == null ).collect( Collectors.toList() );
+            acoesAtivas = this.getAcoesAceitas().stream().filter( acao -> acao.getDataEncerramento() == null ).toList();
         }
         return acoesAtivas;
     }
 
     public List<Acao> getSubmissoes() {
         if( submissoes == null || submissoes.isEmpty() ) {
-            submissoes = acoes.stream().filter( acao -> !acao.getAceito() ).collect( Collectors.toList() );
+            submissoes = acoes.stream().filter( acao -> !acao.getAceito() ).toList();
         }
         return submissoes;
     }

@@ -1,7 +1,6 @@
 package br.ufes.willcq.scpods.api.controller;
 
-import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
+import java.util.List;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,12 +37,12 @@ public class AcaoController {
     private ModelMapper modelMapper;
 
     @GetMapping
-    public Iterable<AcaoResponseDTO> listarAcoes( @RequestParam( required = true ) Boolean aceito, @RequestParam( required = false ) String campus ) {
+    public List<AcaoResponseDTO> listarAcoes( @RequestParam( required = true ) Boolean aceito, @RequestParam( required = false ) String campus ) {
 
         if( campus == null ) {
-            return this.mapAllToAcaoDTO( service.listar( aceito ) );
+            return this.mapAllToAcaoResponseDTO( service.listar( aceito ) );
         } else {
-            return this.mapAllToAcaoDTO( service.listarPorCampus( aceito, campus ) );
+            return this.mapAllToAcaoResponseDTO( service.listarPorCampus( aceito, campus ) );
         }
 
     }
@@ -54,7 +53,7 @@ public class AcaoController {
         var optAcao = service.buscarPeloId( id );
 
         if( optAcao.isPresent() ) {
-            return ResponseEntity.ok().body( this.mapToAcaoDTO( optAcao.get() ) );
+            return ResponseEntity.ok().body( this.mapToAcaoResponseDTO( optAcao.get() ) );
         }
         return ResponseEntity.notFound().build();
     }
@@ -102,16 +101,15 @@ public class AcaoController {
         return ResponseEntity.ok().build();
     }
 
-    private AcaoResponseDTO mapToAcaoDTO( Acao acao ) {
-        return modelMapper.map( acao, AcaoResponseDTO.class );
-    }
-
     private Acao mapToAcao( AcaoInputDTO dto ) {
         return modelMapper.map( dto, Acao.class );
     }
 
-    private Iterable<AcaoResponseDTO> mapAllToAcaoDTO( Iterable<Acao> acoes ) {
-        var spliterator = acoes.spliterator();
-        return StreamSupport.stream( spliterator, false ).map( this::mapToAcaoDTO ).collect( Collectors.toList() );
+    private AcaoResponseDTO mapToAcaoResponseDTO( Acao acao ) {
+        return modelMapper.map( acao, AcaoResponseDTO.class );
+    }
+
+    private List<AcaoResponseDTO> mapAllToAcaoResponseDTO( List<Acao> acoes ) {
+        return acoes.stream().map( this::mapToAcaoResponseDTO ).toList();
     }
 }
