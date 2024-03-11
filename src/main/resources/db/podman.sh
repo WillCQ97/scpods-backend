@@ -1,5 +1,10 @@
-# Obtendo a última versão da imagem do postgres com postgis
-podman pull docker.io/postgis/postgis:latest
+# Obtendo a versão atual da imagem do postgres com postgis
+# ---
+# OS debian:bullseye
+# Postgres 16
+# PostGIS 3.4.2
+# ---
+podman pull docker.io/postgis/postgis:16-3.4
 
 # Execução do contêiner com as configurações padrão
 podman run -d \
@@ -8,4 +13,4 @@ podman run -d \
     -p 5432:5432 \
     --restart always \
     -v postgis_data:/var/lib/postgresql/data\
-    docker.io/postgis/postgis:latest
+    docker.io/postgis/postgis:16-3.4
