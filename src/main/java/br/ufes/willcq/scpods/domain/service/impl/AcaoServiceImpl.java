@@ -128,7 +128,7 @@ public class AcaoServiceImpl implements AcaoService {
         var acao = acaoRepository.findById( idAcao ).get();
 
         if( acao.getAceito() ) {
-            throw new NegocioException( "A submissão informada já foi aceita!" );
+            throw new NegocioException( "A ação submetida informada já foi aceita!" );
         }
 
         acao.setAceito( Boolean.TRUE );
