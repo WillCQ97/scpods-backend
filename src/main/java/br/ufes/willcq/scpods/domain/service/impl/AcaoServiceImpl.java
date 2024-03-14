@@ -59,7 +59,7 @@ public class AcaoServiceImpl implements AcaoService {
         var campusEnum = CampusEnum.obterEnum( campus );
 
         if( campusEnum == null ) {
-            throw new NegocioException( "O valor campus informado não é válido!" );
+            throw new NegocioException( "O valor informado para o campus não é válido!" );
         }
 
         var unidades = unidadeRepository.findByCampus( campusEnum );
