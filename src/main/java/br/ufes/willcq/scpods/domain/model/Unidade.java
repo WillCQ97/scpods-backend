@@ -30,6 +30,9 @@ public class Unidade {
     @NotBlank
     private String nome;
 
+    @NotBlank
+    private String codigo;
+
     @NotNull
     @Enumerated( EnumType.STRING )
     private CampusEnum campus;

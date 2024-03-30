@@ -15,6 +15,7 @@ public class UnidadeResponseDTO {
 
     private Long id;
     private String nome;
+    private String codigo;
 
     private List<LocalResponseDTO> locais;
 
