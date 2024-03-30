@@ -59,7 +59,7 @@ public class AcaoServiceImpl implements AcaoService {
         var campusEnum = CampusEnum.obterEnum( campus );
 
         if( campusEnum == null ) {
-            throw new NegocioException( "O valor campus informado não é válido!" );
+            throw new NegocioException( "O valor informado para o campus não é válido!" );
         }
 
         var unidades = unidadeRepository.findByCampus( campusEnum );
@@ -128,7 +128,7 @@ public class AcaoServiceImpl implements AcaoService {
         var acao = acaoRepository.findById( idAcao ).get();
 
         if( acao.getAceito() ) {
-            throw new NegocioException( "A submissão informada já foi aceita!" );
+            throw new NegocioException( "A ação submetida informada já foi aceita!" );
         }
 
         acao.setAceito( Boolean.TRUE );

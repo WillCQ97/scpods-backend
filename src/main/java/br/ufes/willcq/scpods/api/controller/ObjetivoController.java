@@ -10,8 +10,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.ufes.willcq.scpods.api.dto.response.MetaResponseDTO;
 import br.ufes.willcq.scpods.api.dto.response.ObjetivoResponseDTO;
 import br.ufes.willcq.scpods.domain.model.Objetivo;
+import br.ufes.willcq.scpods.domain.repository.MetaRepository;
 import br.ufes.willcq.scpods.domain.repository.ObjetivoRepository;
 
 @RestController
@@ -19,23 +21,37 @@ import br.ufes.willcq.scpods.domain.repository.ObjetivoRepository;
 public class ObjetivoController {
 
     @Autowired
-    private ObjetivoRepository repository;
+    private ObjetivoRepository objetivoRepository;
+
+    @Autowired
+    private MetaRepository metaRepository;
 
     @Autowired
     private ModelMapper modelMapper;
 
     @GetMapping
     public List<ObjetivoResponseDTO> listar() {
-        return this.mapAllToObjetivoResponseDTO( repository.findAll() );
+        return this.mapAllToObjetivoResponseDTO( objetivoRepository.findAll() );
     }
 
     @GetMapping( "/{id}" )
-    public ResponseEntity<ObjetivoResponseDTO> buscar( @PathVariable Long id ) {
+    public ResponseEntity<ObjetivoResponseDTO> buscarObjetivo( @PathVariable Long id ) {
 
-        var optObjetivo = repository.findById( id );
+        var optObjetivo = objetivoRepository.findById( id );
 
         if( optObjetivo.isPresent() ) {
             return ResponseEntity.ok().body( modelMapper.map( optObjetivo.get(), ObjetivoResponseDTO.class ) );
+        }
+        return ResponseEntity.notFound().build();
+    }
+
+    @GetMapping( "/metas/{id}" )
+    public ResponseEntity<MetaResponseDTO> buscarMeta( @PathVariable String id ) {
+
+        var optMeta = metaRepository.findById( id );
+
+        if( optMeta.isPresent() ) {
+            return ResponseEntity.ok().body( modelMapper.map( optMeta.get(), MetaResponseDTO.class ) );
         }
         return ResponseEntity.notFound().build();
     }
