@@ -12,5 +12,5 @@ podman run -d \
     -e POSTGRES_PASSWORD=admin.123 \
     -p 5432:5432 \
     --restart always \
-    -v postgis_data:/var/lib/postgresql/data\
+    -v postgis_data:/var/lib/postgresql/data \
     docker.io/postgis/postgis:16-3.4
