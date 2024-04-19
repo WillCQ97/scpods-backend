@@ -5,12 +5,12 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.ufes.willcq.scpods.api.dto.response.CampusInfoDTO;
-import br.ufes.willcq.scpods.api.dto.response.CampusResponseDTO;
+import br.ufes.willcq.scpods.api.dto.response.UnidadeInfoDTO;
 import br.ufes.willcq.scpods.api.dto.response.UnidadeResponseDTO;
 import br.ufes.willcq.scpods.domain.model.enums.CampusEnum;
 import br.ufes.willcq.scpods.domain.service.UnidadeService;
@@ -33,15 +33,13 @@ public class UnidadeController {
     }
 
     @GetMapping( "/info" )
-    public ResponseEntity<CampusInfoDTO> obterContabilizacaoAcoes( @RequestParam( required = true ) String campus ) {
-        var campusInfo = service.obterContabilizacaoAcoes( campus );
-        return ResponseEntity.ok().body( campusInfo );
+    public ResponseEntity<List<UnidadeInfoDTO>> obterContabilizacaoCampus( @RequestParam( required = true ) String campus ) {
+        return ResponseEntity.ok().body( service.obterContabilizacaoPorCampus( campus ) );
     }
 
-    @GetMapping( "/locais" )
-    public ResponseEntity<CampusResponseDTO> obterLocaisPorUnidade( @RequestParam( required = true ) String campus ) {
-        var campusResponse = service.obterLocaisPorUnidade( campus );
-        return ResponseEntity.ok().body( campusResponse );
+    @GetMapping( "/{codigo}/info" )
+    public ResponseEntity<UnidadeInfoDTO> obterContabilizacaoUnidade( @PathVariable String codigo ) {
+        return ResponseEntity.ok().body( service.obterContabilizacaoParaUnidade( codigo ) );
     }
 
 }
