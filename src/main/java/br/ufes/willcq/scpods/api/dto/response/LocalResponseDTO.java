@@ -16,4 +16,5 @@ public class LocalResponseDTO {
     private String nomePrincipal;
     private String nomeSecundario;
     private String nomeTerciario;
+
 }

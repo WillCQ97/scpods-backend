@@ -1,5 +1,7 @@
 package br.ufes.willcq.scpods.domain.service.impl;
 
+import java.util.List;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,17 +15,25 @@ import br.ufes.willcq.scpods.domain.exception.NegocioException;
 import br.ufes.willcq.scpods.domain.model.Unidade;
 import br.ufes.willcq.scpods.domain.model.enums.CampusEnum;
 import br.ufes.willcq.scpods.domain.repository.UnidadeRepository;
-import br.ufes.willcq.scpods.domain.service.CampusService;
+import br.ufes.willcq.scpods.domain.service.UnidadeService;
 
 @Service
 @Transactional
-public class CampusServiceImpl implements CampusService {
+public class UnidadeServiceImpl implements UnidadeService {
 
     @Autowired
     private UnidadeRepository unidadeRepository;
 
     @Autowired
     private ModelMapper modelMapper;
+
+    @Override
+    public List<UnidadeResponseDTO> obterUnidades( String nomeCampus ) {
+        if( nomeCampus == null ) {
+            return unidadeRepository.findAll().stream().map( this::mapUnidadeToUnidadeResponseDTO ).toList();
+        }
+        return unidadeRepository.findByCampus( obterCampusEnum( nomeCampus ) ).stream().map( this::mapUnidadeToUnidadeResponseDTO ).toList();
+    }
 
     @Override
     public CampusInfoDTO obterContabilizacaoAcoes( String nomeCampus ) {
