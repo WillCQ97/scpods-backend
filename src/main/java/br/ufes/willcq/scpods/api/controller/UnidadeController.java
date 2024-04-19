@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import br.ufes.willcq.scpods.api.dto.response.CampusInfoDTO;
 import br.ufes.willcq.scpods.api.dto.response.CampusResponseDTO;
 import br.ufes.willcq.scpods.api.dto.response.UnidadeResponseDTO;
+import br.ufes.willcq.scpods.domain.model.enums.CampusEnum;
 import br.ufes.willcq.scpods.domain.service.UnidadeService;
 
 @RestController
@@ -21,9 +22,14 @@ public class UnidadeController {
     @Autowired
     private UnidadeService service;
 
+    @GetMapping( "/opcoes-campus" )
+    public ResponseEntity<List<CampusEnum>> listarOpcoesCampus() {
+        return ResponseEntity.ok().body( service.listarOpcoesCampus() );
+    }
+
     @GetMapping( "" )
-    public ResponseEntity<List<UnidadeResponseDTO>> getUnidades( @RequestParam( required = false ) String campus ) {
-        return ResponseEntity.ok().body( service.obterUnidades( campus ) );
+    public ResponseEntity<List<UnidadeResponseDTO>> listarUnidades( @RequestParam( required = false ) String campus ) {
+        return ResponseEntity.ok().body( service.listarUnidades( campus ) );
     }
 
     @GetMapping( "/info" )

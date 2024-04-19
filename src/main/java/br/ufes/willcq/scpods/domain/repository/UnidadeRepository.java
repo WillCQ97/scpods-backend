@@ -11,4 +11,5 @@ public interface UnidadeRepository extends ListCrudRepository<Unidade, Long> {
 
     List<Unidade> findByCampus( CampusEnum campus );
 
+    List<Unidade> findByCodigo( String codigo );
 }

@@ -1,5 +1,6 @@
 package br.ufes.willcq.scpods.domain.service.impl;
 
+import java.util.Arrays;
 import java.util.List;
 
 import org.modelmapper.ModelMapper;
@@ -28,11 +29,16 @@ public class UnidadeServiceImpl implements UnidadeService {
     private ModelMapper modelMapper;
 
     @Override
-    public List<UnidadeResponseDTO> obterUnidades( String nomeCampus ) {
-        if( nomeCampus == null ) {
+    public List<CampusEnum> listarOpcoesCampus() {
+        return Arrays.asList( CampusEnum.values() );
+    }
+
+    @Override
+    public List<UnidadeResponseDTO> listarUnidades( String campus ) {
+        if( campus == null ) {
             return unidadeRepository.findAll().stream().map( this::mapUnidadeToUnidadeResponseDTO ).toList();
         }
-        return unidadeRepository.findByCampus( obterCampusEnum( nomeCampus ) ).stream().map( this::mapUnidadeToUnidadeResponseDTO ).toList();
+        return unidadeRepository.findByCampus( obterCampusEnum( campus ) ).stream().map( this::mapUnidadeToUnidadeResponseDTO ).toList();
     }
 
     @Override
