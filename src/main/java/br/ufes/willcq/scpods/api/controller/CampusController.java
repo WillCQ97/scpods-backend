@@ -19,14 +19,14 @@ public class CampusController {
     private CampusService service;
 
     @GetMapping( "/info" )
-    public ResponseEntity<CampusInfoDTO> obterContabilizacaoAcoes( @RequestParam( required = true ) String nome ) {
-        var campusInfo = service.obterContabilizacaoAcoes( nome );
+    public ResponseEntity<CampusInfoDTO> obterContabilizacaoAcoes( @RequestParam( required = true ) String campus ) {
+        var campusInfo = service.obterContabilizacaoAcoes( campus );
         return ResponseEntity.ok().body( campusInfo );
     }
 
     @GetMapping( "/locais" )
-    public ResponseEntity<CampusResponseDTO> obterLocaisPorUnidade( @RequestParam( required = true ) String nome ) {
-        var campusResponse = service.obterLocaisPorUnidade( nome );
+    public ResponseEntity<CampusResponseDTO> obterLocaisPorUnidade( @RequestParam( required = true ) String campus ) {
+        var campusResponse = service.obterLocaisPorUnidade( campus );
         return ResponseEntity.ok().body( campusResponse );
     }
 

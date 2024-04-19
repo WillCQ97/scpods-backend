@@ -20,9 +20,9 @@ public class LocalInfoDTO {
     private String nomeTerciario;
     private Point localizacao;
 
-    private Long quantidadeProjetosTotais;
-    private Long quantidadeProjetosAtivos;
-    private Long quantidadeObjetivosAtendidos;
-    private Long idObjetivoMaisAtendido;
+    private Long projetosTotais;
+    private Long projetosAtivos;
+    private Long objetivosAtendidos;
+    private Long idObjetivoComMaisProjetos;
 
 }

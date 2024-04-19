@@ -70,7 +70,7 @@ public class CampusServiceImpl implements CampusService {
     }
 
     private boolean isUnidadePossuiLocaisComProjetos( UnidadeInfoDTO unidadeInfo ) {
-        unidadeInfo.getLocais().removeIf( local -> local.getQuantidadeProjetosTotais() <= 0 );
+        unidadeInfo.getLocais().removeIf( local -> local.getProjetosTotais() <= 0 );
         return !unidadeInfo.getLocais().isEmpty();
     }
 
