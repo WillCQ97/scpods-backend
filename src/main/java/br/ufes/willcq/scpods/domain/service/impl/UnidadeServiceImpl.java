@@ -36,7 +36,7 @@ public class UnidadeServiceImpl implements UnidadeService {
         if( campus == null ) {
             return unidadeRepository.findAll().stream().map( this::mapUnidadeToUnidadeResponseDTO ).toList();
         }
-        return unidadeRepository.findByCampus( obterCampusEnum( campus ) ).stream().map( this::mapUnidadeToUnidadeResponseDTO ).toList();
+        return unidadeRepository.findByCampus( this.obterCampusEnum( campus ) ).stream().map( this::mapUnidadeToUnidadeResponseDTO ).toList();
     }
 
     @Override
