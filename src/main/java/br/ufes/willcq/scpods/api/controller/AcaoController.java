@@ -36,10 +36,12 @@ public class AcaoController {
     private ModelMapper modelMapper;
 
     @GetMapping
-    public List<AcaoResponseDTO> listarAcoes( @RequestParam( required = true ) Boolean aceito, @RequestParam( required = false ) String campus ) {
+    public List<AcaoResponseDTO> listarAcoes( @RequestParam( required = true ) Boolean aceito, @RequestParam( required = false ) String campus, @RequestParam( required = false ) String unidade ) {
 
-        if( campus == null ) {
+        if( campus == null && unidade == null ) {
             return this.mapAllToAcaoResponseDTO( service.listar( aceito ) );
+        } else if( unidade != null ) {
+            return this.mapAllToAcaoResponseDTO( service.listarPorUnidade( aceito, unidade ) );
         } else {
             return this.mapAllToAcaoResponseDTO( service.listarPorCampus( aceito, campus ) );
         }

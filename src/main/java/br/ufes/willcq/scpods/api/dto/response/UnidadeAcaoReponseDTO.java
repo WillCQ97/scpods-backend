@@ -14,5 +14,6 @@ public class UnidadeAcaoReponseDTO {
     private Long id;
     private String nome;
     private String campus;
+    private String codigo;
 
 }

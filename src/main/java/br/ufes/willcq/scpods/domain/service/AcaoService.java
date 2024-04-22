@@ -16,6 +16,8 @@ public interface AcaoService {
 
     public List<Acao> listarPorCampus( boolean aceito, String campus );
 
+    public List<Acao> listarPorUnidade( boolean aceito, String codigoUnidade );
+
     public Acao atualizar( Acao acao );
 
     public Acao salvar( Acao acao );
