@@ -16,7 +16,7 @@ import br.ufes.willcq.scpods.domain.model.enums.CampusEnum;
 import br.ufes.willcq.scpods.domain.service.UnidadeService;
 
 @RestController
-@RequestMapping( "/unidade" )
+@RequestMapping( "/unidades" )
 public class UnidadeController {
 
     @Autowired

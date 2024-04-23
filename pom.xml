@@ -15,7 +15,10 @@
     <name>CadastroProjetosODSBackend</name>
     <description>Backend do sistema para cadastro de projetos relacionados aos ODS na UFES.</description>
     <properties>
+        <modelmapper.version>3.0.0</modelmapper.version>
+        <jackson.version>2.14</jackson.version>
         <java.version>21</java.version>
+        <swagger.version>2.5.0</swagger.version>
     </properties>
     <dependencies>
 
@@ -24,7 +27,7 @@
         <dependency>
             <groupId>com.graphhopper.external</groupId>
             <artifactId>jackson-datatype-jts</artifactId>
-            <version>2.14</version>
+            <version>${jackson.version}</version>
         </dependency>
 
         <!-- Suport for spatial datatypes -->
@@ -51,7 +54,7 @@
         <dependency>
             <groupId>org.modelmapper</groupId>
             <artifactId>modelmapper</artifactId>
-            <version>3.0.0</version>
+            <version>${modelmapper.version}</version>
         </dependency>
 
         <!-- Suport for Java Persistence API -->
@@ -77,14 +80,11 @@
             <artifactId>spring-boot-starter-validation</artifactId>
         </dependency>
 
-        <!-- TODO: DEPENDÊNCIA PARA CRIAÇÃO DE DOCUMENTAÇÃO -->
-        <!-- 
-            <dependency>
-                <groupId>org.springdoc</groupId>
-        <artifactId>springdoc-openapi-ui</artifactId>
-                <version>${swagger.version}</version>
+        <dependency>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+            <version>${swagger.version}</version>
         </dependency>
-        -->
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
