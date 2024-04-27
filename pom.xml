@@ -22,6 +22,11 @@
     </properties>
     <dependencies>
 
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
+        </dependency>
+
         <!-- Add-on module for Jackson (http://jackson.codehaus.org) to support JTS geometry types
         using the GeoJSON standard. -->
         <dependency>
