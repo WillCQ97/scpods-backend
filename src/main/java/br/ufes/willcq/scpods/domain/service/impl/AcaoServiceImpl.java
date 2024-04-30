@@ -70,7 +70,30 @@ public class AcaoServiceImpl implements AcaoService {
             }
         }
 
-        return acoes.stream().filter( acao -> acao.getAceito().equals( aceito ) ).toList();
+        return unidades.stream()
+                .flatMap( unidade -> unidade.getLocais().stream() )
+                .flatMap( local -> local.getAcoes().stream() )
+                .filter( acao -> acao.getAceito().equals( aceito ) )
+                .toList();
+    }
+
+    public List<Acao> listarPorUnidade( boolean aceito, String codigoUnidade ) {
+
+        if( codigoUnidade == null || codigoUnidade.isBlank() ) {
+            throw new NegocioException( "O valor informado para o código da unidade é inválido" );
+        }
+
+        var optUnidade = unidadeRepository.findByCodigo( codigoUnidade.toUpperCase() );
+        if( optUnidade.isEmpty() ) {
+            throw new NegocioException( "Não há nenhuma unidade para o código informado" );
+        }
+
+        return optUnidade.get().getLocais()
+                .stream()
+                .flatMap( local -> local.getAcoes().stream() )
+                .filter( acao -> acao.getAceito().equals( aceito ) )
+                .toList();
+
     }
 
     @Override

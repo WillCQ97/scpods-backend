@@ -88,19 +88,19 @@ public class Local {
         return submissoes;
     }
 
-    public Long getQuantidadeProjetosTotais() {
+    public Long getProjetosTotais() {
         return Long.valueOf( this.getAcoesAceitas().size() );
     }
 
-    public Long getQuantidadeProjetosAtivos() {
+    public Long getProjetosAtivos() {
         return this.getAcoesAceitas().stream().filter( acao -> acao.getDataEncerramento() == null ).count();
     }
 
-    public Long getQuantidadeObjetivosAtendidos() {
+    public Long getObjetivosAtendidos() {
         return this.getAcoesAceitas().stream().map( acao -> acao.getIdObjetivo() ).distinct().count();
     }
 
-    public Long getIdObjetivoMaisAtendido() {
+    public Long getIdObjetivoComMaisProjetos() {
         var contagemAcoes = this.getAcoesAceitas().stream().map( acao -> acao.getIdObjetivo() ).collect( Collectors.groupingBy( e -> e, Collectors.counting() ) );
         var idOdsMaisAtendido = contagemAcoes.entrySet().stream().max( Map.Entry.comparingByValue() );
 

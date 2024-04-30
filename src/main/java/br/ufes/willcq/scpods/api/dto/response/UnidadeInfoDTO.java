@@ -15,6 +15,8 @@ public class UnidadeInfoDTO {
 
     private Long id;
     private String nome;
+    private String codigo;
+    private String campus;
 
     private List<LocalInfoDTO> locais;
 }
