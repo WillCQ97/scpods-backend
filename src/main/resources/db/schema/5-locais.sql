@@ -279,4 +279,5 @@ VALUES
     (275, 'Laboratórios', 'SRID=4326;POINT (-41.389117244543286 -20.79093222343185)'::public.geography, 6, 13, NULL, NULL, 4, 'jeronimo_monteiro.json'),
     (276, 'Predio Madeira', 'SRID=4326;POINT (-41.38866001730505 -20.7912065917532)'::public.geography, 6, 14, NULL, NULL, 4, 'jeronimo_monteiro.json'),
     (277, 'Refeitório', 'SRID=4326;POINT (-41.388824746409995 -20.791449532916214)'::public.geography, 6, 15, NULL, NULL, 4, 'jeronimo_monteiro.json'),
-    (278, 'Vestiário / Almoxarifado', 'SRID=4326;POINT (-41.388558356919376 -20.79018758698946)'::public.geography, 6, 16, NULL, NULL, 4, 'jeronimo_monteiro.json');
+    (278, 'Vestiário / Almoxarifado', 'SRID=4326;POINT (-41.388558356919376 -20.79018758698946)'::public.geography, 6, 16, NULL, NULL, 4, 'jeronimo_monteiro.json')
+;
