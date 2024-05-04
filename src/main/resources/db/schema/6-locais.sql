@@ -1,4 +1,5 @@
--- CONTEÚDO IMPORTADO DOS JSONS
+-- CONTEÚDO IMPORTADO DOS JSONS (https://mapa.ufes.br/)
+
 INSERT INTO public.tb_locais
     (id, nome_principal, localizacao, id_unidade, idd, nome_secundario, nome_terciario, zona, filename)
 VALUES
