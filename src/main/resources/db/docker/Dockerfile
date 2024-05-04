@@ -6,4 +6,4 @@ FROM docker.io/postgis/postgis:16-3.4
 ENV POSTGRES_PASSWORD admin.123
 ENV POSTGRES_DB acoes_db
 
-COPY ./data/dump-acoes_db.sql /docker-entrypoint-initdb.d/
+COPY ./data/acoes_db-dump.sql /docker-entrypoint-initdb.d/
