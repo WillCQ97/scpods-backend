@@ -10,6 +10,7 @@
   - OS debian:bullseye
   - Postgres 16
   - PostGIS 3.4.2
+- Abaixo estão definidos alguns comandos para referência.
 
 ### Execução do container com podman no linux
 
@@ -45,11 +46,17 @@ docker run -d `
 podman exec postgis_ods pg_dump -U postgres -h localhost acoes_db > src/main/resources/db/docker/acoes_db-dump.sql
 
 # Passos intermediarios (cópia do arquivo para dentro do container e execução do shell no container)
-podman cp src/main/resources/db/docker/acoes_db-dump.sql postgis_ods:/
+podman cp ./src/main/resources/db/docker/acoes_db-dump.sql postgis_ods:/
 podman exec -it postgis_ods bash
 
 # Restore a partir do arquivo sql
 # Segundo a documentação o arquivo de texto gerado pelo pg_dump deve ser restaurado usando psql
 # https://www.postgresql.org/docs/8.1/backup.html
 psql -Upostgres acoes_db < acoes_db-dump.sql
+```
+
+### Criação de um container com banco pré-populado
+
+```bash
+docker build -t willcq/postgis-ods-db -f ./src/main/resources/db/docker/Dockerfile
 ```
