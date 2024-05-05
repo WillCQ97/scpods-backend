@@ -1,3 +1,4 @@
+# todo: FINALIZAR A CRIAÇÃO DO DEPLOY VIA CONTAINER
 FROM docker.io/openjdk:21-jdk-bullseye
 MAINTAINER WillCQ97
 

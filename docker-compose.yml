@@ -1,3 +1,4 @@
+# todo: FINALIZAR A CRIAÇÃO DO DEPLOY VIA CONTAINER
 version: "2"
 services:
   scpods-backend:
