@@ -58,5 +58,12 @@ psql -Upostgres acoes_db < acoes_db-dump.sql
 ### Criação de um container com banco pré-populado
 
 ```bash
-docker build -t willcq/postgis-ods-db -f ./src/main/resources/db/docker/Dockerfile
+cd ./src/main/resources/db/docker
+docker build -t willcq97/postgis-ods-db:latest .
+```
+
+## Criação de um container com a aplicação
+
+```bash
+docker build -t willcq97/scpods-backend:latest -f ./Dockerfile .
 ```
