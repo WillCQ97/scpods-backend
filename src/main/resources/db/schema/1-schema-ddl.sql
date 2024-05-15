@@ -1,20 +1,3 @@
--- public.spatial_ref_sys definition
-
--- Drop table
-
--- DROP TABLE public.spatial_ref_sys;
-
-CREATE TABLE public.spatial_ref_sys (
-    srid int4 NOT NULL,
-    auth_name varchar(256) NULL,
-    auth_srid int4 NULL,
-    srtext varchar(2048) NULL,
-    proj4text varchar(2048) NULL,
-    CONSTRAINT spatial_ref_sys_pkey PRIMARY KEY (srid),
-    CONSTRAINT spatial_ref_sys_srid_check CHECK (((srid > 0) AND (srid <= 998999)))
-);
-
-
 -- public.tb_coordenadores definition
 
 -- Drop table
@@ -70,7 +53,9 @@ CREATE TABLE public.tb_unidades (
     id serial4 NOT NULL,
     nome varchar NOT NULL,
     campus varchar NOT NULL,
-    CONSTRAINT tb_unidades_pk PRIMARY KEY (id)
+    codigo varchar NOT NULL,
+    CONSTRAINT tb_unidades_pk PRIMARY KEY (id),
+    CONSTRAINT tb_unidades_unique UNIQUE (codigo)
 );
 
 

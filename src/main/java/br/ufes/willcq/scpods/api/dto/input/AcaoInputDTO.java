@@ -25,10 +25,10 @@ public class AcaoInputDTO {
     @JsonFormat( pattern = "dd/MM/yyyy" )
     private LocalDate dataEncerramento;
 
-    private MetaInputDTO meta;
-    private LocalInputDTO local;
+    private String metaId;
+    private Long localId;
 
     private CoordenadorInputDTO coordenador;
-    private LotacaoInputDTO lotacao;
+    private Long lotacaoId;
 
 }

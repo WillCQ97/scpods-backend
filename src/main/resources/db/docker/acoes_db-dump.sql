@@ -2,8 +2,8 @@
 -- PostgreSQL database dump
 --
 
--- Dumped from database version 15.1 (Debian 15.1-1.pgdg110+1)
--- Dumped by pg_dump version 15.1 (Debian 15.1-1.pgdg110+1)
+-- Dumped from database version 16.2 (Debian 16.2-1.pgdg110+2)
+-- Dumped by pg_dump version 16.2 (Debian 16.2-1.pgdg110+2)
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -48,7 +48,8 @@ CREATE TABLE public.tb_acoes (
     dt_encerramento date,
     fl_aceito boolean NOT NULL,
     dt_cadastro date NOT NULL,
-    id_local bigint NOT NULL
+    id_local bigint NOT NULL,
+    id_lotacao bigint NOT NULL
 );
 
 
@@ -67,49 +68,13 @@ CREATE SEQUENCE public.tb_acoes_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.tb_acoes_id_seq OWNER TO postgres;
+ALTER SEQUENCE public.tb_acoes_id_seq OWNER TO postgres;
 
 --
 -- Name: tb_acoes_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
 ALTER SEQUENCE public.tb_acoes_id_seq OWNED BY public.tb_acoes.id;
-
-
---
--- Name: tb_centros; Type: TABLE; Schema: public; Owner: postgres
---
-
-CREATE TABLE public.tb_centros (
-    id integer NOT NULL,
-    nome character varying NOT NULL,
-    sigla character varying NOT NULL,
-    campus character varying NOT NULL
-);
-
-
-ALTER TABLE public.tb_centros OWNER TO postgres;
-
---
--- Name: tb_centros_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
---
-
-CREATE SEQUENCE public.tb_centros_id_seq
-    AS integer
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
-ALTER TABLE public.tb_centros_id_seq OWNER TO postgres;
-
---
--- Name: tb_centros_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
---
-
-ALTER SEQUENCE public.tb_centros_id_seq OWNED BY public.tb_centros.id;
 
 
 --
@@ -140,7 +105,7 @@ CREATE SEQUENCE public.tb_coordenadores_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.tb_coordenadores_id_seq OWNER TO postgres;
+ALTER SEQUENCE public.tb_coordenadores_id_seq OWNER TO postgres;
 
 --
 -- Name: tb_coordenadores_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
@@ -158,11 +123,11 @@ CREATE TABLE public.tb_locais (
     nome_principal character varying NOT NULL,
     localizacao public.geography(Point,4326) NOT NULL,
     id_unidade integer NOT NULL,
-    idd integer,
+    idd integer NOT NULL,
     nome_secundario character varying,
     nome_terciario character varying,
     zona integer,
-    filename character varying
+    filename character varying NOT NULL
 );
 
 
@@ -181,13 +146,49 @@ CREATE SEQUENCE public.tb_locais_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.tb_locais_id_seq OWNER TO postgres;
+ALTER SEQUENCE public.tb_locais_id_seq OWNER TO postgres;
 
 --
 -- Name: tb_locais_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
 ALTER SEQUENCE public.tb_locais_id_seq OWNED BY public.tb_locais.id;
+
+
+--
+-- Name: tb_lotacoes; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.tb_lotacoes (
+    id integer NOT NULL,
+    descricao character varying NOT NULL,
+    sigla character varying,
+    campus character varying
+);
+
+
+ALTER TABLE public.tb_lotacoes OWNER TO postgres;
+
+--
+-- Name: tb_lotacoes_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.tb_lotacoes_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER SEQUENCE public.tb_lotacoes_id_seq OWNER TO postgres;
+
+--
+-- Name: tb_lotacoes_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.tb_lotacoes_id_seq OWNED BY public.tb_lotacoes.id;
 
 
 --
@@ -223,7 +224,8 @@ ALTER TABLE public.tb_objetivos OWNER TO postgres;
 CREATE TABLE public.tb_unidades (
     id integer NOT NULL,
     nome character varying NOT NULL,
-    campus character varying NOT NULL
+    campus character varying NOT NULL,
+    codigo character varying NOT NULL
 );
 
 
@@ -242,7 +244,7 @@ CREATE SEQUENCE public.tb_unidades_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.tb_unidades_id_seq OWNER TO postgres;
+ALTER SEQUENCE public.tb_unidades_id_seq OWNER TO postgres;
 
 --
 -- Name: tb_unidades_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
@@ -259,13 +261,6 @@ ALTER TABLE ONLY public.tb_acoes ALTER COLUMN id SET DEFAULT nextval('public.tb_
 
 
 --
--- Name: tb_centros id; Type: DEFAULT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY public.tb_centros ALTER COLUMN id SET DEFAULT nextval('public.tb_centros_id_seq'::regclass);
-
-
---
 -- Name: tb_coordenadores id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -277,6 +272,13 @@ ALTER TABLE ONLY public.tb_coordenadores ALTER COLUMN id SET DEFAULT nextval('pu
 --
 
 ALTER TABLE ONLY public.tb_locais ALTER COLUMN id SET DEFAULT nextval('public.tb_locais_id_seq'::regclass);
+
+
+--
+-- Name: tb_lotacoes id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.tb_lotacoes ALTER COLUMN id SET DEFAULT nextval('public.tb_lotacoes_id_seq'::regclass);
 
 
 --
@@ -298,32 +300,25 @@ COPY public.spatial_ref_sys (srid, auth_name, auth_srid, srtext, proj4text) FROM
 -- Data for Name: tb_acoes; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public.tb_acoes (id, id_meta, id_coordenador, titulo, descricao, dt_inicio, dt_encerramento, fl_aceito, dt_cadastro, id_local) FROM stdin;
-1	3.3	3	Máscaras Solidárias em Alegre	Produção de aproximadamente 5 mil máscaras a partir de materiais recomendados pelo Ministério da Saúde para posterior distribuição no município.	2021-01-01	\N	t	2023-01-12	8
-2	8.2	4	Desenvolvimento do Polo de Fruticultura da Região do Caparaó	Visa contribuir para a diversificação da produção agrícola gerando novas fontes de renda, e consequentemente, melhoria socioeconômica da população envolvida.	2021-01-01	\N	t	2023-01-12	22
-3	2.4	1	Produção de Mudas de Cana-de-açúcar	Promove a distribuição dessas mudas para auxiliar pequenos produtores rurais da região sul do Espírito Santo. Os pesquisadores testam as variedades por, pelo menos, três anos e depois fazem a distribuição das melhores unidades, que são as consideradas como mais produtivas, resistentes e fáceis de manipular.	2021-01-01	\N	t	2023-01-12	22
-4	3.3	2	Produção de álcool 70 em solução e gel para o campus de Alegre da UFES e para a secretaria municipal de saúde	Realiza a produção e doação de álcool para o combate a pandemia de COVID-19 na universidade e no município.	2021-01-01	\N	t	2023-01-12	8
-5	3.3	16	GEOCOVID-ES: Monitoramento da Covid-19 através de mapas diários automatizados	Geração de Mapas Diários de Risco de Contaminação por COVID-19 para o Espírito Santo e a Incerteza Associada ao Risco	2020-06-01	2021-06-01	f	2023-11-09	9
-6	3.3	17	Lorem Ipsum	Lorem ipsum dolor sit amet consectetur, adipisicing elit. Tempore assumenda eius, quisquam perspiciatis est, sit voluptatibus facilis aperiam omnis sint magni earum dolore repellendus blanditiis nostrum quos incidunt.	2020-06-01	2021-06-01	f	2023-11-10	9
-\.
-
-
---
--- Data for Name: tb_centros; Type: TABLE DATA; Schema: public; Owner: postgres
---
-
-COPY public.tb_centros (id, nome, sigla, campus) FROM stdin;
-1	Centro de Ciências Agrárias e Engenharias	CCAE	ALEGRE
-2	Centro de Ciências Exatas, Naturais e da Saúde	CCENS	ALEGRE
-3	Centro Universitário Norte do Espírito Santo	Ceunes	SAO_MATEUS
-4	Centro de Ciências da Saúde	CCS	MARUIPE
-5	Centro de Artes	CAr	GOIABEIRAS
-6	Centro de Ciências Exatas	CCE	GOIABEIRAS
-7	Centro de Ciências Humanas e Naturais	CCHN	GOIABEIRAS
-8	Centro de Ciências Jurídicas e Econômicas	CCJE	GOIABEIRAS
-9	Centro de Educação	CE	GOIABEIRAS
-10	Centro de Educação Física e Desportos	CEFD	GOIABEIRAS
-11	Centro Tecnológico	CT	GOIABEIRAS
+COPY public.tb_acoes (id, id_meta, id_coordenador, titulo, descricao, dt_inicio, dt_encerramento, fl_aceito, dt_cadastro, id_local, id_lotacao) FROM stdin;
+1	2.4	1	Produção de Mudas de Cana-de-açúcar	Promove a distribuição dessas mudas para auxiliar pequenos produtores rurais da região sul do Espírito Santo. Os pesquisadores testam as variedades por, pelo menos, três anos e depois fazem a distribuição das melhores unidades, que são as consideradas como mais produtivas, resistentes e fáceis de manipular.	2021-01-01	\N	t	2023-01-12	22	1
+2	3.3	2	Produção de álcool 70 em solução e gel para o campus de Alegre da UFES e para a secretaria municipal de saúde	Realiza a produção e doação de álcool para o combate a pandemia de COVID-19 na universidade e no município.	2021-01-01	\N	t	2023-01-12	8	2
+3	3.3	3	Máscaras Solidárias em Alegre	Produção de aproximadamente 5 mil máscaras a partir de materiais recomendados pelo Ministério da Saúde para posterior distribuição no município.	2021-01-01	\N	t	2023-01-12	8	2
+4	8.2	4	Desenvolvimento do Polo de Fruticultura da Região do Caparaó	Visa contribuir para a diversificação da produção agrícola gerando novas fontes de renda, e consequentemente, melhoria socioeconômica da população envolvida.	2021-01-01	\N	t	2023-01-12	22	1
+5	3.3	5	GEOCOVID-ES: Monitoramento da Covid-19 através de mapas diários automatizados	Geração de Mapas Diários de Risco de Contaminação por COVID-19 para o Espírito Santo e a Incerteza Associada ao Risco	2020-06-01	2021-06-01	f	2023-11-09	9	1
+6	6.1	6	Exemplo de Acao para Alegre I	Departamento de Computação	2023-02-01	\N	t	2024-05-31	19	2
+7	11.5	7	Exemplo de Acao para Alegre II	Departamento de Geologia	2023-07-03	\N	t	2024-04-30	9	2
+8	12.1	8	Exemplo de Acao para Rive, em Alegre	HOVET	2023-02-02	\N	t	2024-03-30	249	1
+9	13.3	9	Exemplo de Acao para Jerônimo Monteiro	Município de Jerônimo, mas pertence a Alegre	2023-01-17	\N	t	2024-03-30	271	1
+10	14.4	10	Exemplo de Ação para Goiabeiras	Goiabeiras é a Sede em Vitória	2023-12-23	\N	t	2024-03-30	78	7
+11	9.1	11	Exemplo de Ação para Maruípe	Aqui fica o famigerado Hospital da UFES	2023-08-25	\N	t	2024-03-30	178	12
+12	9.5	12	Exemplo de Ação para São Mateus	Winter is comming	2023-10-13	\N	t	2024-03-30	226	13
+13	16.3	13	Exemplo de SUBMISSÃO para MARUÍPE	Aqui fica o famigerado Hospital da UFES	2023-04-05	\N	f	2024-04-27	178	13
+14	17.4	14	Exemplo de SUBMISSÃO para ALEGRE	Lorem ipsum dolor sit amet, consectetur adipiscing elit.	2023-12-03	\N	t	2024-04-27	2	2
+15	15.4	15	Exemplo de SUBMISSÃO para GOIABEIRAS	Duis dictum ultrices risus et mollis.	2019-11-19	\N	f	2024-04-27	84	11
+16	1.1	16	Exemplo de SUBMISSÃO para SÃO MATEUS	Phasellus posuere ex magna, non pulvinar nisi laoreet vel.	2022-05-05	2024-11-19	f	2024-05-01	225	13
+17	7.3	17	Exemplo de SUBMISSÃO para RIVE	Pellentesque ut mauris eget tellus placerat fringilla.	2022-03-19	2024-11-19	f	2024-05-01	250	13
+18	7.3	18	Exemplo de SUBMISSÃO para JERÔNIMO	Aliquam erat volutpat. Nullam viverra ipsum vel orci tempor molestie.	2022-06-16	2024-11-19	f	2024-05-01	267	13
 \.
 
 
@@ -336,8 +331,20 @@ COPY public.tb_coordenadores (id, nome, tipo_vinculo, ds_vinculo, email) FROM st
 2	Janaina Cecília Oliveira Villanova	PROFESSOR	\N	\N
 3	Juliana Severi	PROFESSOR	\N	\N
 4	Dirceu Pratissoli	PROFESSOR	\N	\N
-16	Fabricia Benda de Oliveira	PROFESSOR	\N	fabricia.oliveira@ufes.br
-17	Fabricia Benda de Oliveira	PROFESSOR	\N	fabricia.oliveira@ufes.br
+5	Fabricia Benda de Oliveira	PROFESSOR	\N	fabricia.oliveira@ufes.br
+6	Mario Novo CTO	ALUNO_GRADUACAO	\N	ribeirinho@email.com
+7	Antonella Manuela Nina Cavalcanti	ALUNO_POS	\N	antonella.manuela.cavalcanti@trt15.jus.br
+8	Benjamin Yago Almada	ALUNO_POS	\N	benjamin-almada86@eletrovip.com
+9	Anthony Benício Mendes	OUTRO	Voluntário Exemplo	anthonybeniciomendes@navescorat.com.br
+10	Manoel Luiz Rocha	TECNICO_ADM	\N	manoel.luiz.rocha@quarttus.com.br
+11	Cecília Sabrina da Luz	ALUNO_GRADUACAO	\N	cecilia.sabrina.daluz@digen.com.br
+12	Benício Benedito Sales	ALUNO_GRADUACAO	\N	benicio_benedito_sales@tjsp.jus.br
+13	Ryan Gabriel Barbosa	TECNICO_ADM	\N	ryan_gabriel_barbosa@molsanto.com
+14	Joaquim Igor Yuri Novaes	ALUNO_GRADUACAO	\N	joaquim_igor_novaes@id.uff.br
+15	Benício Elias Fernandes	OUTRO	Vínculo Exemplo 2	benicio_elias_fernandes@hotmail.co.uk
+16	Clara Heloise Cavalcanti	ALUNO_POS	\N	clara.heloise.cavalcanti@astconsult.com.br
+17	Lara Carla Farias	ALUNO_POS	\N	lara_carla_farias@multieventos.art.br
+18	Laís Catarina da Costa	ALUNO_GRADUACAO	\N	lais_catarina_dacosta@me.com
 \.
 
 
@@ -628,6 +635,27 @@ COPY public.tb_locais (id, nome_principal, localizacao, id_unidade, idd, nome_se
 
 
 --
+-- Data for Name: tb_lotacoes; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.tb_lotacoes (id, descricao, sigla, campus) FROM stdin;
+1	Centro de Ciências Agrárias e Engenharias	CCAE	ALEGRE
+2	Centro de Ciências Exatas, Naturais e da Saúde	CCENS	ALEGRE
+3	Centro Universitário Norte do Espírito Santo	Ceunes	SAO_MATEUS
+4	Centro de Ciências da Saúde	CCS	MARUIPE
+5	Centro de Artes	CAr	GOIABEIRAS
+6	Centro de Ciências Exatas	CCE	GOIABEIRAS
+7	Centro de Ciências Humanas e Naturais	CCHN	GOIABEIRAS
+8	Centro de Ciências Jurídicas e Econômicas	CCJE	GOIABEIRAS
+9	Centro de Educação	CE	GOIABEIRAS
+10	Centro de Educação Física e Desportos	CEFD	GOIABEIRAS
+11	Centro Tecnológico	CT	GOIABEIRAS
+12	Hospital Universitário Cassiano Antônio Moraes	Hucam	MARUIPE
+13	Reitoria (incluindo Pró-Reitorias, Secretarias, Superintendências, Institutos, Bibliotecas, etc.)	Reitoria	\N
+\.
+
+
+--
 -- Data for Name: tb_metas; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
@@ -833,15 +861,15 @@ COPY public.tb_objetivos (id, titulo, descricao) FROM stdin;
 -- Data for Name: tb_unidades; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY public.tb_unidades (id, nome, campus) FROM stdin;
-6	Unidade em Jerônimo Monteiro	ALEGRE
-5	Área Experimental em Rive, Alegre	ALEGRE
-7	Área Experimental em Jerônimo Monteiro	ALEGRE
-2	Goiabeiras	GOIABEIRAS
-3	Maruípe	MARUIPE
-4	São Mateus	SAO_MATEUS
-1	Campus Sede em Alegre	ALEGRE
-8	Área Experimental em São José do Calçado	ALEGRE
+COPY public.tb_unidades (id, nome, campus, codigo) FROM stdin;
+1	Campus de Alegre	ALEGRE	UN_ALEGRE
+2	Campus de Goiabeiras	GOIABEIRAS	UN_GOIABEIRAS
+3	Campus de Maruípe	MARUIPE	UN_MARUIPE
+4	Campus de São Mateus	SAO_MATEUS	UN_SAO_MATEUS
+5	Área Experimental em Rive, Alegre	ALEGRE	EXP_RIVE
+6	Unidade em Jerônimo Monteiro	ALEGRE	UN_JERONIMO
+7	Área Experimental em Jerônimo Monteiro	ALEGRE	EXP_JERONIMO
+8	Área Experimental em São José do Calçado	ALEGRE	EXP_SAO_JOSE
 \.
 
 
@@ -849,21 +877,14 @@ COPY public.tb_unidades (id, nome, campus) FROM stdin;
 -- Name: tb_acoes_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.tb_acoes_id_seq', 6, true);
-
-
---
--- Name: tb_centros_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
---
-
-SELECT pg_catalog.setval('public.tb_centros_id_seq', 11, true);
+SELECT pg_catalog.setval('public.tb_acoes_id_seq', 18, true);
 
 
 --
 -- Name: tb_coordenadores_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.tb_coordenadores_id_seq', 17, true);
+SELECT pg_catalog.setval('public.tb_coordenadores_id_seq', 19, true);
 
 
 --
@@ -874,10 +895,17 @@ SELECT pg_catalog.setval('public.tb_locais_id_seq', 278, true);
 
 
 --
+-- Name: tb_lotacoes_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.tb_lotacoes_id_seq', 13, true);
+
+
+--
 -- Name: tb_unidades_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public.tb_unidades_id_seq', 1, false);
+SELECT pg_catalog.setval('public.tb_unidades_id_seq', 8, true);
 
 
 --
@@ -886,14 +914,6 @@ SELECT pg_catalog.setval('public.tb_unidades_id_seq', 1, false);
 
 ALTER TABLE ONLY public.tb_acoes
     ADD CONSTRAINT tb_acoes_pk PRIMARY KEY (id);
-
-
---
--- Name: tb_centros tb_centros_pk; Type: CONSTRAINT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY public.tb_centros
-    ADD CONSTRAINT tb_centros_pk PRIMARY KEY (id);
 
 
 --
@@ -910,6 +930,14 @@ ALTER TABLE ONLY public.tb_coordenadores
 
 ALTER TABLE ONLY public.tb_locais
     ADD CONSTRAINT tb_locais_pk PRIMARY KEY (id);
+
+
+--
+-- Name: tb_lotacoes tb_lotacoes_pk; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.tb_lotacoes
+    ADD CONSTRAINT tb_lotacoes_pk PRIMARY KEY (id);
 
 
 --
@@ -937,6 +965,14 @@ ALTER TABLE ONLY public.tb_unidades
 
 
 --
+-- Name: tb_unidades tb_unidades_unique; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.tb_unidades
+    ADD CONSTRAINT tb_unidades_unique UNIQUE (codigo);
+
+
+--
 -- Name: tb_acoes tb_acoes_fk_coordenadores; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -945,11 +981,19 @@ ALTER TABLE ONLY public.tb_acoes
 
 
 --
+-- Name: tb_acoes tb_acoes_fk_locais; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.tb_acoes
+    ADD CONSTRAINT tb_acoes_fk_locais FOREIGN KEY (id_local) REFERENCES public.tb_locais(id);
+
+
+--
 -- Name: tb_acoes tb_acoes_fk_lotacoes; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
 ALTER TABLE ONLY public.tb_acoes
-    ADD CONSTRAINT tb_acoes_fk_lotacoes FOREIGN KEY (id_local) REFERENCES public.tb_locais(id);
+    ADD CONSTRAINT tb_acoes_fk_lotacoes FOREIGN KEY (id_lotacao) REFERENCES public.tb_lotacoes(id);
 
 
 --
