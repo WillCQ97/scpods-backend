@@ -436,7 +436,7 @@
 								},
 								{
 									"key": "password",
-									"value": "{{USER_PASSOWORD}}",
+									"value": "{{USER_PASSWORD}}",
 									"type": "text"
 								},
 								{
@@ -502,12 +502,12 @@
 			"type": "string"
 		},
 		{
-			"key": "USER_PASSOWORD",
+			"key": "USER_PASSWORD",
 			"value": "SENHA"
 		},
 		{
 			"key": "USER_LOGIN",
-			"value": "16260866720"
+			"value": "CPF_USUARIO"
 		}
 	]
 }
