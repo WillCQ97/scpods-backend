@@ -1,0 +1,513 @@
+{
+	"info": {
+		"_postman_id": "9b0723db-c840-4d70-b2a7-fdb9c5295e18",
+		"name": "Ações ODS",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "23761579"
+	},
+	"item": [
+		{
+			"name": "Objetivos e Metas",
+			"item": [
+				{
+					"name": "Listar todos objetivos",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{LINK_API}}/objetivos",
+							"host": [
+								"{{LINK_API}}"
+							],
+							"path": [
+								"objetivos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Buscar objetivo pelo código",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{LINK_API}}/objetivos/3",
+							"host": [
+								"{{LINK_API}}"
+							],
+							"path": [
+								"objetivos",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Buscar meta pelo código",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{LINK_API}}/objetivos/metas/1.a",
+							"host": [
+								"{{LINK_API}}"
+							],
+							"path": [
+								"objetivos",
+								"metas",
+								"1.a"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Unidades",
+			"item": [
+				{
+					"name": "Obter opções de campus",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{LINK_API}}/unidades/opcoes-campus",
+							"host": [
+								"{{LINK_API}}"
+							],
+							"path": [
+								"unidades",
+								"opcoes-campus"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obter unidades por campus",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{LINK_API}}/unidades",
+							"host": [
+								"{{LINK_API}}"
+							],
+							"path": [
+								"unidades"
+							],
+							"query": [
+								{
+									"key": "campus",
+									"value": "maruipe",
+									"disabled": true
+								},
+								{
+									"key": "campus",
+									"value": "alegre",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obter contabilizações por unidade",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{LINK_API}}/unidades/un_goiabeiras/info",
+							"host": [
+								"{{LINK_API}}"
+							],
+							"path": [
+								"unidades",
+								"un_goiabeiras",
+								"info"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Obter contabilizações para as unidades de um campus",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{LINK_API}}/unidades/info?campus=goiabeiras",
+							"host": [
+								"{{LINK_API}}"
+							],
+							"path": [
+								"unidades",
+								"info"
+							],
+							"query": [
+								{
+									"key": "campus",
+									"value": "goiabeiras"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Ações",
+			"item": [
+				{
+					"name": "Listagens",
+					"item": [
+						{
+							"name": "Listar todas ações aceitas",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{LINK_API}}/acoes?aceito=true",
+									"host": [
+										"{{LINK_API}}"
+									],
+									"path": [
+										"acoes"
+									],
+									"query": [
+										{
+											"key": "aceito",
+											"value": "true"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Listar todas ações submetidas",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{LINK_API}}/acoes?aceito=false",
+									"host": [
+										"{{LINK_API}}"
+									],
+									"path": [
+										"acoes"
+									],
+									"query": [
+										{
+											"key": "aceito",
+											"value": "false"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Listar ações aceitas por campus ou unidade",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{LINK_API}}/acoes?campus=alegre&aceito=true",
+									"host": [
+										"{{LINK_API}}"
+									],
+									"path": [
+										"acoes"
+									],
+									"query": [
+										{
+											"key": "campus",
+											"value": "alegre"
+										},
+										{
+											"key": "aceito",
+											"value": "true"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Listar ações submetidas por campus",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{LINK_API}}/acoes?campus=alegre&aceito=false",
+									"host": [
+										"{{LINK_API}}"
+									],
+									"path": [
+										"acoes"
+									],
+									"query": [
+										{
+											"key": "campus",
+											"value": "alegre"
+										},
+										{
+											"key": "aceito",
+											"value": "false"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Buscar ação pelo id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{LINK_API}}/acoes/9",
+							"host": [
+								"{{LINK_API}}"
+							],
+							"path": [
+								"acoes",
+								"9"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Incluir ação",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"titulo\": \"Exemplo de SUBMISSÃO para JERÔNIMO\",\n    \"descricao\": \"Lorem ipsum\",\n    \"dataCadastro\": \"30/03/2024\",\n    \"dataInicio\": \"19/11/2023\",\n    \"dataEncerramento\": \"19/11/2024\",\n    \"coordenador\": {\n        \"nome\": \"Mario Novo CTO\",\n        \"email\": \"ribeirinho@email.com\",\n        \"tipoVinculo\": \"ALUNO_GRADUACAO\"\n    },\n    \"metaId\": 58,\n    \"localId\": 267,\n    \"lotacaoId\": 13\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{LINK_API}}/acoes",
+							"host": [
+								"{{LINK_API}}"
+							],
+							"path": [
+								"acoes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Atualizar ação",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"titulo\": \"Exemplo de SUBMISSÃO para JERÔNIMO\",\n    \"descricao\": \"Lorem ipsum dolor sit amet\",\n    \"dataCadastro\": \"30/03/2024\",\n    \"dataInicio\": \"19/11/2023\",\n    \"dataEncerramento\": \"19/11/2024\",\n    \"coordenador\": {\n        \"id\": 18,\n        \"nome\": \"Mario Novo CTO\",\n        \"email\": \"ribeirinho@email.com\",\n        \"tipoVinculo\": \"ALUNO_GRADUACAO\"\n    },\n    \"metaId\": 58,\n    \"localId\": 267,\n    \"lotacaoId\": 13\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{LINK_API}}/acoes/18",
+							"host": [
+								"{{LINK_API}}"
+							],
+							"path": [
+								"acoes",
+								"18"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Aceitar submissão",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "id",
+								"value": "10",
+								"uuid": "869558fc-7a89-4790-b8a9-e4ff123bafaa"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{LINK_API}}/acoes/aceitar?id=18",
+							"host": [
+								"{{LINK_API}}"
+							],
+							"path": [
+								"acoes",
+								"aceitar"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "18"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Recusar submissão",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{LINK_API}}/acoes/18",
+							"host": [
+								"{{LINK_API}}"
+							],
+							"path": [
+								"acoes",
+								"18"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Usuario",
+			"item": [
+				{
+					"name": "GetLogin",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://acesso.ufes.br/login",
+							"protocol": "https",
+							"host": [
+								"acesso",
+								"ufes",
+								"br"
+							],
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "loginUFES",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "username",
+									"value": "{{USER_LOGIN}}",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "{{USER_PASSOWORD}}",
+									"type": "text"
+								},
+								{
+									"key": "_eventId",
+									"value": "submit",
+									"type": "text"
+								},
+								{
+									"key": "execution",
+									"value": "b1137da5-629c-42b8-be35-e248d7efc431_ZXlKaGJHY2lPaUpJVXpVeE1pSXNJblI1Y0NJNklrcFhWQ0lzSW10cFpDSTZJbVU0WXpKa05qRmpMVEE1Tm1JdE5HTmpaQzA1TmpBekxURTBNVGhtTVRrellUUmpOaUo5LndHZ0htczJFSXBfWXBVX2RKWk1jR2cybXJSYUN2UEF6TTRHcThvdlh4UHY3aWRfMDdnN1d0dGRvV1Y1WFBNZnlqWmxRTGNIbnVtcExVVm5Ca3I2Z29nQ0hKTjZZNVF3VTBKa2VnY1lzT2xjSDJ6dlF5LTBSQzRLdjFoR2tDaEh0VEdhZE9BSXJmMU1mQ3N3RUhZSzhudWluYVlkU00zS2RSSTZsUHBlLWhSWW1CMGxOT1FFRktXZko1NDRuTjJmOVE3dDdHSTJDamVoTUJUX1J1OS1ZRmljV1hSTzUzXzFlVzBNYXZuNzlEUTJBWWpJVFZvX1pTZHV0blRNMFBlSmxybGRtUjVkeFJtQkxGNS0zd0plRThCTU5qR2dXa2todHh6YUlvWGRxQVRFR2xUT0FrN3E4VjRoZFZzWUJ3U3h6dVdMbFBNMFk0cEwxZ2NKUHVBNFNseHhraFNYZ2xveS1sRkwxMjd5TVBrVXdwbG01azctczdzVURkdWFlWWNMdUxnanFHRGZaV0U0SXRISXdjMVVFT3RZU0FSdFdOZFZpWDlIZ3RwcG01cW0wczNpRVNEenNzakhDX3k3X0IzRmVCUXlxM2lFTmJhbjhsNkZtUEU2bXhIekJsTEctWXVQQmdXTUhBOUJXa1p5S2xfMjZzeENNOXh6ZWFNa3dOT01ILTQ1TTV2OW5CS2NlQ0djLTZtR21rNGhvbGNtNWhkelRnc0VvR1lYeU0xVmFrMGtSM3VGX0x5U2NGT0gtNE1wRDl0LVlkeU1TSVpLbEs3Wlo0cUxCQVlZdDFXb2JxUkU1VkxuRW5ZOW5xUzQ0eklCcEZFdFI3aGlhLUNCX3EzLWNLVzBXOVpYVDhhVDVuNlRtT1V0d3lxUHYwcUJtMW4xczJadko4Y1Q3YlRaX1lObS1DOXU1OHBacEk1UW51cV93X3k4RWtmM2JjMktZVW15YVc1MnNmUG9zQUF5aXZib3hfLUJZWUZOQWU1WWZfMFRhdFVYcDNFa2hDamR2VzBCOG1qcUMxVmJLM1dhaGZHWmFxZ1d0MDFBVE5RMjlQc1Y2emNmeWQtazR3ZmJHU19FOU9sNnJxTGFTQklEX0g0SndyaUJyZkpZZ0tyTk9mYkt6NVNOYmY2TXFmVWFweVRkQVhYVXVuY0ZMSjFDcVZQSl9Ec1lrNGllRkpZNE8xckRHSGRKc2NnQl8zR0NKalhFY1o4MGFpY3hHaGdTVnh2TjU4Ul9lNjBfV1pLZGlkMmk3bXZYazU1UmIyOTFabnpGcXozZE9nWFZWTXFTVk4tbW1JOVpRRDNKSFVENGUzLXFhZGJkS3ZwX2FRUVNZRWRaeTFUZm9Call3SFIwUUhEc0c5YUJibWl6VXpGb2Z5S3FTTjdVMmhsRUI1dWFyU0M3bl9Gb1huSGtxaGEtUVU2R2NmMXhWUWNXbWVOR0RMb3pBTUNsQmdSM1BwN1RJR0JGVGZiWkhkc3huTWswLnY0b2dmR1dMWXNDOXNWLUlkbWdvV2ctZ1ZQU2hFTUVjWnpNTFM1aURiNzZ5UmVXakZVSXRmeXhXandncWVOUVVfanRTd21mSnRlcG9Ma3hTQlctZ3J3",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "https://acesso.ufes.br/login",
+							"protocol": "https",
+							"host": [
+								"acesso",
+								"ufes",
+								"br"
+							],
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "BASE_URL",
+			"value": "http://localhost:8080",
+			"type": "string",
+			"disabled": true
+		},
+		{
+			"key": "LINK_API",
+			"value": "http://localhost:8080/acoes-ods/v1",
+			"type": "string"
+		},
+		{
+			"key": "USER_PASSOWORD",
+			"value": "SENHA"
+		},
+		{
+			"key": "USER_LOGIN",
+			"value": "16260866720"
+		}
+	]
+}
