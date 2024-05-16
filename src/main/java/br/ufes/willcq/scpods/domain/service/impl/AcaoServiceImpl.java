@@ -138,11 +138,9 @@ public class AcaoServiceImpl implements AcaoService {
 
         var optAcao = acaoRepository.findById( idAcao );
         if( optAcao.isPresent() ) {
+            acaoRepository.deleteById( idAcao );
             coordenadorRepository.deleteById( optAcao.get().getCoordenador().getId() );
         }
-
-        acaoRepository.deleteById( idAcao );
-
     }
 
     @Override
