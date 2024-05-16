@@ -34,10 +34,10 @@ public class ObjetivoController {
         return this.mapAllToObjetivoResponseDTO( objetivoRepository.findAll() );
     }
 
-    @GetMapping( "/{id}" )
-    public ResponseEntity<ObjetivoResponseDTO> buscarObjetivo( @PathVariable Long id ) {
+    @GetMapping( "/{codigo}" )
+    public ResponseEntity<ObjetivoResponseDTO> buscarObjetivo( @PathVariable String codigo ) {
 
-        var optObjetivo = objetivoRepository.findById( id );
+        var optObjetivo = objetivoRepository.findByCodigo( codigo );
 
         if( optObjetivo.isPresent() ) {
             return ResponseEntity.ok().body( modelMapper.map( optObjetivo.get(), ObjetivoResponseDTO.class ) );
@@ -45,10 +45,10 @@ public class ObjetivoController {
         return ResponseEntity.notFound().build();
     }
 
-    @GetMapping( "/metas/{id}" )
-    public ResponseEntity<MetaResponseDTO> buscarMeta( @PathVariable String id ) {
+    @GetMapping( "/metas/{codigo}" )
+    public ResponseEntity<MetaResponseDTO> buscarMeta( @PathVariable String codigo ) {
 
-        var optMeta = metaRepository.findById( id );
+        var optMeta = metaRepository.findByCodigo( codigo );
 
         if( optMeta.isPresent() ) {
             return ResponseEntity.ok().body( modelMapper.map( optMeta.get(), MetaResponseDTO.class ) );

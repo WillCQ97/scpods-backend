@@ -11,7 +11,8 @@ import lombok.Setter;
 @Setter
 public class MetaAcaoResponseDTO {
 
-    private String id;
+    private Long id;
+    private String codigo;
     private String descricao;
 
     private ObjetivoAcaoResponseDTO objetivo;

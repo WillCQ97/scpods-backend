@@ -5,7 +5,7 @@
 -- DROP TABLE public.tb_coordenadores;
 
 CREATE TABLE public.tb_coordenadores (
-    id serial4 NOT NULL,
+    id serial8 NOT NULL,
     nome varchar NOT NULL,
     tipo_vinculo varchar NOT NULL,
     ds_vinculo varchar NULL,
@@ -21,7 +21,7 @@ CREATE TABLE public.tb_coordenadores (
 -- DROP TABLE public.tb_lotacoes;
 
 CREATE TABLE public.tb_lotacoes (
-    id serial4 NOT NULL,
+    id serial8 NOT NULL,
     descricao varchar NOT NULL,
     sigla varchar NULL,
     campus varchar NULL,
@@ -36,10 +36,12 @@ CREATE TABLE public.tb_lotacoes (
 -- DROP TABLE public.tb_objetivos;
 
 CREATE TABLE public.tb_objetivos (
-    id int4 NOT NULL,
+    id int8 NOT NULL,
     titulo varchar NOT NULL,
     descricao varchar NOT NULL,
-    CONSTRAINT tb_objetivos_pk PRIMARY KEY (id)
+    codigo varchar NOT NULL,
+    CONSTRAINT tb_objetivos_pk PRIMARY KEY (id),
+    CONSTRAINT tb_objetivos_unique_codigo UNIQUE (codigo)
 );
 
 
@@ -50,7 +52,7 @@ CREATE TABLE public.tb_objetivos (
 -- DROP TABLE public.tb_unidades;
 
 CREATE TABLE public.tb_unidades (
-    id serial4 NOT NULL,
+    id serial8 NOT NULL,
     nome varchar NOT NULL,
     campus varchar NOT NULL,
     codigo varchar NOT NULL,
@@ -66,15 +68,15 @@ CREATE TABLE public.tb_unidades (
 -- DROP TABLE public.tb_locais;
 
 CREATE TABLE public.tb_locais (
-    id serial4 NOT NULL,
+    id serial8 NOT NULL,
+    idd int8 NOT NULL,
     nome_principal varchar NOT NULL,
-    localizacao public.geography(point, 4326) NOT NULL,
-    id_unidade int4 NOT NULL,
-    idd int4 NOT NULL,
     nome_secundario varchar NULL,
     nome_terciario varchar NULL,
-    zona int4 NULL,
+    zona int8 NULL,
+    localizacao public.geography(point, 4326) NOT NULL,
     filename varchar NOT NULL,
+    id_unidade int8 NOT NULL,
     CONSTRAINT tb_locais_pk PRIMARY KEY (id),
     CONSTRAINT tb_locais_fk_unidades FOREIGN KEY (id_unidade) REFERENCES public.tb_unidades(id)
 );
@@ -87,10 +89,12 @@ CREATE TABLE public.tb_locais (
 -- DROP TABLE public.tb_metas;
 
 CREATE TABLE public.tb_metas (
-    id varchar NOT NULL,
-    id_objetivo int4 NOT NULL,
+    id serial8 NOT NULL,
+    id_objetivo int8 NOT NULL,
     descricao varchar NOT NULL,
+    codigo varchar NOT NULL,
     CONSTRAINT tb_metas_pk PRIMARY KEY (id),
+    CONSTRAINT tb_metas_unique_codigo UNIQUE (codigo),
     CONSTRAINT tb_metas_fk FOREIGN KEY (id_objetivo) REFERENCES public.tb_objetivos(id)
 );
 
@@ -102,15 +106,15 @@ CREATE TABLE public.tb_metas (
 -- DROP TABLE public.tb_acoes;
 
 CREATE TABLE public.tb_acoes (
-    id serial4 NOT NULL,
-    id_meta varchar NOT NULL,
-    id_coordenador int4 NOT NULL,
+    id serial8 NOT NULL,
     titulo varchar NOT NULL,
     descricao varchar NOT NULL,
     dt_inicio date NOT NULL,
     dt_encerramento date NULL,
     fl_aceito bool NOT NULL,
     dt_cadastro date NOT NULL,
+    id_meta int8 NOT NULL,
+    id_coordenador int8 NOT NULL,
     id_local int8 NOT NULL,
     id_lotacao int8 NOT NULL,
     CONSTRAINT tb_acoes_pk PRIMARY KEY (id),

@@ -282,3 +282,5 @@ VALUES
     (277, 'Refeitório', 'SRID=4326;POINT (-41.388824746409995 -20.791449532916214)'::public.geography, 6, 15, NULL, NULL, 4, 'jeronimo_monteiro.json'),
     (278, 'Vestiário / Almoxarifado', 'SRID=4326;POINT (-41.388558356919376 -20.79018758698946)'::public.geography, 6, 16, NULL, NULL, 4, 'jeronimo_monteiro.json')
 ;
+
+ALTER SEQUENCE tb_locais_id_seq RESTART WITH 279;

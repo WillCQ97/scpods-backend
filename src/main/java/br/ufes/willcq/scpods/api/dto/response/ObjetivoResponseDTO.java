@@ -14,6 +14,7 @@ import lombok.Setter;
 public class ObjetivoResponseDTO {
 
     private Long id;
+    private String codigo;
     private String titulo;
     private String descricao;
     private List<MetaObjetivoResponseDTO> metas;
