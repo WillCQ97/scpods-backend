@@ -36,7 +36,7 @@ CREATE TABLE public.tb_lotacoes (
 -- DROP TABLE public.tb_objetivos;
 
 CREATE TABLE public.tb_objetivos (
-    id int8 NOT NULL,
+    id serial8 NOT NULL,
     titulo varchar NOT NULL,
     descricao varchar NOT NULL,
     codigo varchar NOT NULL,
