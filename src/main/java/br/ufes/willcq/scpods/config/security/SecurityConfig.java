@@ -1,5 +1,6 @@
 package br.ufes.willcq.scpods.config.security;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.Customizer;
@@ -14,6 +15,9 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableWebSecurity
 public class SecurityConfig {
 
+    @Autowired
+    private ApiKeyAuthFilter apiKeyAuthFilter;
+
     @Bean
     public SecurityFilterChain filterChain( HttpSecurity http ) throws Exception {
         http.csrf( AbstractHttpConfigurer::disable )
@@ -24,7 +28,8 @@ public class SecurityConfig {
                 .sessionManagement( httpSecuritySessionManagementConfigurer -> {
                     httpSecuritySessionManagementConfigurer.sessionCreationPolicy( SessionCreationPolicy.STATELESS );
                 } )
-                .addFilterBefore( new AuthenticationFilter(), UsernamePasswordAuthenticationFilter.class );
+                // .addFilterBefore( new AuthenticationFilter(), UsernamePasswordAuthenticationFilter.class );
+                .addFilterBefore( apiKeyAuthFilter, UsernamePasswordAuthenticationFilter.class );
 
         return http.build();
     }
