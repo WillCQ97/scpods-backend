@@ -16,7 +16,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class SecurityConfig {
 
     @Autowired
-    private ApiKeyAuthFilter apiKeyAuthFilter;
+    private AuthenticationFilter authenticationFilter;
 
     @Bean
     public SecurityFilterChain filterChain( HttpSecurity http ) throws Exception {
@@ -28,8 +28,7 @@ public class SecurityConfig {
                 .sessionManagement( httpSecuritySessionManagementConfigurer -> {
                     httpSecuritySessionManagementConfigurer.sessionCreationPolicy( SessionCreationPolicy.STATELESS );
                 } )
-                // .addFilterBefore( new AuthenticationFilter(), UsernamePasswordAuthenticationFilter.class );
-                .addFilterBefore( apiKeyAuthFilter, UsernamePasswordAuthenticationFilter.class );
+                .addFilterBefore( authenticationFilter, UsernamePasswordAuthenticationFilter.class );
 
         return http.build();
     }
