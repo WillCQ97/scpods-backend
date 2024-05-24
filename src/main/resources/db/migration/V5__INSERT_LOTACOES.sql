@@ -15,3 +15,5 @@ VALUES
     (12, 'Hospital Universitário Cassiano Antônio Moraes', 'Hucam', 'MARUIPE'),
     (13, 'Reitoria (incluindo Pró-Reitorias, Secretarias, Superintendências, Institutos, Bibliotecas, etc.)', 'Reitoria', NULL)
 ;
+
+ALTER SEQUENCE tb_lotacoes_id_seq RESTART WITH 14;

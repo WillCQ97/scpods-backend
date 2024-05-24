@@ -1,3 +1,6 @@
+api:
+  key: ${SECRET-API-KEY:~;ODZf$XP$SdlFgU6EVK~2+4bBUq7I}
+
 logging:
   level:
     "[org.hibernate.type.descriptor.sql.BasicBinder]": TRACE
@@ -12,6 +15,11 @@ spring:
     url: jdbc:postgresql://localhost:5432/acoes_db
     username: postgres
     password: admin.123
+
+  flyway:
+    baseline-on-migrate: true
+    baseline-version: 0
+    locations: classpath:db/migration
 
   jackson:
     date-format: dd/MM/yyyy

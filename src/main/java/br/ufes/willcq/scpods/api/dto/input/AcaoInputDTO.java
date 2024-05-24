@@ -25,7 +25,7 @@ public class AcaoInputDTO {
     @JsonFormat( pattern = "dd/MM/yyyy" )
     private LocalDate dataEncerramento;
 
-    private String metaId;
+    private Long metaId;
     private Long localId;
 
     private CoordenadorInputDTO coordenador;

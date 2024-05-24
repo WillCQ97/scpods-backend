@@ -10,3 +10,5 @@ VALUES
     (7, 'Área Experimental em Jerônimo Monteiro', 'ALEGRE', 'EXP_JERONIMO'),
     (8, 'Área Experimental em São José do Calçado', 'ALEGRE', 'EXP_SAO_JOSE')
 ;
+
+ALTER SEQUENCE tb_unidades_id_seq RESTART WITH 9;
