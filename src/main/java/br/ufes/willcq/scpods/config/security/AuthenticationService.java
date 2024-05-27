@@ -12,10 +12,11 @@ import jakarta.servlet.http.HttpServletRequest;
  * */
 public class AuthenticationService {
 
-    private static final String AUTH_TOKEN = "fb3a062e-8563-432c-b331-e92683161294";
+    private static final String AUTH_TOKEN_HEADER_NAME = "X-API-KEY";
+    private static final String AUTH_TOKEN = "mytoken";
 
     public static Authentication getAuthentication( HttpServletRequest request ) {
-        String apiKey = request.getHeader( "X-API-KEY" );
+        String apiKey = request.getHeader( AUTH_TOKEN_HEADER_NAME );
 
         if( apiKey == null || !apiKey.equals( AUTH_TOKEN ) ) {
             throw new BadCredentialsException( "API Key inválido!" );
