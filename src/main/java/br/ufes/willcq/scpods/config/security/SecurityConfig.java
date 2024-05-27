@@ -27,9 +27,8 @@ public class SecurityConfig {
                 .httpBasic( Customizer.withDefaults() )
                 .sessionManagement( httpSecuritySessionManagementConfigurer -> {
                     httpSecuritySessionManagementConfigurer.sessionCreationPolicy( SessionCreationPolicy.STATELESS );
-                } );
-        // TODO: returning the need for an api key for consuming the backend
-        // .addFilterBefore( authenticationFilter, UsernamePasswordAuthenticationFilter.class );
+                } )
+                .addFilterBefore( authenticationFilter, UsernamePasswordAuthenticationFilter.class );
 
         return http.build();
     }
