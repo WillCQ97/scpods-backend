@@ -1,5 +1,6 @@
 api:
-  key: ${SECRET-API-KEY:~;ODZf$XP$SdlFgU6EVK~2+4bBUq7I}
+  key: fb3a062e-8563-432c-b331-e92683161294
+  secret: ~;ODZf$XP$SdlFgU6EVK~2+4bBUq7I
 
 logging:
   level:
