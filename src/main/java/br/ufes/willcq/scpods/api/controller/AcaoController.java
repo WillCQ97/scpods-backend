@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import br.ufes.willcq.scpods.api.dto.AcaoGridDTO;
 import br.ufes.willcq.scpods.api.dto.input.AcaoInputDTO;
 import br.ufes.willcq.scpods.api.dto.response.AcaoResponseDTO;
 import br.ufes.willcq.scpods.domain.model.Acao;
@@ -37,14 +38,14 @@ public class AcaoController {
     private ModelMapper modelMapper;
 
     @GetMapping
-    public List<AcaoResponseDTO> listarAcoes( @RequestParam( required = true ) Boolean aceito, @RequestParam( required = false ) String campus, @RequestParam( required = false ) String unidade ) {
+    public List<AcaoGridDTO> listarAcoes( @RequestParam( required = true ) Boolean aceito, @RequestParam( required = false ) String campus, @RequestParam( required = false ) String unidade ) {
 
         if( campus == null && unidade == null ) {
-            return this.mapAllToAcaoResponseDTO( service.listar( aceito ) );
+            return this.mapAllToAcaoGridDTO( service.listar( aceito ) );
         } else if( unidade != null ) {
-            return this.mapAllToAcaoResponseDTO( service.listarPorUnidade( aceito, unidade ) );
+            return this.mapAllToAcaoGridDTO( service.listarPorUnidade( aceito, unidade ) );
         } else {
-            return this.mapAllToAcaoResponseDTO( service.listarPorCampus( aceito, campus ) );
+            return this.mapAllToAcaoGridDTO( service.listarPorCampus( aceito, campus ) );
         }
 
     }
@@ -67,7 +68,7 @@ public class AcaoController {
     }
 
     @PutMapping( "/{id}" )
-    public ResponseEntity<AcaoResponseDTO> atualizar( @PathVariable Long id, @RequestBody AcaoInputDTO inputAcao ) {
+    public ResponseEntity<Void> atualizar( @PathVariable Long id, @RequestBody AcaoInputDTO inputAcao ) {
 
         if( !acaoRepository.existsById( id ) ) {
             return ResponseEntity.notFound().build();
@@ -111,7 +112,11 @@ public class AcaoController {
         return modelMapper.map( acao, AcaoResponseDTO.class );
     }
 
-    private List<AcaoResponseDTO> mapAllToAcaoResponseDTO( List<Acao> acoes ) {
-        return acoes.stream().map( this::mapToAcaoResponseDTO ).toList();
+    private AcaoGridDTO mapToAcaoGridDTO( Acao acao ) {
+        return modelMapper.map( acao, AcaoGridDTO.class );
+    }
+
+    private List<AcaoGridDTO> mapAllToAcaoGridDTO( List<Acao> acoes ) {
+        return acoes.stream().map( this::mapToAcaoGridDTO ).toList();
     }
 }

@@ -73,4 +73,8 @@ public class Acao {
     public Long getIdObjetivo() {
         return this.getMeta().getObjetivo().getId();
     }
+
+    public String getCodigoObjetivo() {
+        return this.getMeta().getObjetivo().getCodigo();
+    }
 }
