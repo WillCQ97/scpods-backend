@@ -16,6 +16,9 @@ public interface AcaoRepository extends ListCrudRepository<Acao, Long> {
 
     List<Acao> findByAceito( Boolean aceito );
 
+    @Query( nativeQuery = true, value = "UPDATE acao SET fl_aceito = TRUE WHERE id_acao = :idAcao" )
+    void aceitarSubmissao( Long idAcao );
+
     @Query( value = """
             SELECT new br.ufes.willcq.scpods.api.dto.AcaoGridDTO(
                 a.id as id,

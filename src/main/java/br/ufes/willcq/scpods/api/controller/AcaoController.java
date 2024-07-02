@@ -20,16 +20,13 @@ import br.ufes.willcq.scpods.api.dto.AcaoGridDTO;
 import br.ufes.willcq.scpods.api.dto.AcaoGridOptions;
 import br.ufes.willcq.scpods.api.dto.input.SubmissaoInputDTO;
 import br.ufes.willcq.scpods.api.dto.response.AcaoResponseDTO;
+import br.ufes.willcq.scpods.api.dto.response.SubmissaoResponseDTO;
 import br.ufes.willcq.scpods.domain.model.Acao;
-import br.ufes.willcq.scpods.domain.repository.AcaoRepository;
 import br.ufes.willcq.scpods.domain.service.AcaoService;
 
 @RestController
 @RequestMapping( "/acoes" )
 public class AcaoController {
-
-    @Autowired
-    private AcaoRepository acaoRepository;
 
     @Autowired
     private AcaoService acaoService;
@@ -38,9 +35,9 @@ public class AcaoController {
     private ModelMapper modelMapper;
 
     @GetMapping( "/{id}" )
-    public ResponseEntity<AcaoResponseDTO> findById( @PathVariable Long id ) {
+    public ResponseEntity<AcaoResponseDTO> findAcaoById( @PathVariable Long id ) {
 
-        var optAcao = acaoService.findById( id );
+        var optAcao = acaoService.findAcaoById( id );
         if( optAcao.isPresent() ) {
             return ResponseEntity.ok().body( this.mapToAcaoResponseDTO( optAcao.get() ) );
         }
@@ -53,12 +50,22 @@ public class AcaoController {
     }
 
     @PostMapping( "/nova-submissao" )
-    public ResponseEntity<Void> salvarSubmissao( @RequestBody SubmissaoInputDTO inputAcao ) {
-        acaoService.inserirSubmissao( this.mapToAcao( inputAcao ) );
+    public ResponseEntity<Void> salvarSubmissao( @RequestBody SubmissaoInputDTO submissao ) {
+        acaoService.inserirSubmissao( this.mapToAcao( submissao ) );
         return ResponseEntity.status( HttpStatus.CREATED ).build();
     }
 
-    // TODO: Criar um findById para a submissão que retorna o e-mail do coordenador
+    @GetMapping( "/submissao/{id}" )
+    // todo: ser acessado pelo admin apenas
+    public ResponseEntity<SubmissaoResponseDTO> findSubmissaoById( @PathVariable Long id ) {
+
+        var optAcao = acaoService.findSubmissaoById( id );
+        if( optAcao.isPresent() ) {
+            return ResponseEntity.ok().body( this.mapToSubmissaoResponseDTO( optAcao.get() ) );
+        }
+        return ResponseEntity.notFound().build();
+    }
+
     @PostMapping( "/search-submissoes" )
     // todo: ser acessado pelo admin apenas
     public ResponseEntity<List<AcaoGridDTO>> searchSubmissoes( @RequestBody AcaoGridOptions acaoGridOptions ) {
@@ -66,10 +73,10 @@ public class AcaoController {
     }
 
     @DeleteMapping( "/{id}" )
-    // todo: chamado apenas pelo admin
+    // todo: chamado apenas pelo admin apenas
     public ResponseEntity<Void> rejeitarSubmissao( @PathVariable Long id ) {
 
-        if( !acaoRepository.existsById( id ) ) {
+        if( !acaoService.existsById( id ) ) {
             return ResponseEntity.notFound().build();
         }
 
@@ -79,10 +86,10 @@ public class AcaoController {
     }
 
     @PatchMapping( "/aceitar" )
-    // todo: chamado apenas pelo admin
+    // todo: chamado apenas pelo admin apenas
     public ResponseEntity<Void> aceitarSubmissao( @RequestParam( required = true ) Long id ) {
 
-        if( !acaoRepository.existsById( id ) ) {
+        if( !acaoService.existsById( id ) ) {
             return ResponseEntity.notFound().build();
         }
 
@@ -96,6 +103,10 @@ public class AcaoController {
 
     private AcaoResponseDTO mapToAcaoResponseDTO( Acao acao ) {
         return modelMapper.map( acao, AcaoResponseDTO.class );
+    }
+
+    private SubmissaoResponseDTO mapToSubmissaoResponseDTO( Acao acao ) {
+        return modelMapper.map( acao, SubmissaoResponseDTO.class );
     }
 
 }
