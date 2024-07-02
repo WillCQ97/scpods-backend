@@ -43,8 +43,8 @@ public interface AcaoRepository extends ListCrudRepository<Acao, Long> {
                 and (lower(o.codigo) like trim(lower(:codigoObjetivo)) or :codigoObjetivo is null)
                 and (lower(un.campus) like trim(lower(:campus)) or :campus is null)
                 and (lower(un.nome) like concat('%', trim(lower(:nomeUnidade)),'%') or :nomeUnidade is null)
-                and (a.aceito = true)
+                and (a.aceito = :aceito)
             """ )
-    List<AcaoGridDTO> searchAcoes( String titulo, String nomeCoordenador, String lotacao, String codigoObjetivo, CampusEnum campus, String nomeUnidade );
+    List<AcaoGridDTO> search( String titulo, String nomeCoordenador, String lotacao, String codigoObjetivo, CampusEnum campus, String nomeUnidade, boolean aceito );
 
 }

@@ -53,7 +53,7 @@ public class SubmissaoController {
     @PostMapping( "/search" )
     // todo: ser acessado pelo admin apenas
     public ResponseEntity<List<AcaoGridDTO>> search( @RequestBody AcaoGridOptions acaoGridOptions ) {
-        return ResponseEntity.ok( null );
+        return ResponseEntity.ok( acaoService.searchSubmissoes( acaoGridOptions ) );
     }
 
     @DeleteMapping( "/{id}" )

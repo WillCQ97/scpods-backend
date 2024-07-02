@@ -128,18 +128,19 @@ public class AcaoServiceImpl implements AcaoService {
     @Override
     public List<AcaoGridDTO> searchAcoes( AcaoGridOptions options ) {
 
-        var campusEnum = CampusEnum.obterEnum( options.getCampus() );
-        if( options.getCampus() != null && campusEnum == null ) {
-            throw new NegocioException( "O valor informado para o campus não é válido!" );
-        }
-
-        return acaoRepository.searchAcoes( options.getTitulo(), options.getNomeCoordenador(),
-                options.getNomeLotacao(), options.getCodigoObjetivo(), campusEnum, options.getNomeUnidade() );
+        return acaoRepository.search( options.getTitulo(), options.getNomeCoordenador(),
+                options.getNomeLotacao(), options.getCodigoObjetivo(),
+                this.validarCampusOptions( options ), options.getNomeUnidade(),
+                true );
     }
 
     @Override
     public List<AcaoGridDTO> searchSubmissoes( AcaoGridOptions options ) {
-        throw new UnsupportedOperationException( "Não implementado" );
+
+        return acaoRepository.search( options.getTitulo(), options.getNomeCoordenador(),
+                options.getNomeLotacao(), options.getCodigoObjetivo(),
+                this.validarCampusOptions( options ), options.getNomeUnidade(),
+                false );
     }
 
     @Override
@@ -195,6 +196,14 @@ public class AcaoServiceImpl implements AcaoService {
             throw new NegocioException( "A submissão informada já foi aceita!" );
         }
         acaoRepository.aceitarSubmissao( idAcao );
+    }
+
+    private CampusEnum validarCampusOptions( AcaoGridOptions options ) {
+        var campusEnum = CampusEnum.obterEnum( options.getCampus() );
+        if( options.getCampus() != null && campusEnum == null ) {
+            throw new NegocioException( "O valor informado para o campus não é válido!" );
+        }
+        return campusEnum;
     }
 
     private void validarAcao( Acao acao ) {
