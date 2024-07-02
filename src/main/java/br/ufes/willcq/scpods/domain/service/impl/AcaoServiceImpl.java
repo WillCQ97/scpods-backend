@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import br.ufes.willcq.scpods.api.dto.AcaoGridDTO;
+import br.ufes.willcq.scpods.api.dto.AcaoGridOptions;
 import br.ufes.willcq.scpods.domain.exception.NegocioException;
 import br.ufes.willcq.scpods.domain.model.Acao;
 import br.ufes.willcq.scpods.domain.model.Coordenador;
@@ -94,6 +96,11 @@ public class AcaoServiceImpl implements AcaoService {
                 .filter( acao -> acao.getAceito().equals( aceito ) )
                 .toList();
 
+    }
+
+    @Override
+    public List<AcaoGridDTO> search( AcaoGridOptions options ) {
+        return acaoRepository.search( options.getTitulo(), options.getNomeCoordenador(), options.getNomeLotacao(), options.getCodigoObjetivo() );
     }
 
     @Override

@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.ufes.willcq.scpods.api.dto.AcaoGridDTO;
+import br.ufes.willcq.scpods.api.dto.AcaoGridOptions;
 import br.ufes.willcq.scpods.api.dto.input.AcaoInputDTO;
 import br.ufes.willcq.scpods.api.dto.response.AcaoResponseDTO;
 import br.ufes.willcq.scpods.domain.model.Acao;
@@ -59,6 +60,11 @@ public class AcaoController {
             return ResponseEntity.ok().body( this.mapToAcaoResponseDTO( optAcao.get() ) );
         }
         return ResponseEntity.notFound().build();
+    }
+
+    @PostMapping( "/search" )
+    public ResponseEntity<List<AcaoGridDTO>> search( @RequestBody AcaoGridOptions acaoGridOptions ) {
+        return ResponseEntity.ok( service.search( acaoGridOptions ) );
     }
 
     @PostMapping

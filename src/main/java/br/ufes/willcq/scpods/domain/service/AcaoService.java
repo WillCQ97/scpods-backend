@@ -5,6 +5,8 @@ import java.util.Optional;
 
 import org.springframework.validation.annotation.Validated;
 
+import br.ufes.willcq.scpods.api.dto.AcaoGridDTO;
+import br.ufes.willcq.scpods.api.dto.AcaoGridOptions;
 import br.ufes.willcq.scpods.domain.model.Acao;
 
 @Validated
@@ -17,6 +19,8 @@ public interface AcaoService {
     public List<Acao> listarPorCampus( boolean aceito, String campus );
 
     public List<Acao> listarPorUnidade( boolean aceito, String codigoUnidade );
+
+    public List<AcaoGridDTO> search( AcaoGridOptions options );
 
     public Acao atualizar( Acao acao );
 
