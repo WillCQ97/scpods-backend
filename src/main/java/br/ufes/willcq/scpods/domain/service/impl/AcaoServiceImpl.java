@@ -46,7 +46,7 @@ public class AcaoServiceImpl implements AcaoService {
     private UnidadeRepository unidadeRepository;
 
     @Override
-    public Optional<Acao> buscarPeloId( Long id ) {
+    public Optional<Acao> findById( Long id ) {
         return acaoRepository.findById( id );
     }
 
@@ -99,12 +99,19 @@ public class AcaoServiceImpl implements AcaoService {
     }
 
     @Override
-    public List<AcaoGridDTO> search( AcaoGridOptions options ) {
-        return acaoRepository.search( options.getTitulo(), options.getNomeCoordenador(), options.getNomeLotacao(), options.getCodigoObjetivo() );
+    public List<AcaoGridDTO> searchAcoes( AcaoGridOptions options ) {
+
+        var campusEnum = CampusEnum.obterEnum( options.getCampus() );
+        if( options.getCampus() != null && campusEnum == null ) {
+            throw new NegocioException( "O valor informado para o campus não é válido!" );
+        }
+
+        return acaoRepository.searchAcoes( options.getTitulo(), options.getNomeCoordenador(),
+                options.getNomeLotacao(), options.getCodigoObjetivo(), campusEnum, options.getNomeUnidade() );
     }
 
     @Override
-    public Acao salvar( Acao acao ) {
+    public Acao inserirSubmissao( Acao acao ) {
 
         var optAcao = acaoRepository.findByTitulo( acao.getTitulo() );
         if( optAcao.isPresent() ) {
@@ -113,11 +120,8 @@ public class AcaoServiceImpl implements AcaoService {
 
         this.validarAcao( acao );
 
-        var coordenador = coordenadorRepository.save( acao.getCoordenador() );
-
         acao.setAceito( Boolean.FALSE );
         acao.setDataCadastro( LocalDate.now() );
-        acao.setCoordenador( coordenador );
 
         return acaoRepository.save( acao );
     }
@@ -141,12 +145,11 @@ public class AcaoServiceImpl implements AcaoService {
     }
 
     @Override
-    public void excluir( Long idAcao ) {
+    public void excluirSubmissao( Long idAcao ) {
 
         var optAcao = acaoRepository.findById( idAcao );
         if( optAcao.isPresent() ) {
             acaoRepository.deleteById( idAcao );
-            coordenadorRepository.deleteById( optAcao.get().getCoordenador().getId() );
         }
     }
 
@@ -154,14 +157,12 @@ public class AcaoServiceImpl implements AcaoService {
     public void aceitarSubmissao( Long idAcao ) {
 
         var acao = acaoRepository.findById( idAcao ).get();
-
         if( acao.getAceito() ) {
-            throw new NegocioException( "A ação submetida informada já foi aceita!" );
+            throw new NegocioException( "A ação informada já foi aceita!" );
         }
 
         acao.setAceito( Boolean.TRUE );
         acaoRepository.save( acao );
-
     }
 
     private void validarAcao( Acao acao ) {
@@ -220,7 +221,6 @@ public class AcaoServiceImpl implements AcaoService {
         if( coordenador.getTipoVinculo() == null ) {
             throw new NegocioException( "Não foi informado o vínculo do coordenador!" );
         }
-
     }
 
 }

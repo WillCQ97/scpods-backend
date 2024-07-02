@@ -12,21 +12,21 @@ import br.ufes.willcq.scpods.domain.model.Acao;
 @Validated
 public interface AcaoService {
 
-    public Optional<Acao> buscarPeloId( Long id );
-
     public List<Acao> listar( boolean aceito );
 
     public List<Acao> listarPorCampus( boolean aceito, String campus );
 
     public List<Acao> listarPorUnidade( boolean aceito, String codigoUnidade );
 
-    public List<AcaoGridDTO> search( AcaoGridOptions options );
+    public Optional<Acao> findById( Long id );
+
+    public List<AcaoGridDTO> searchAcoes( AcaoGridOptions options );
 
     public Acao atualizar( Acao acao );
 
-    public Acao salvar( Acao acao );
+    public Acao inserirSubmissao( Acao acao );
 
-    public void excluir( Long idAcao );
+    public void excluirSubmissao( Long idAcao );
 
     public void aceitarSubmissao( Long idAcao );
 }

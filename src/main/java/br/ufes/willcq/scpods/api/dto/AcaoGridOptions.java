@@ -15,5 +15,7 @@ public class AcaoGridOptions {
     private String nomeCoordenador;
     private String nomeLotacao;
     private String codigoObjetivo;
+    private String campus;
+    private String nomeUnidade;
 
 }

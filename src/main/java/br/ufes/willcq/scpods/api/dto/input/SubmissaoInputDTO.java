@@ -13,7 +13,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class AcaoInputDTO {
+public class SubmissaoInputDTO {
 
     private String titulo;
     private String descricao;

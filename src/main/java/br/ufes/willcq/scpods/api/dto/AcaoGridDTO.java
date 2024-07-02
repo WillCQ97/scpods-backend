@@ -21,7 +21,7 @@ public class AcaoGridDTO {
     private LocalDate dataCadastro;
     private String codigoObjetivo;
     private String codigoMeta;
-    private String nomePrincipalLocal;
+    private String nomeLocal;
     private String nomeCoordenador;
     private String siglaLotacao;
 

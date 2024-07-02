@@ -2,6 +2,7 @@ package br.ufes.willcq.scpods.domain.model;
 
 import java.time.LocalDate;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -50,7 +51,7 @@ public class Acao {
     @Column( name = "fl_aceito" )
     private Boolean aceito;
 
-    @OneToOne
+    @OneToOne( cascade = CascadeType.PERSIST )
     @JoinColumn( name = "id_coordenador" )
     @NotNull( message = "Não foi informado o coordenador da ação!" )
     private Coordenador coordenador;
