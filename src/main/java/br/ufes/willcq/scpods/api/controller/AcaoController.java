@@ -4,23 +4,17 @@ import java.util.List;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.ufes.willcq.scpods.api.dto.AcaoGridDTO;
 import br.ufes.willcq.scpods.api.dto.AcaoGridOptions;
-import br.ufes.willcq.scpods.api.dto.input.SubmissaoInputDTO;
 import br.ufes.willcq.scpods.api.dto.response.AcaoResponseDTO;
-import br.ufes.willcq.scpods.api.dto.response.SubmissaoResponseDTO;
 import br.ufes.willcq.scpods.domain.model.Acao;
 import br.ufes.willcq.scpods.domain.service.AcaoService;
 
@@ -35,7 +29,7 @@ public class AcaoController {
     private ModelMapper modelMapper;
 
     @GetMapping( "/{id}" )
-    public ResponseEntity<AcaoResponseDTO> findAcaoById( @PathVariable Long id ) {
+    public ResponseEntity<AcaoResponseDTO> findById( @PathVariable Long id ) {
 
         var optAcao = acaoService.findAcaoById( id );
         if( optAcao.isPresent() ) {
@@ -45,68 +39,12 @@ public class AcaoController {
     }
 
     @PostMapping( "/search" )
-    public ResponseEntity<List<AcaoGridDTO>> searchAcoes( @RequestBody AcaoGridOptions acaoGridOptions ) {
+    public ResponseEntity<List<AcaoGridDTO>> search( @RequestBody AcaoGridOptions acaoGridOptions ) {
         return ResponseEntity.ok( acaoService.searchAcoes( acaoGridOptions ) );
-    }
-
-    @PostMapping( "/nova-submissao" )
-    public ResponseEntity<Void> salvarSubmissao( @RequestBody SubmissaoInputDTO submissao ) {
-        acaoService.inserirSubmissao( this.mapToAcao( submissao ) );
-        return ResponseEntity.status( HttpStatus.CREATED ).build();
-    }
-
-    @GetMapping( "/submissao/{id}" )
-    // todo: ser acessado pelo admin apenas
-    public ResponseEntity<SubmissaoResponseDTO> findSubmissaoById( @PathVariable Long id ) {
-
-        var optAcao = acaoService.findSubmissaoById( id );
-        if( optAcao.isPresent() ) {
-            return ResponseEntity.ok().body( this.mapToSubmissaoResponseDTO( optAcao.get() ) );
-        }
-        return ResponseEntity.notFound().build();
-    }
-
-    @PostMapping( "/search-submissoes" )
-    // todo: ser acessado pelo admin apenas
-    public ResponseEntity<List<AcaoGridDTO>> searchSubmissoes( @RequestBody AcaoGridOptions acaoGridOptions ) {
-        return ResponseEntity.ok( null );
-    }
-
-    @DeleteMapping( "/{id}" )
-    // todo: chamado apenas pelo admin apenas
-    public ResponseEntity<Void> rejeitarSubmissao( @PathVariable Long id ) {
-
-        if( !acaoService.existsById( id ) ) {
-            return ResponseEntity.notFound().build();
-        }
-
-        acaoService.excluirSubmissao( id );
-        return ResponseEntity.noContent().build();
-
-    }
-
-    @PatchMapping( "/aceitar" )
-    // todo: chamado apenas pelo admin apenas
-    public ResponseEntity<Void> aceitarSubmissao( @RequestParam( required = true ) Long id ) {
-
-        if( !acaoService.existsById( id ) ) {
-            return ResponseEntity.notFound().build();
-        }
-
-        acaoService.aceitarSubmissao( id );
-        return ResponseEntity.ok().build();
-    }
-
-    private Acao mapToAcao( SubmissaoInputDTO dto ) {
-        return modelMapper.map( dto, Acao.class );
     }
 
     private AcaoResponseDTO mapToAcaoResponseDTO( Acao acao ) {
         return modelMapper.map( acao, AcaoResponseDTO.class );
-    }
-
-    private SubmissaoResponseDTO mapToSubmissaoResponseDTO( Acao acao ) {
-        return modelMapper.map( acao, SubmissaoResponseDTO.class );
     }
 
 }
