@@ -67,3 +67,9 @@ docker build -t willcq97/postgis-ods-db:latest .
 ```bash
 docker build -t willcq97/scpods-backend:latest -f ./Dockerfile .
 ```
+
+## Alguns materiais de base
+
+- [InMemoryAuthWebSecurityConfigurer.java Example](https://github.com/eugenp/tutorials/blob/master/spring-security-modules/spring-security-web-rest-basic-auth/src/main/java/com/baeldung/inmemory/InMemoryAuthWebSecurityConfigurer.java)
+- [In-Memory Authentication](https://docs.spring.io/spring-security/reference/servlet/authentication/passwords/in-memory.html)
+- [Spring Security Basic Authentication](https://www.baeldung.com/spring-security-basic-authentication)

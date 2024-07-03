@@ -4,8 +4,8 @@ import java.util.List;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.ufes.willcq.scpods.api.dto.AcaoGridDTO;
 import br.ufes.willcq.scpods.api.dto.AcaoGridOptions;
-import br.ufes.willcq.scpods.api.dto.input.SubmissaoInputDTO;
 import br.ufes.willcq.scpods.api.dto.response.SubmissaoResponseDTO;
 import br.ufes.willcq.scpods.domain.model.Acao;
 import br.ufes.willcq.scpods.domain.service.AcaoService;
@@ -33,14 +32,8 @@ public class SubmissaoController {
     @Autowired
     private ModelMapper modelMapper;
 
-    @PostMapping
-    public ResponseEntity<Void> salvar( @RequestBody SubmissaoInputDTO submissao ) {
-        acaoService.inserirSubmissao( this.mapToAcao( submissao ) );
-        return ResponseEntity.status( HttpStatus.CREATED ).build();
-    }
-
     @GetMapping( "/{id}" )
-    // todo: ser acessado pelo admin apenas
+    @PreAuthorize( "hasRole('ADMIN')" )
     public ResponseEntity<SubmissaoResponseDTO> findById( @PathVariable Long id ) {
 
         var optAcao = acaoService.findSubmissaoById( id );
@@ -51,13 +44,13 @@ public class SubmissaoController {
     }
 
     @PostMapping( "/search" )
-    // todo: ser acessado pelo admin apenas
+    @PreAuthorize( "hasRole('ADMIN')" )
     public ResponseEntity<List<AcaoGridDTO>> search( @RequestBody AcaoGridOptions acaoGridOptions ) {
         return ResponseEntity.ok( acaoService.searchSubmissoes( acaoGridOptions ) );
     }
 
     @DeleteMapping( "/{id}" )
-    // todo: chamado apenas pelo admin apenas
+    @PreAuthorize( "hasRole('ADMIN')" )
     public ResponseEntity<Void> rejeitar( @PathVariable Long id ) {
 
         if( !acaoService.existsById( id ) ) {
@@ -66,11 +59,10 @@ public class SubmissaoController {
 
         acaoService.excluirSubmissao( id );
         return ResponseEntity.noContent().build();
-
     }
 
     @PatchMapping( "/aceitar" )
-    // todo: chamado apenas pelo admin apenas
+    @PreAuthorize( "hasRole('ADMIN')" )
     public ResponseEntity<Void> aceitar( @RequestParam( required = true ) Long id ) {
 
         if( !acaoService.existsById( id ) ) {
@@ -79,10 +71,6 @@ public class SubmissaoController {
 
         acaoService.aceitarSubmissao( id );
         return ResponseEntity.ok().build();
-    }
-
-    private Acao mapToAcao( SubmissaoInputDTO dto ) {
-        return modelMapper.map( dto, Acao.class );
     }
 
     private SubmissaoResponseDTO mapToSubmissaoResponseDTO( Acao acao ) {

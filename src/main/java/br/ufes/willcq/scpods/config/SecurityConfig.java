@@ -16,17 +16,9 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableWebSecurity
 public class SecurityConfig {
 
-    // @Autowired
-    // public void configureGlobal( AuthenticationManagerBuilder auth ) throws Exception {
-    // auth.inMemoryAuthentication()
-    // .withUser( "ADMIN" )
-    // .password( passwordEncoder().encode( "admin.123" ) )
-    // .authorities( "ROLE_ADMIN" );
-    // }
-
     @Bean
     public InMemoryUserDetailsManager userDetailsManager() throws Exception {
-        UserDetails user = User.withUsername( "ADMIN" )
+        UserDetails user = User.withUsername( "willcq" )
                 .password( passwordEncoder().encode( "admin.123" ) )
                 .roles( "ADMIN" )
                 .build();

@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.ufes.willcq.scpods.api.dto.AcaoGridDTO;
 import br.ufes.willcq.scpods.api.dto.AcaoGridOptions;
+import br.ufes.willcq.scpods.api.dto.input.SubmissaoInputDTO;
 import br.ufes.willcq.scpods.api.dto.response.AcaoResponseDTO;
 import br.ufes.willcq.scpods.domain.model.Acao;
 import br.ufes.willcq.scpods.domain.service.AcaoService;
@@ -41,6 +43,16 @@ public class AcaoController {
     @PostMapping( "/search" )
     public ResponseEntity<List<AcaoGridDTO>> search( @RequestBody AcaoGridOptions acaoGridOptions ) {
         return ResponseEntity.ok( acaoService.searchAcoes( acaoGridOptions ) );
+    }
+
+    @PostMapping( "/submissao" )
+    public ResponseEntity<Void> salvar( @RequestBody SubmissaoInputDTO submissao ) {
+        acaoService.inserirSubmissao( this.mapToAcao( submissao ) );
+        return ResponseEntity.status( HttpStatus.CREATED ).build();
+    }
+
+    private Acao mapToAcao( SubmissaoInputDTO dto ) {
+        return modelMapper.map( dto, Acao.class );
     }
 
     private AcaoResponseDTO mapToAcaoResponseDTO( Acao acao ) {
