@@ -32,7 +32,8 @@ public class SecurityConfig {
                         .requestMatchers( "/acoes/**" ).permitAll()
                         .requestMatchers( "/objetivos/**" ).permitAll()
                         .requestMatchers( "/submissoes/**" ).authenticated()
-                        .requestMatchers( "/unidades/**" ).permitAll() )
+                        .requestMatchers( "/unidades/**" ).permitAll()
+                        .requestMatchers( "/usuarios/**" ).authenticated() )
                 .httpBasic( Customizer.withDefaults() );
         return http.build();
     }
