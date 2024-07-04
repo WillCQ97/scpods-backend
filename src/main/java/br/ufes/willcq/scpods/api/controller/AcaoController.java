@@ -19,9 +19,11 @@ import br.ufes.willcq.scpods.api.dto.input.SubmissaoInputDTO;
 import br.ufes.willcq.scpods.api.dto.response.AcaoResponseDTO;
 import br.ufes.willcq.scpods.domain.model.Acao;
 import br.ufes.willcq.scpods.domain.service.AcaoService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 
 @RestController
 @RequestMapping( "/acoes" )
+@Tag( name = "Ações/Projetos" )
 public class AcaoController {
 
     @Autowired
@@ -45,7 +47,7 @@ public class AcaoController {
         return ResponseEntity.ok( acaoService.searchAcoes( acaoGridOptions ) );
     }
 
-    @PostMapping( "/submissao" )
+    @PostMapping( "/submeter" )
     public ResponseEntity<Void> salvar( @RequestBody SubmissaoInputDTO submissao ) {
         acaoService.inserirSubmissao( this.mapToAcao( submissao ) );
         return ResponseEntity.status( HttpStatus.CREATED ).build();

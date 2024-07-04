@@ -21,9 +21,11 @@ import br.ufes.willcq.scpods.api.dto.AcaoGridOptions;
 import br.ufes.willcq.scpods.api.dto.response.SubmissaoResponseDTO;
 import br.ufes.willcq.scpods.domain.model.Acao;
 import br.ufes.willcq.scpods.domain.service.AcaoService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 
 @RestController
 @RequestMapping( "/submissoes" )
+@Tag( name = "Submissões" )
 public class SubmissaoController {
 
     @Autowired

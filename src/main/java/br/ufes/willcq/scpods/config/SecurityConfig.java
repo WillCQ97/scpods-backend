@@ -29,11 +29,10 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain( HttpSecurity http ) throws Exception {
         http.authorizeHttpRequests(
                 expressionIntercepterUrlRegistry -> expressionIntercepterUrlRegistry
-                        .requestMatchers( "/acoes/**" ).permitAll()
-                        .requestMatchers( "/objetivos/**" ).permitAll()
-                        .requestMatchers( "/submissoes/**" ).authenticated()
-                        .requestMatchers( "/unidades/**" ).permitAll()
-                        .requestMatchers( "/usuarios/**" ).authenticated() )
+                        .requestMatchers( "/api-docs/**", "/swagger-ui/**" ).permitAll()
+                        .requestMatchers( "/acoes/**", "/objetivos/**", "/unidades/**" ).permitAll()
+                        .requestMatchers( "/submissoes/**", "/usuarios/**" ).authenticated() )
+                .csrf( csrf -> csrf.disable() )
                 .httpBasic( Customizer.withDefaults() );
         return http.build();
     }

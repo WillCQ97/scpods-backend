@@ -15,9 +15,11 @@ import br.ufes.willcq.scpods.api.dto.response.ObjetivoResponseDTO;
 import br.ufes.willcq.scpods.domain.model.Objetivo;
 import br.ufes.willcq.scpods.domain.repository.MetaRepository;
 import br.ufes.willcq.scpods.domain.repository.ObjetivoRepository;
+import io.swagger.v3.oas.annotations.tags.Tag;
 
 @RestController
 @RequestMapping( "/objetivos" )
+@Tag( name = "Objetivos e Metas dos ODS" )
 public class ObjetivoController {
 
     @Autowired

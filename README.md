@@ -75,3 +75,5 @@ docker build -t willcq97/scpods-backend:latest -f ./Dockerfile .
 - [Spring Security Basic Authentication](https://www.baeldung.com/spring-security-basic-authentication)
 - [Usage of PreAuthorize](https://www.baeldung.com/spring-security-method-security)
 - [Documenting a Spring REST API Using OpenAPI 3.0](https://www.baeldung.com/spring-rest-openapi-documentation)
+- [Set JWT with Spring Boot and Swagger UI](https://www.baeldung.com/spring-boot-swagger-jwt)
+- [A Guide to CSRF Protection in Spring Security](https://www.baeldung.com/spring-security-csrf)
