@@ -31,19 +31,19 @@ VALUES
     (3, 18, 3, 'Máscaras Solidárias em Alegre', 'Produção de aproximadamente 5 mil máscaras a partir de materiais recomendados pelo Ministério da Saúde para posterior distribuição no município.', '2021-01-01', NULL, true, '2023-01-12', 8, 2),
     (4, 62, 4, 'Desenvolvimento do Polo de Fruticultura da Região do Caparaó', 'Visa contribuir para a diversificação da produção agrícola gerando novas fontes de renda, e consequentemente, melhoria socioeconômica da população envolvida.', '2021-01-01', NULL, true, '2023-01-12', 22, 1),
     (5, 18, 5, 'GEOCOVID-ES: Monitoramento da Covid-19 através de mapas diários automatizados', 'Geração de Mapas Diários de Risco de Contaminação por COVID-19 para o Espírito Santo e a Incerteza Associada ao Risco', '2020-06-01', '2021-06-01', false, '2023-11-09', 9, 1),
-    (6, 48, 6, 'Exemplo de Acao para Alegre I', 'Departamento de Computação', '2023-02-01', NULL, true, '2024-05-31', 19, 2),
-    (7, 95, 7, 'Exemplo de Acao para Alegre II', 'Departamento de Geologia', '2023-07-03', NULL, true, '2024-04-30', 9, 2),
-    (8, 101, 8, 'Exemplo de Acao para Rive, em Alegre', 'HOVET', '2023-02-02', NULL, true, '2024-03-30', 249, 1),
-    (9, 114, 9, 'Exemplo de Acao para Jerônimo Monteiro', 'Município de Jerônimo, mas o campus pertence a Alegre', '2023-01-17', NULL, true, '2024-03-30', 271, 1),
-    (10, 120, 10, 'Exemplo de Ação para Goiabeiras', 'Goiabeiras é a Sede em Vitória', '2023-12-23', NULL, true, '2024-03-30', 78, 7),
+    (6, 48, 6, 'Exemplo de Acao para Alegre I', 'Exemplo de Ação para o Departamento de Computação em Alegre - sede.', '2023-02-01', NULL, true, '2024-05-31', 19, 2),
+    (7, 95, 7, 'Exemplo de Acao para Alegre II', 'Exemplo de Ação para o Departamento de Geologia em Alegre - sede.', '2023-07-03', NULL, true, '2024-04-30', 9, 2),
+    (8, 101, 8, 'Exemplo de Acao para Rive, em Alegre', 'Exemplo de Ação para o Hospital Veterinário em Rive, Alegre.', '2023-02-02', NULL, true, '2024-03-30', 249, 1),
+    (9, 114, 9, 'Exemplo de Acao para Jerônimo Monteiro', 'Exemplo de Ação realizada em Jerônimo Monteiro, que está administrativamente vinculada ao campus de Alegre.', '2023-01-17', NULL, true, '2024-03-30', 271, 1),
+    (10, 120, 10, 'Exemplo de Ação para Goiabeiras', 'Ação realizada em Goiabeiras: a ''Sede'' da Universidade em Vitória.', '2023-12-23', NULL, true, '2024-03-30', 78, 7),
     (11, 73, 11, 'Exemplo de Ação para Maruípe', 'Aqui fica o famigerado Hospital da UFES', '2023-08-25', NULL, true, '2024-03-30', 178, 12),
-    (12, 77, 12, 'Exemplo de Ação para São Mateus', 'Winter is comming', '2023-10-13', NULL, true, '2024-03-30', 226, 13),
-    (13, 141, 13, 'Exemplo de SUBMISSÃO para MARUÍPE', 'Aqui fica o famigerado Hospital da UFES', '2023-04-05', NULL, false, '2024-04-27', 178, 13),
-    (14, 154, 14, 'Exemplo de SUBMISSÃO para ALEGRE', 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.', '2023-12-03', NULL, true, '2024-04-27', 2, 2),
-    (15, 130, 15, 'Exemplo de SUBMISSÃO para GOIABEIRAS', 'Duis dictum ultrices risus et mollis.', '2019-11-19', NULL, false, '2024-04-27', 84, 11),
-    (16, 1, 16, 'Exemplo de SUBMISSÃO para SÃO MATEUS', 'Phasellus posuere ex magna, non pulvinar nisi laoreet vel.', '2022-05-05', '2024-11-19', false, '2024-05-01', 225, 13),
-    (17, 58, 17, 'Exemplo de SUBMISSÃO para RIVE', 'Pellentesque ut mauris eget tellus placerat fringilla.', '2022-03-19', '2024-11-19', false, '2024-05-01', 250, 13),
-    (18, 58, 18, 'Exemplo de SUBMISSÃO para JERÔNIMO', 'Aliquam erat volutpat. Nullam viverra ipsum vel orci tempor molestie.', '2022-06-16', '2024-11-19', false, '2024-05-01', 267, 13)
+    (12, 77, 12, 'Exemplo de Ação para São Mateus', 'Exemplo de Ação para São Mateus, no norte do estado.', '2023-10-13', NULL, true, '2024-03-30', 226, 13),
+    (13, 141, 13, 'Exemplo de SUBMISSÃO para MARUÍPE', 'Aqui fica o famigerado Hospital da UFES.', '2023-04-05', NULL, false, '2024-04-27', 178, 13),
+    (14, 154, 14, 'Exemplo de SUBMISSÃO para ALEGRE', 'Exemplo de SUBMISSÃO para ALEGRE.', '2023-12-03', NULL, true, '2024-04-27', 2, 2),
+    (15, 130, 15, 'Exemplo de SUBMISSÃO para GOIABEIRAS', 'Exemplo de SUBMISSÃO para GOIABEIRAS.', '2019-11-19', NULL, false, '2024-04-27', 84, 11),
+    (16, 1, 16, 'Exemplo de SUBMISSÃO para SÃO MATEUS', 'Exemplo de SUBMISSÃO para SÃO MATEU.', '2022-05-05', '2024-11-19', false, '2024-05-01', 225, 13),
+    (17, 58, 17, 'Exemplo de SUBMISSÃO para RIVE', 'Exemplo de SUBMISSÃO para RIVE.', '2022-03-19', '2024-11-19', false, '2024-05-01', 250, 13),
+    (18, 58, 18, 'Exemplo de SUBMISSÃO para JERÔNIMO', 'Exemplo de SUBMISSÃO para JERÔNIMO.', '2022-06-16', '2024-11-19', false, '2024-05-01', 267, 13)
 ;
 
 ALTER SEQUENCE tb_acoes_id_seq RESTART WITH 19;

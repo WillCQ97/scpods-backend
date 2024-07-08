@@ -13,7 +13,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @JsonInclude( Include.NON_NULL )
-public class Problema {
+public class Erro {
 
     private Integer status;
     private OffsetDateTime dataHora;
@@ -30,7 +30,7 @@ public class Problema {
 
     }
 
-    public Problema( Integer status, OffsetDateTime dataHora, String mensagem ) {
+    public Erro( Integer status, OffsetDateTime dataHora, String mensagem ) {
         super();
         this.status = status;
         this.dataHora = dataHora;
