@@ -1,3 +1,10 @@
+app:
+  admin:
+    username: willcq
+    password: admin.123
+    roles:
+      - ADMIN
+
 logging:
   level:
     "[org.hibernate.type.descriptor.sql.BasicBinder]": TRACE

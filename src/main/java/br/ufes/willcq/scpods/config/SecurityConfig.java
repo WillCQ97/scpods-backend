@@ -1,5 +1,6 @@
 package br.ufes.willcq.scpods.config;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.Customizer;
@@ -12,15 +13,20 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 
+import br.ufes.willcq.scpods.config.auth.AdminConfigProperties;
+
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
 
+    @Autowired
+    private AdminConfigProperties admin;
+
     @Bean
     public InMemoryUserDetailsManager userDetailsManager() throws Exception {
-        UserDetails user = User.withUsername( "willcq" )
-                .password( passwordEncoder().encode( "admin.123" ) )
-                .roles( "ADMIN" )
+        UserDetails user = User.withUsername( admin.getUsername() )
+                .password( passwordEncoder().encode( admin.getPassword() ) )
+                .roles( admin.getRoles().toArray( new String[0] ) )
                 .build();
         return new InMemoryUserDetailsManager( user );
     }

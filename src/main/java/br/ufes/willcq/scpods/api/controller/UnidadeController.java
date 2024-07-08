@@ -18,7 +18,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 
 @RestController
 @RequestMapping( "/unidades" )
-@Tag( name = "Unidades da Universidade" )
+@Tag( name = "Unidades e Campus da Universidade" )
 public class UnidadeController {
 
     @Autowired

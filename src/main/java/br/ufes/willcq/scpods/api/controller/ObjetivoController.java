@@ -19,7 +19,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 
 @RestController
 @RequestMapping( "/objetivos" )
-@Tag( name = "Objetivos e Metas dos ODS" )
+@Tag( name = "Objetivos e Metas de Desenvolvimento Sustentável" )
 public class ObjetivoController {
 
     @Autowired
