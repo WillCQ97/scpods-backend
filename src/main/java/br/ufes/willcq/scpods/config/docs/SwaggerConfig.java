@@ -1,6 +1,7 @@
-package br.ufes.willcq.scpods.config;
+package br.ufes.willcq.scpods.config.docs;
 
 import org.springdoc.core.models.GroupedOpenApi;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -15,14 +16,18 @@ import io.swagger.v3.oas.models.security.SecurityScheme;
 @Configuration
 public class SwaggerConfig {
 
+    @Autowired
+    private AppSwaggerProperties appSwaggerProperties;
+
     @Bean
     public OpenAPI openAPI() {
         return new OpenAPI()
                 .components( new Components().addSecuritySchemes( "Basic Auth", createAPIKeyScheme() ) )
                 .info( new Info()
-                        .title( "SCPODS API" )
-                        .description( "Backend do Sistema para Cadastro de Projetos relacionados aos Objetivos de Desenvolvimento Sustentável na Universidade Federal do Espírito Santo." )
-                        .version( "1.0" ).contact( authorContact() )
+                        .title( appSwaggerProperties.getTitle() )
+                        .description( appSwaggerProperties.getDescription() )
+                        .version( appSwaggerProperties.getVersion() )
+                        .contact( authorContact() )
                         .license( projectLicense() ) );
     }
 
@@ -52,14 +57,14 @@ public class SwaggerConfig {
 
     private Contact authorContact() {
         return new Contact()
-                .name( "Willian Conceição Queiroz" )
-                .email( "willian.cqueiroz@gmail.com" )
-                .url( "https://github.com/WillCQ97" );
+                .name( appSwaggerProperties.getAuthor().getName() )
+                .email( appSwaggerProperties.getAuthor().getEmail() )
+                .url( appSwaggerProperties.getAuthor().getUrl() );
     }
 
     private License projectLicense() {
         return new License()
-                .name( "MIT License" )
-                .url( "https://github.com/WillCQ97/scpods-backend/blob/main/LICENSE" );
+                .name( appSwaggerProperties.getLicense().getName() )
+                .url( appSwaggerProperties.getLicense().getUrl() );
     }
 }
