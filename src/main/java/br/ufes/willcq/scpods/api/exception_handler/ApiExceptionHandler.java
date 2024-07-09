@@ -1,4 +1,4 @@
-package br.ufes.willcq.scpods.api.exceptionhandler;
+package br.ufes.willcq.scpods.api.exception_handler;
 
 import java.time.OffsetDateTime;
 import java.util.ArrayList;

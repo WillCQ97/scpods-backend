@@ -1,4 +1,4 @@
-package br.ufes.willcq.scpods.config.docs;
+package br.ufes.willcq.scpods.config.swagger;
 
 import org.springdoc.core.models.GroupedOpenApi;
 import org.springframework.beans.factory.annotation.Autowired;

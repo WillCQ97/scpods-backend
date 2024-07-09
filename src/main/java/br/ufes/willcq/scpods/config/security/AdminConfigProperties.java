@@ -1,4 +1,4 @@
-package br.ufes.willcq.scpods.config.auth;
+package br.ufes.willcq.scpods.config.security;
 
 import java.util.List;
 
