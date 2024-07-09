@@ -51,7 +51,7 @@ public class Acao {
     @Column( name = "fl_aceito" )
     private Boolean aceito;
 
-    @OneToOne( cascade = CascadeType.PERSIST )
+    @OneToOne( cascade = CascadeType.ALL )
     @JoinColumn( name = "id_coordenador" )
     @NotNull( message = "Não foi informado o coordenador da ação!" )
     private Coordenador coordenador;
