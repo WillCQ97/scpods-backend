@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import br.ufes.willcq.scpods.api.dto.AcaoGridDTO;
+import br.ufes.willcq.scpods.api.dto.AcaoGridOptions;
 import br.ufes.willcq.scpods.domain.exception.NegocioException;
 import br.ufes.willcq.scpods.domain.model.Acao;
 import br.ufes.willcq.scpods.domain.model.Coordenador;
@@ -44,8 +46,34 @@ public class AcaoServiceImpl implements AcaoService {
     private UnidadeRepository unidadeRepository;
 
     @Override
-    public Optional<Acao> buscarPeloId( Long id ) {
-        return acaoRepository.findById( id );
+    public boolean existsById( Long id ) {
+        return acaoRepository.existsById( id );
+    }
+
+    @Override
+    public Acao findById( Long id ) {
+        return acaoRepository.findById( id ).orElseThrow(
+                () -> new NegocioException( "A ação informada não foi encontrada!" ) );
+    }
+
+    @Override
+    public Optional<Acao> findAcaoById( Long id ) {
+
+        var acaoOptional = acaoRepository.findById( id );
+        if( acaoOptional.isPresent() && acaoOptional.get().getAceito() ) {
+            return acaoOptional;
+        }
+        return Optional.empty();
+    }
+
+    @Override
+    public Optional<Acao> findSubmissaoById( Long id ) {
+
+        var acaoOptional = acaoRepository.findById( id );
+        if( acaoOptional.isPresent() && !acaoOptional.get().getAceito() ) {
+            return acaoOptional;
+        }
+        return Optional.empty();
     }
 
     @Override
@@ -77,6 +105,7 @@ public class AcaoServiceImpl implements AcaoService {
                 .toList();
     }
 
+    @Override
     public List<Acao> listarPorUnidade( boolean aceito, String codigoUnidade ) {
 
         if( codigoUnidade == null || codigoUnidade.isBlank() ) {
@@ -97,7 +126,25 @@ public class AcaoServiceImpl implements AcaoService {
     }
 
     @Override
-    public Acao salvar( Acao acao ) {
+    public List<AcaoGridDTO> searchAcoes( AcaoGridOptions options ) {
+
+        return acaoRepository.search( options.getTitulo(), options.getNomeCoordenador(),
+                options.getNomeLotacao(), options.getCodigoObjetivo(),
+                this.validarCampusOptions( options ), options.getNomeUnidade(),
+                true );
+    }
+
+    @Override
+    public List<AcaoGridDTO> searchSubmissoes( AcaoGridOptions options ) {
+
+        return acaoRepository.search( options.getTitulo(), options.getNomeCoordenador(),
+                options.getNomeLotacao(), options.getCodigoObjetivo(),
+                this.validarCampusOptions( options ), options.getNomeUnidade(),
+                false );
+    }
+
+    @Override
+    public void inserirSubmissao( Acao acao ) {
 
         var optAcao = acaoRepository.findByTitulo( acao.getTitulo() );
         if( optAcao.isPresent() ) {
@@ -106,13 +153,10 @@ public class AcaoServiceImpl implements AcaoService {
 
         this.validarAcao( acao );
 
-        var coordenador = coordenadorRepository.save( acao.getCoordenador() );
-
         acao.setAceito( Boolean.FALSE );
         acao.setDataCadastro( LocalDate.now() );
-        acao.setCoordenador( coordenador );
 
-        return acaoRepository.save( acao );
+        acaoRepository.save( acao );
     }
 
     @Override
@@ -134,27 +178,32 @@ public class AcaoServiceImpl implements AcaoService {
     }
 
     @Override
-    public void excluir( Long idAcao ) {
+    public void excluirSubmissao( Long idAcao ) {
 
-        var optAcao = acaoRepository.findById( idAcao );
-        if( optAcao.isPresent() ) {
-            acaoRepository.deleteById( idAcao );
-            coordenadorRepository.deleteById( optAcao.get().getCoordenador().getId() );
+        var acao = this.findById( idAcao );
+        if( acao.getAceito() ) {
+            throw new NegocioException( "A submissão informada já foi aceita e não pode ser apagada." );
         }
+
+        acaoRepository.deleteById( idAcao );
     }
 
     @Override
     public void aceitarSubmissao( Long idAcao ) {
 
-        var acao = acaoRepository.findById( idAcao ).get();
-
+        var acao = this.findById( idAcao );
         if( acao.getAceito() ) {
-            throw new NegocioException( "A ação submetida informada já foi aceita!" );
+            throw new NegocioException( "A submissão informada já foi aceita!" );
         }
+        acaoRepository.aceitarSubmissao( idAcao );
+    }
 
-        acao.setAceito( Boolean.TRUE );
-        acaoRepository.save( acao );
-
+    private CampusEnum validarCampusOptions( AcaoGridOptions options ) {
+        var campusEnum = CampusEnum.obterEnum( options.getCampus() );
+        if( options.getCampus() != null && campusEnum == null ) {
+            throw new NegocioException( "O valor informado para o campus não é válido!" );
+        }
+        return campusEnum;
     }
 
     private void validarAcao( Acao acao ) {
@@ -213,7 +262,6 @@ public class AcaoServiceImpl implements AcaoService {
         if( coordenador.getTipoVinculo() == null ) {
             throw new NegocioException( "Não foi informado o vínculo do coordenador!" );
         }
-
     }
 
 }

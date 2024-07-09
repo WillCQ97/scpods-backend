@@ -13,7 +13,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @Getter
 @Setter
-public class AcaoResponseDTO {
+public class SubmissaoResponseDTO {
 
     private Long id;
     private String titulo;
@@ -28,9 +28,8 @@ public class AcaoResponseDTO {
 
     private boolean aceito;
 
-    private CoordenadorAcaoResponseDTO coordenador;
+    private CoordenadorSubmissaoResponseDTO coordenador;
     private MetaAcaoResponseDTO meta;
     private LocalAcaoResponseDTO local;
     private LotacaoAcaoResponseDTO lotacao;
-
 }

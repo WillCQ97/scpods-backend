@@ -14,9 +14,11 @@ import br.ufes.willcq.scpods.api.dto.response.UnidadeInfoDTO;
 import br.ufes.willcq.scpods.api.dto.response.UnidadeResponseDTO;
 import br.ufes.willcq.scpods.domain.model.enums.CampusEnum;
 import br.ufes.willcq.scpods.domain.service.UnidadeService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 
 @RestController
 @RequestMapping( "/unidades" )
+@Tag( name = "Campus, Locais e Unidades da Universidade" )
 public class UnidadeController {
 
     @Autowired

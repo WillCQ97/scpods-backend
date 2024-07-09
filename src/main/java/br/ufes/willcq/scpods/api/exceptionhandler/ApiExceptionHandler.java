@@ -32,14 +32,14 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
     protected ResponseEntity<Object> handleMethodArgumentNotValid( @NonNull MethodArgumentNotValidException ex, @NonNull HttpHeaders headers, @NonNull HttpStatusCode status, @NonNull WebRequest request ) {
 
         var msg = "Um ou mais campos estão inválidos.";
-        var problema = new Problema( status.value(), OffsetDateTime.now(), msg );
-        var campos = new ArrayList<Problema.Campo>();
+        var problema = new Erro( status.value(), OffsetDateTime.now(), msg );
+        var campos = new ArrayList<Erro.Campo>();
 
         for( ObjectError error : ex.getBindingResult().getAllErrors() ) {
 
             String nome = ( ( FieldError ) error ).getField();
             String mensagem = messageSource.getMessage( error, LocaleContextHolder.getLocale() );
-            campos.add( new Problema.Campo( nome, mensagem ) );
+            campos.add( new Erro.Campo( nome, mensagem ) );
 
         }
         problema.setCampos( campos );
@@ -51,7 +51,7 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
     public ResponseEntity<Object> handleNegocio( NegocioException ex, @NonNull WebRequest request ) {
 
         var status = HttpStatus.BAD_REQUEST;
-        var problema = new Problema( status.value(), OffsetDateTime.now(), ex.getMessage() );
+        var problema = new Erro( status.value(), OffsetDateTime.now(), ex.getMessage() );
 
         return handleExceptionInternal( ex, problema, new HttpHeaders(), status, request );
     }
@@ -60,7 +60,7 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
     public ResponseEntity<Object> handleNegocio( EntidadeNaoEncontradaException ex, @NonNull WebRequest request ) {
 
         var status = HttpStatus.NOT_FOUND;
-        var problema = new Problema( status.value(), OffsetDateTime.now(), ex.getMessage() );
+        var problema = new Erro( status.value(), OffsetDateTime.now(), ex.getMessage() );
 
         return handleExceptionInternal( ex, problema, new HttpHeaders(), status, request );
     }

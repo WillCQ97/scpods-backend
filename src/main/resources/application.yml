@@ -1,9 +1,28 @@
-api:
-  key: ${SECRET-API-KEY:~;ODZf$XP$SdlFgU6EVK~2+4bBUq7I}
+app:
+  admin:
+    username: willcq
+    password: admin.123
+    roles:
+      - ADMIN
+
+  swagger:
+    title: "SCPODS API"
+    description: "Backend do Sistema para Cadastro de Projetos relacionados aos Objetivos de Desenvolvimento Sustentável na Universidade Federal do Espírito Santo."
+    version: 1.0
+
+    author:
+      name: "Willian Conceição Queiroz"
+      email: "willian.cqueiroz@gmail.com"
+      url: "https://github.com/WillCQ97"
+
+    license:
+      name: "MIT License"
+      url: https://github.com/WillCQ97/scpods-backend/blob/main/LICENSE
 
 logging:
   level:
     "[org.hibernate.type.descriptor.sql.BasicBinder]": TRACE
+    "[org.springframework.security]": DEBUG
 
 server:
   servlet:
