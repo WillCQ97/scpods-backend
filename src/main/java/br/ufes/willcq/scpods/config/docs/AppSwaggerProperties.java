@@ -15,14 +15,14 @@ public class AppSwaggerProperties {
     private String title;
     private String description;
     private String version;
-    private Author author;
-    private License license;
+    private AuthorProperties author;
+    private LicenseProperties license;
 
 }
 
 @Getter
 @Setter
-class Author {
+class AuthorProperties {
 
     private String name;
     private String email;
@@ -32,7 +32,7 @@ class Author {
 
 @Getter
 @Setter
-class License {
+class LicenseProperties {
 
     private String name;
     private String url;
