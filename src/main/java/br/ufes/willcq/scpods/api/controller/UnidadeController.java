@@ -24,14 +24,14 @@ public class UnidadeController {
     @Autowired
     private UnidadeService service;
 
+    @GetMapping
+    public ResponseEntity<List<UnidadeResponseDTO>> listarUnidades( @RequestParam( required = false ) String campus ) {
+        return ResponseEntity.ok().body( service.listarUnidades( campus ) );
+    }
+
     @GetMapping( "/opcoes-campus" )
     public ResponseEntity<List<CampusEnum>> listarOpcoesCampus() {
         return ResponseEntity.ok().body( service.listarOpcoesCampus() );
-    }
-
-    @GetMapping( "" )
-    public ResponseEntity<List<UnidadeResponseDTO>> listarUnidades( @RequestParam( required = false ) String campus ) {
-        return ResponseEntity.ok().body( service.listarUnidades( campus ) );
     }
 
     @GetMapping( "/info" )
@@ -39,7 +39,7 @@ public class UnidadeController {
         return ResponseEntity.ok().body( service.obterContabilizacaoPorCampus( campus ) );
     }
 
-    @GetMapping( "/{codigo}/info" )
+    @GetMapping( "/info/{codigo}" )
     public ResponseEntity<UnidadeInfoDTO> obterContabilizacaoUnidade( @PathVariable String codigo ) {
         return ResponseEntity.ok().body( service.obterContabilizacaoParaUnidade( codigo ) );
     }

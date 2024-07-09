@@ -13,8 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import br.ufes.willcq.scpods.api.dto.response.MetaResponseDTO;
 import br.ufes.willcq.scpods.api.dto.response.ObjetivoResponseDTO;
 import br.ufes.willcq.scpods.domain.model.Objetivo;
-import br.ufes.willcq.scpods.domain.repository.MetaRepository;
-import br.ufes.willcq.scpods.domain.repository.ObjetivoRepository;
+import br.ufes.willcq.scpods.domain.service.ObjetivoService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
 @RestController
@@ -23,23 +22,20 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 public class ObjetivoController {
 
     @Autowired
-    private ObjetivoRepository objetivoRepository;
-
-    @Autowired
-    private MetaRepository metaRepository;
+    private ObjetivoService objetivoService;
 
     @Autowired
     private ModelMapper modelMapper;
 
     @GetMapping
     public List<ObjetivoResponseDTO> listar() {
-        return this.mapAllToObjetivoResponseDTO( objetivoRepository.findAll() );
+        return this.mapAllToObjetivoResponseDTO( objetivoService.listar() );
     }
 
     @GetMapping( "/{codigo}" )
     public ResponseEntity<ObjetivoResponseDTO> buscarObjetivo( @PathVariable String codigo ) {
 
-        var optObjetivo = objetivoRepository.findByCodigo( codigo );
+        var optObjetivo = objetivoService.findObjetivoByCodigo( codigo );
 
         if( optObjetivo.isPresent() ) {
             return ResponseEntity.ok().body( modelMapper.map( optObjetivo.get(), ObjetivoResponseDTO.class ) );
@@ -50,7 +46,7 @@ public class ObjetivoController {
     @GetMapping( "/metas/{codigo}" )
     public ResponseEntity<MetaResponseDTO> buscarMeta( @PathVariable String codigo ) {
 
-        var optMeta = metaRepository.findByCodigo( codigo );
+        var optMeta = objetivoService.findMetaByCodigo( codigo );
 
         if( optMeta.isPresent() ) {
             return ResponseEntity.ok().body( modelMapper.map( optMeta.get(), MetaResponseDTO.class ) );

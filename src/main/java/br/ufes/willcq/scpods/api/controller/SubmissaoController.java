@@ -51,9 +51,9 @@ public class SubmissaoController {
         return ResponseEntity.ok( acaoService.searchSubmissoes( acaoGridOptions ) );
     }
 
-    @DeleteMapping( "/{id}" )
+    @DeleteMapping( "/rejeitar" )
     @PreAuthorize( "hasRole('ADMIN')" )
-    public ResponseEntity<Void> rejeitar( @PathVariable Long id ) {
+    public ResponseEntity<Void> rejeitar( @RequestParam( required = true ) Long id ) {
 
         if( !acaoService.existsById( id ) ) {
             return ResponseEntity.notFound().build();
