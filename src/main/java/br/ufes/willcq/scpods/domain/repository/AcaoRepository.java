@@ -39,12 +39,13 @@ public interface AcaoRepository extends ListCrudRepository<Acao, Long> {
             WHERE
                 (lower(a.titulo) like concat('%', trim(lower(:titulo)),'%') or :titulo is null)
                 and (lower(c.nome) like concat('%', trim(lower(:nomeCoordenador)),'%') or :nomeCoordenador is null)
-                and (lower(lc.nomePrincipal) like concat('%', trim(lower(:lotacao)),'%') or :lotacao is null)
+                and (lower(lc.nomePrincipal) like concat('%', trim(lower(:nomeLotacao)),'%') or :nomeLotacao is null)
                 and (lower(o.codigo) like trim(lower(:codigoObjetivo)) or :codigoObjetivo is null)
-                and (lower(un.campus) like trim(lower(:campus)) or :campus is null)
+                and (lower(un.codigo) like trim(lower(:codigoUnidade)) or :codigoUnidade is null)
                 and (lower(un.nome) like concat('%', trim(lower(:nomeUnidade)),'%') or :nomeUnidade is null)
+                and (lower(un.campus) like trim(lower(:campus)) or :campus is null)
                 and (a.aceito = :aceito)
             """ )
-    List<AcaoSearchDTO> search( String titulo, String nomeCoordenador, String lotacao, String codigoObjetivo, CampusEnum campus, String nomeUnidade, boolean aceito );
+    List<AcaoSearchDTO> search( String titulo, CampusEnum campus, String nomeCoordenador, String nomeLotacao, String nomeUnidade, String codigoObjetivo, String codigoUnidade, boolean aceito );
 
 }
