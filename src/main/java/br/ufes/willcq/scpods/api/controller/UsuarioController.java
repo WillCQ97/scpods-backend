@@ -11,7 +11,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 @RestController
 @RequestMapping( "/usuarios" )
 @Tag( name = "Usuários" )
-public class UserController {
+public class UsuarioController {
 
     @GetMapping( "/validar-admin" )
     @PreAuthorize( "hasRole('ADMIN')" )
