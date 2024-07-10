@@ -9,8 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import br.ufes.willcq.scpods.api.dto.AcaoGridDTO;
-import br.ufes.willcq.scpods.api.dto.AcaoGridOptions;
+import br.ufes.willcq.scpods.api.dto.AcaoSearchDTO;
+import br.ufes.willcq.scpods.api.dto.AcaoSearchOptions;
 import br.ufes.willcq.scpods.domain.exception.NegocioException;
 import br.ufes.willcq.scpods.domain.model.Acao;
 import br.ufes.willcq.scpods.domain.model.Coordenador;
@@ -126,7 +126,7 @@ public class AcaoServiceImpl implements AcaoService {
     }
 
     @Override
-    public List<AcaoGridDTO> searchAcoes( AcaoGridOptions options ) {
+    public List<AcaoSearchDTO> searchAcoes( AcaoSearchOptions options ) {
 
         return acaoRepository.search( options.getTitulo(), options.getNomeCoordenador(),
                 options.getNomeLotacao(), options.getCodigoObjetivo(),
@@ -135,7 +135,7 @@ public class AcaoServiceImpl implements AcaoService {
     }
 
     @Override
-    public List<AcaoGridDTO> searchSubmissoes( AcaoGridOptions options ) {
+    public List<AcaoSearchDTO> searchSubmissoes( AcaoSearchOptions options ) {
 
         return acaoRepository.search( options.getTitulo(), options.getNomeCoordenador(),
                 options.getNomeLotacao(), options.getCodigoObjetivo(),
@@ -198,7 +198,7 @@ public class AcaoServiceImpl implements AcaoService {
         acaoRepository.aceitarSubmissao( idAcao );
     }
 
-    private CampusEnum validarCampusOptions( AcaoGridOptions options ) {
+    private CampusEnum validarCampusOptions( AcaoSearchOptions options ) {
         var campusEnum = CampusEnum.obterEnum( options.getCampus() );
         if( options.getCampus() != null && campusEnum == null ) {
             throw new NegocioException( "O valor informado para o campus não é válido!" );

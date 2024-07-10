@@ -6,7 +6,7 @@ import java.util.Optional;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.ListCrudRepository;
 
-import br.ufes.willcq.scpods.api.dto.AcaoGridDTO;
+import br.ufes.willcq.scpods.api.dto.AcaoSearchDTO;
 import br.ufes.willcq.scpods.domain.model.Acao;
 import br.ufes.willcq.scpods.domain.model.enums.CampusEnum;
 
@@ -20,7 +20,7 @@ public interface AcaoRepository extends ListCrudRepository<Acao, Long> {
     void aceitarSubmissao( Long idAcao );
 
     @Query( value = """
-            SELECT new br.ufes.willcq.scpods.api.dto.AcaoGridDTO(
+            SELECT new br.ufes.willcq.scpods.api.dto.AcaoSearchDTO(
                 a.id as id,
                 a.titulo as titulo,
                 a.dataCadastro as dataCadastro,
@@ -45,6 +45,6 @@ public interface AcaoRepository extends ListCrudRepository<Acao, Long> {
                 and (lower(un.nome) like concat('%', trim(lower(:nomeUnidade)),'%') or :nomeUnidade is null)
                 and (a.aceito = :aceito)
             """ )
-    List<AcaoGridDTO> search( String titulo, String nomeCoordenador, String lotacao, String codigoObjetivo, CampusEnum campus, String nomeUnidade, boolean aceito );
+    List<AcaoSearchDTO> search( String titulo, String nomeCoordenador, String lotacao, String codigoObjetivo, CampusEnum campus, String nomeUnidade, boolean aceito );
 
 }

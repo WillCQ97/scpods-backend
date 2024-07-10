@@ -13,7 +13,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @Getter
 @Setter
-public class AcaoGridDTO {
+public class AcaoSearchDTO {
 
     private Long id;
     private String titulo;
