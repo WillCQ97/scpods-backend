@@ -6,7 +6,6 @@ import java.util.List;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import br.ufes.willcq.scpods.api.dto.response.UnidadeInfoDTO;
 import br.ufes.willcq.scpods.api.dto.response.UnidadeResponseDTO;
@@ -17,7 +16,6 @@ import br.ufes.willcq.scpods.domain.repository.UnidadeRepository;
 import br.ufes.willcq.scpods.domain.service.UnidadeService;
 
 @Service
-@Transactional
 public class UnidadeServiceImpl implements UnidadeService {
 
     @Autowired
