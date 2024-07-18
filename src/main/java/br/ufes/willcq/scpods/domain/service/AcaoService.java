@@ -5,8 +5,8 @@ import java.util.Optional;
 
 import org.springframework.validation.annotation.Validated;
 
-import br.ufes.willcq.scpods.api.dto.AcaoGridDTO;
-import br.ufes.willcq.scpods.api.dto.AcaoGridOptions;
+import br.ufes.willcq.scpods.api.dto.AcaoSearchDTO;
+import br.ufes.willcq.scpods.api.dto.AcaoSearchOptions;
 import br.ufes.willcq.scpods.domain.model.Acao;
 
 @Validated
@@ -26,9 +26,9 @@ public interface AcaoService {
 
     public Optional<Acao> findSubmissaoById( Long id );
 
-    public List<AcaoGridDTO> searchAcoes( AcaoGridOptions options );
+    public List<AcaoSearchDTO> searchAcoes( AcaoSearchOptions options );
 
-    public List<AcaoGridDTO> searchSubmissoes( AcaoGridOptions options );
+    public List<AcaoSearchDTO> searchSubmissoes( AcaoSearchOptions options );
 
     public Acao atualizar( Acao acao );
 

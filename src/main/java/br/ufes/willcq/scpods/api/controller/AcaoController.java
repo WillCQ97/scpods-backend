@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.ufes.willcq.scpods.api.dto.AcaoGridDTO;
-import br.ufes.willcq.scpods.api.dto.AcaoGridOptions;
+import br.ufes.willcq.scpods.api.dto.AcaoSearchDTO;
+import br.ufes.willcq.scpods.api.dto.AcaoSearchOptions;
 import br.ufes.willcq.scpods.api.dto.input.SubmissaoInputDTO;
 import br.ufes.willcq.scpods.api.dto.response.AcaoResponseDTO;
 import br.ufes.willcq.scpods.domain.model.Acao;
@@ -43,11 +43,12 @@ public class AcaoController {
     }
 
     @PostMapping( "/search" )
-    public ResponseEntity<List<AcaoGridDTO>> search( @RequestBody AcaoGridOptions acaoGridOptions ) {
-        return ResponseEntity.ok( acaoService.searchAcoes( acaoGridOptions ) );
+    public ResponseEntity<List<AcaoSearchDTO>> search( @RequestBody AcaoSearchOptions acaoSearchOptions ) {
+        return ResponseEntity.ok( acaoService.searchAcoes( acaoSearchOptions ) );
     }
 
     @PostMapping( "/submeter" )
+    // TODO: Adicionar alguma validação
     public ResponseEntity<Void> salvar( @RequestBody SubmissaoInputDTO submissao ) {
         acaoService.inserirSubmissao( this.mapToAcao( submissao ) );
         return ResponseEntity.status( HttpStatus.CREATED ).build();

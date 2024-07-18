@@ -9,13 +9,16 @@ import lombok.Setter;
 @AllArgsConstructor
 @Getter
 @Setter
-public class AcaoGridOptions {
+public class AcaoSearchOptions {
 
     private String titulo;
+    private String campus;
+
     private String nomeCoordenador;
     private String nomeLotacao;
-    private String codigoObjetivo;
-    private String campus;
     private String nomeUnidade;
+
+    private String codigoObjetivo;
+    private String codigoUnidade;
 
 }

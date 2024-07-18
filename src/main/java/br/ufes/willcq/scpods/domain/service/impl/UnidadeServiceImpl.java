@@ -3,13 +3,9 @@ package br.ufes.willcq.scpods.domain.service.impl;
 import java.util.Arrays;
 import java.util.List;
 
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
-import br.ufes.willcq.scpods.api.dto.response.UnidadeInfoDTO;
-import br.ufes.willcq.scpods.api.dto.response.UnidadeResponseDTO;
 import br.ufes.willcq.scpods.domain.exception.NegocioException;
 import br.ufes.willcq.scpods.domain.model.Unidade;
 import br.ufes.willcq.scpods.domain.model.enums.CampusEnum;
@@ -17,14 +13,10 @@ import br.ufes.willcq.scpods.domain.repository.UnidadeRepository;
 import br.ufes.willcq.scpods.domain.service.UnidadeService;
 
 @Service
-@Transactional
 public class UnidadeServiceImpl implements UnidadeService {
 
     @Autowired
     private UnidadeRepository unidadeRepository;
-
-    @Autowired
-    private ModelMapper modelMapper;
 
     @Override
     public List<CampusEnum> listarOpcoesCampus() {
@@ -32,24 +24,24 @@ public class UnidadeServiceImpl implements UnidadeService {
     }
 
     @Override
-    public List<UnidadeResponseDTO> listarUnidades( String campus ) {
+    public List<Unidade> listarUnidades( String campus ) {
         if( campus == null ) {
-            return unidadeRepository.findAll().stream().map( this::mapUnidadeToUnidadeResponseDTO ).toList();
+            return unidadeRepository.findAll();
         }
-        return unidadeRepository.findByCampus( this.obterCampusEnum( campus ) ).stream().map( this::mapUnidadeToUnidadeResponseDTO ).toList();
+        return unidadeRepository.findByCampus( this.obterCampusEnum( campus ) );
     }
 
     @Override
-    public List<UnidadeInfoDTO> obterContabilizacaoPorCampus( String campus ) {
-        return unidadeRepository.findByCampus( this.obterCampusEnum( campus ) ).stream().map( this::mapUnidadeToUnidadeInfo ).toList();
+    public List<Unidade> obterContabilizacaoPorCampus( String campus ) {
+        return unidadeRepository.findByCampus( this.obterCampusEnum( campus ) );
     }
 
     @Override
-    public UnidadeInfoDTO obterContabilizacaoParaUnidade( String codigo ) {
+    public Unidade obterContabilizacaoParaUnidade( String codigo ) {
 
         var result = unidadeRepository.findByCodigo( codigo.toUpperCase() );
         if( result.isPresent() ) {
-            return this.mapUnidadeToUnidadeInfo( result.get() );
+            return result.get();
         }
 
         throw new NegocioException( "O código informado para a unidade não existe!" );
@@ -58,19 +50,10 @@ public class UnidadeServiceImpl implements UnidadeService {
     private CampusEnum obterCampusEnum( String campus ) {
 
         var campusEnum = CampusEnum.obterEnum( campus );
-
         if( campusEnum == null ) {
             throw new NegocioException( "O campus informado não é válido!" );
         }
         return campusEnum;
-    }
-
-    private UnidadeInfoDTO mapUnidadeToUnidadeInfo( Unidade unidade ) {
-        return modelMapper.map( unidade, UnidadeInfoDTO.class );
-    }
-
-    private UnidadeResponseDTO mapUnidadeToUnidadeResponseDTO( Unidade unidade ) {
-        return modelMapper.map( unidade, UnidadeResponseDTO.class );
     }
 
 }

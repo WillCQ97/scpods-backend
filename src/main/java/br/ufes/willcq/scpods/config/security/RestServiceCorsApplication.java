@@ -1,4 +1,4 @@
-package br.ufes.willcq.scpods.config;
+package br.ufes.willcq.scpods.config.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

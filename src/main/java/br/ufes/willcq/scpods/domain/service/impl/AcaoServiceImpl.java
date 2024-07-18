@@ -9,8 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import br.ufes.willcq.scpods.api.dto.AcaoGridDTO;
-import br.ufes.willcq.scpods.api.dto.AcaoGridOptions;
+import br.ufes.willcq.scpods.api.dto.AcaoSearchDTO;
+import br.ufes.willcq.scpods.api.dto.AcaoSearchOptions;
 import br.ufes.willcq.scpods.domain.exception.NegocioException;
 import br.ufes.willcq.scpods.domain.model.Acao;
 import br.ufes.willcq.scpods.domain.model.Coordenador;
@@ -24,7 +24,6 @@ import br.ufes.willcq.scpods.domain.repository.UnidadeRepository;
 import br.ufes.willcq.scpods.domain.service.AcaoService;
 
 @Service
-@Transactional
 public class AcaoServiceImpl implements AcaoService {
 
     @Autowired
@@ -58,7 +57,6 @@ public class AcaoServiceImpl implements AcaoService {
 
     @Override
     public Optional<Acao> findAcaoById( Long id ) {
-
         var acaoOptional = acaoRepository.findById( id );
         if( acaoOptional.isPresent() && acaoOptional.get().getAceito() ) {
             return acaoOptional;
@@ -126,24 +124,25 @@ public class AcaoServiceImpl implements AcaoService {
     }
 
     @Override
-    public List<AcaoGridDTO> searchAcoes( AcaoGridOptions options ) {
+    public List<AcaoSearchDTO> searchAcoes( AcaoSearchOptions options ) {
 
-        return acaoRepository.search( options.getTitulo(), options.getNomeCoordenador(),
-                options.getNomeLotacao(), options.getCodigoObjetivo(),
-                this.validarCampusOptions( options ), options.getNomeUnidade(),
+        return acaoRepository.search( options.getTitulo(), this.obterCampusParaSearch( options.getCampus() ), options.getNomeCoordenador(),
+                options.getNomeLotacao(), options.getNomeUnidade(), options.getCodigoObjetivo(), options.getCodigoUnidade(),
                 true );
+
     }
 
     @Override
-    public List<AcaoGridDTO> searchSubmissoes( AcaoGridOptions options ) {
+    public List<AcaoSearchDTO> searchSubmissoes( AcaoSearchOptions options ) {
 
-        return acaoRepository.search( options.getTitulo(), options.getNomeCoordenador(),
-                options.getNomeLotacao(), options.getCodigoObjetivo(),
-                this.validarCampusOptions( options ), options.getNomeUnidade(),
+        return acaoRepository.search( options.getTitulo(), this.obterCampusParaSearch( options.getCampus() ), options.getNomeCoordenador(),
+                options.getNomeLotacao(), options.getNomeUnidade(), options.getCodigoObjetivo(), options.getCodigoUnidade(),
                 false );
+
     }
 
     @Override
+    @Transactional
     public void inserirSubmissao( Acao acao ) {
 
         var optAcao = acaoRepository.findByTitulo( acao.getTitulo() );
@@ -160,6 +159,7 @@ public class AcaoServiceImpl implements AcaoService {
     }
 
     @Override
+    @Transactional
     public Acao atualizar( Acao acao ) {
 
         var optAcao = acaoRepository.findByTitulo( acao.getTitulo() );
@@ -178,6 +178,7 @@ public class AcaoServiceImpl implements AcaoService {
     }
 
     @Override
+    @Transactional
     public void excluirSubmissao( Long idAcao ) {
 
         var acao = this.findById( idAcao );
@@ -189,6 +190,7 @@ public class AcaoServiceImpl implements AcaoService {
     }
 
     @Override
+    @Transactional
     public void aceitarSubmissao( Long idAcao ) {
 
         var acao = this.findById( idAcao );
@@ -198,9 +200,9 @@ public class AcaoServiceImpl implements AcaoService {
         acaoRepository.aceitarSubmissao( idAcao );
     }
 
-    private CampusEnum validarCampusOptions( AcaoGridOptions options ) {
-        var campusEnum = CampusEnum.obterEnum( options.getCampus() );
-        if( options.getCampus() != null && campusEnum == null ) {
+    private CampusEnum obterCampusParaSearch( String campus ) {
+        var campusEnum = CampusEnum.obterEnum( campus );
+        if( campus != null && campusEnum == null ) {
             throw new NegocioException( "O valor informado para o campus não é válido!" );
         }
         return campusEnum;
