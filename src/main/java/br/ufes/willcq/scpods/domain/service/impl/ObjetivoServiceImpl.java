@@ -23,7 +23,7 @@ public class ObjetivoServiceImpl implements ObjetivoService {
 
     @Override
     public List<Objetivo> listar() {
-        return objetivoRepository.findAll();
+        return objetivoRepository.findAllOrdered();
     }
 
     @Override
