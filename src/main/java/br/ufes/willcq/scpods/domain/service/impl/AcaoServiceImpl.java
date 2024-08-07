@@ -16,7 +16,6 @@ import br.ufes.willcq.scpods.domain.model.Acao;
 import br.ufes.willcq.scpods.domain.model.Coordenador;
 import br.ufes.willcq.scpods.domain.model.enums.CampusEnum;
 import br.ufes.willcq.scpods.domain.repository.AcaoRepository;
-import br.ufes.willcq.scpods.domain.repository.CoordenadorRepository;
 import br.ufes.willcq.scpods.domain.repository.LocalRepository;
 import br.ufes.willcq.scpods.domain.repository.LotacaoRepository;
 import br.ufes.willcq.scpods.domain.repository.MetaRepository;
@@ -28,9 +27,6 @@ public class AcaoServiceImpl implements AcaoService {
 
     @Autowired
     private AcaoRepository acaoRepository;
-
-    @Autowired
-    private CoordenadorRepository coordenadorRepository;
 
     @Autowired
     private LocalRepository localRepository;
@@ -172,7 +168,6 @@ public class AcaoServiceImpl implements AcaoService {
         acao.setAceito( optAcao.get().getAceito() );
         acao.setDataCadastro( optAcao.get().getDataCadastro() );
 
-        coordenadorRepository.save( acao.getCoordenador() );
         return acaoRepository.save( acao );
 
     }

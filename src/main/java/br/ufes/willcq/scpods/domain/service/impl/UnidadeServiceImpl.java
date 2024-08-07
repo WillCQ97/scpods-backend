@@ -6,7 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import br.ufes.willcq.scpods.api.dto.response.CampusSelectDTO;
+import br.ufes.willcq.scpods.api.dto.select.SelectModelString;
 import br.ufes.willcq.scpods.domain.exception.NegocioException;
 import br.ufes.willcq.scpods.domain.model.Unidade;
 import br.ufes.willcq.scpods.domain.model.enums.CampusEnum;
@@ -20,10 +20,10 @@ public class UnidadeServiceImpl implements UnidadeService {
     private UnidadeRepository unidadeRepository;
 
     @Override
-    public List<CampusSelectDTO> listarOpcoesCampus() {
+    public List<SelectModelString> listarOpcoesCampus() {
         return Arrays.asList( CampusEnum.values() )
                 .stream()
-                .map( val -> new CampusSelectDTO( val.name(), val.getDescricao() ) )
+                .map( val -> new SelectModelString( val.name(), val.getDescricao() ) )
                 .toList();
     }
 

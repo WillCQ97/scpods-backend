@@ -1,4 +1,4 @@
-package br.ufes.willcq.scpods.api.dto.response;
+package br.ufes.willcq.scpods.api.dto.select;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,9 +9,9 @@ import lombok.Setter;
 @AllArgsConstructor
 @Getter
 @Setter
-public class CampusSelectDTO {
+public class SelectModelLong implements SelectModel<Long> {
 
-    private String value;
+    private Long value;
     private String description;
 
 }

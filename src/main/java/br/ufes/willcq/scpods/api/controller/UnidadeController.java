@@ -11,9 +11,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.ufes.willcq.scpods.api.dto.response.CampusSelectDTO;
 import br.ufes.willcq.scpods.api.dto.response.UnidadeInfoDTO;
 import br.ufes.willcq.scpods.api.dto.response.UnidadeResponseDTO;
+import br.ufes.willcq.scpods.api.dto.select.SelectModelString;
 import br.ufes.willcq.scpods.domain.model.Unidade;
 import br.ufes.willcq.scpods.domain.service.UnidadeService;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -35,7 +35,7 @@ public class UnidadeController {
     }
 
     @GetMapping( "/opcoes-campus" )
-    public ResponseEntity<List<CampusSelectDTO>> listarOpcoesCampus() {
+    public ResponseEntity<List<SelectModelString>> listarOpcoesCampus() {
         return ResponseEntity.ok().body( service.listarOpcoesCampus() );
     }
 
