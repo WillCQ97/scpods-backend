@@ -7,15 +7,16 @@ import org.springframework.stereotype.Service;
 
 import br.ufes.willcq.scpods.api.dto.select.SelectModel;
 import br.ufes.willcq.scpods.domain.repository.LotacaoRepository;
+import br.ufes.willcq.scpods.domain.service.LotacaoService;
 
 @Service
-public class LotacaoServiceImpl {
+public class LotacaoServiceImpl implements LotacaoService {
 
     @Autowired
     private LotacaoRepository lotacaoRepository;
 
     public List<SelectModel<Long>> listarOpcoesLotacao() {
-        return lotacaoRepository.listarOpcoesLocatacao();
+        return lotacaoRepository.listarOpcoesLotacao();
     }
 
 }
