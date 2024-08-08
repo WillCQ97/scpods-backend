@@ -19,16 +19,14 @@ public class SubmissaoInputDTO {
     private String descricao;
 
     @JsonFormat( pattern = "dd/MM/yyyy" )
-    private LocalDate dataCadastro;
-    @JsonFormat( pattern = "dd/MM/yyyy" )
     private LocalDate dataInicio;
     @JsonFormat( pattern = "dd/MM/yyyy" )
     private LocalDate dataEncerramento;
 
     private Long metaId;
     private Long localId;
+    private Long lotacaoId;
 
     private CoordenadorInputDTO coordenador;
-    private Long lotacaoId;
 
 }
