@@ -3,6 +3,7 @@ package br.ufes.willcq.scpods.domain.repository;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.ListCrudRepository;
 
@@ -16,7 +17,8 @@ public interface AcaoRepository extends ListCrudRepository<Acao, Long> {
 
     List<Acao> findByAceito( Boolean aceito );
 
-    @Query( nativeQuery = true, value = "UPDATE acao SET fl_aceito = TRUE WHERE id_acao = :idAcao" )
+    @Modifying
+    @Query( nativeQuery = true, value = "UPDATE tb_acoes SET fl_aceito = TRUE WHERE id = :idAcao" )
     void aceitarSubmissao( Long idAcao );
 
     @Query( value = """
