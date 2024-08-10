@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import br.ufes.willcq.scpods.api.dto.select.SelectModel;
 import br.ufes.willcq.scpods.api.dto.select.SelectModelString;
 import br.ufes.willcq.scpods.domain.exception.BusinessException;
 import br.ufes.willcq.scpods.domain.exception.EntityNotFoundException;
@@ -26,6 +27,11 @@ public class UnidadeServiceImpl implements UnidadeService {
                 .stream()
                 .map( val -> new SelectModelString( val.name(), val.getDescricao() ) )
                 .toList();
+    }
+
+    @Override
+    public List<SelectModel<String>> listarOpcoesUnidades() {
+        return null;
     }
 
     @Override
