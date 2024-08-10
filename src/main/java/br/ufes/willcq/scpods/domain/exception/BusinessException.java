@@ -1,10 +1,10 @@
 package br.ufes.willcq.scpods.domain.exception;
 
-public class EntidadeNaoEncontradaException extends NegocioException {
+public class BusinessException extends RuntimeException {
 
     private static final long serialVersionUID = 1L;
 
-    public EntidadeNaoEncontradaException( String mensagem ) {
+    public BusinessException( String mensagem ) {
         super( mensagem );
     }
 

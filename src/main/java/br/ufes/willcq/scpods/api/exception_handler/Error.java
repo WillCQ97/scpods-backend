@@ -13,24 +13,24 @@ import lombok.Setter;
 @Getter
 @Setter
 @JsonInclude( Include.NON_NULL )
-public class Erro {
+public class Error {
 
     private Integer status;
     private OffsetDateTime dataHora;
     private String mensagem;
-    private List<Campo> campos;
+    private List<Field> campos;
 
     @AllArgsConstructor
     @Getter
     @Setter
-    public static class Campo {
+    public static class Field {
 
         private String nome;
         private String mensagem;
 
     }
 
-    public Erro( Integer status, OffsetDateTime dataHora, String mensagem ) {
+    public Error( Integer status, OffsetDateTime dataHora, String mensagem ) {
         super();
         this.status = status;
         this.dataHora = dataHora;

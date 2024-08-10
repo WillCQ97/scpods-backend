@@ -11,7 +11,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import br.ufes.willcq.scpods.api.dto.AcaoSearchDTO;
 import br.ufes.willcq.scpods.api.dto.AcaoSearchOptions;
-import br.ufes.willcq.scpods.domain.exception.NegocioException;
+import br.ufes.willcq.scpods.domain.exception.BusinessException;
+import br.ufes.willcq.scpods.domain.exception.EntityNotFoundException;
 import br.ufes.willcq.scpods.domain.model.Acao;
 import br.ufes.willcq.scpods.domain.model.Coordenador;
 import br.ufes.willcq.scpods.domain.model.enums.CampusEnum;
@@ -48,7 +49,7 @@ public class AcaoServiceImpl implements AcaoService {
     @Override
     public Acao findById( Long id ) {
         return acaoRepository.findById( id ).orElseThrow(
-                () -> new NegocioException( "A ação informada não foi encontrada!" ) );
+                () -> new EntityNotFoundException( "A ação informada não foi encontrada!" ) );
     }
 
     @Override
@@ -81,7 +82,7 @@ public class AcaoServiceImpl implements AcaoService {
         var campusEnum = CampusEnum.obterEnum( campus );
 
         if( campusEnum == null ) {
-            throw new NegocioException( "O valor informado para o campus não é válido!" );
+            throw new BusinessException( "O valor informado para o campus não é válido!" );
         }
 
         var unidades = unidadeRepository.findByCampus( campusEnum );
@@ -103,12 +104,12 @@ public class AcaoServiceImpl implements AcaoService {
     public List<Acao> listarPorUnidade( boolean aceito, String codigoUnidade ) {
 
         if( codigoUnidade == null || codigoUnidade.isBlank() ) {
-            throw new NegocioException( "O valor informado para o código da unidade é inválido" );
+            throw new BusinessException( "O valor informado para o código da unidade é inválido" );
         }
 
         var optUnidade = unidadeRepository.findByCodigo( codigoUnidade.toUpperCase() );
         if( optUnidade.isEmpty() ) {
-            throw new NegocioException( "Não há nenhuma unidade para o código informado" );
+            throw new EntityNotFoundException( "Não há nenhuma unidade para o código informado" );
         }
 
         return optUnidade.get().getLocais()
@@ -143,7 +144,7 @@ public class AcaoServiceImpl implements AcaoService {
 
         var optAcao = acaoRepository.findByTitulo( acao.getTitulo() );
         if( optAcao.isPresent() ) {
-            throw new NegocioException( "Já existe uma ação cadastrada com esse título!" );
+            throw new BusinessException( "Já existe uma ação cadastrada com esse título!" );
         }
 
         this.validarAcao( acao );
@@ -160,7 +161,7 @@ public class AcaoServiceImpl implements AcaoService {
 
         var optAcao = acaoRepository.findByTitulo( acao.getTitulo() );
         if( optAcao.isPresent() && !acao.getId().equals( optAcao.get().getId() ) ) {
-            throw new NegocioException( "Já existe uma ação diferente cadastrada com esse título!" );
+            throw new BusinessException( "Já existe uma ação diferente cadastrada com esse título!" );
         }
 
         this.validarAcao( acao );
@@ -178,7 +179,7 @@ public class AcaoServiceImpl implements AcaoService {
 
         var acao = this.findById( idAcao );
         if( acao.getAceito() ) {
-            throw new NegocioException( "A submissão informada já foi aceita e não pode ser apagada." );
+            throw new BusinessException( "A submissão informada já foi aceita e não pode ser apagada." );
         }
 
         acaoRepository.deleteById( idAcao );
@@ -190,7 +191,7 @@ public class AcaoServiceImpl implements AcaoService {
 
         var acao = this.findById( idAcao );
         if( acao.getAceito() ) {
-            throw new NegocioException( "A submissão informada já foi aceita!" );
+            throw new BusinessException( "A submissão informada já foi aceita!" );
         }
         acaoRepository.aceitarSubmissao( idAcao );
     }
@@ -198,7 +199,7 @@ public class AcaoServiceImpl implements AcaoService {
     private CampusEnum obterCampusParaSearch( String campus ) {
         var campusEnum = CampusEnum.obterEnum( campus );
         if( campus != null && campusEnum == null ) {
-            throw new NegocioException( "O valor informado para o campus não é válido!" );
+            throw new BusinessException( "O valor informado para o campus não é válido!" );
         }
         return campusEnum;
     }
@@ -206,34 +207,34 @@ public class AcaoServiceImpl implements AcaoService {
     private void validarAcao( Acao acao ) {
 
         if( acao.getMeta() == null || acao.getMeta().getId() == null ) {
-            throw new NegocioException( "Não foi informada uma meta para a ação!" );
+            throw new BusinessException( "Não foi informada uma meta para a ação!" );
         }
 
         var metaOpt = metaRepository.findById( acao.getMeta().getId() );
         if( metaOpt.isEmpty() ) {
-            throw new NegocioException( "A meta informada para a ação não é válida!" );
+            throw new BusinessException( "A meta informada para a ação não é válida!" );
         } else {
             acao.setMeta( metaOpt.get() );
         }
 
         if( acao.getLocal() == null || acao.getLocal().getId() == null ) {
-            throw new NegocioException( "O local da ação não foi informado!" );
+            throw new BusinessException( "O local da ação não foi informado!" );
         }
 
         var localOpt = localRepository.findById( acao.getLocal().getId() );
         if( localOpt.isEmpty() ) {
-            throw new NegocioException( "O local informado não é válido!" );
+            throw new BusinessException( "O local informado não é válido!" );
         } else {
             acao.setLocal( localOpt.get() );
         }
 
         if( acao.getLotacao() == null || acao.getLotacao().getId() == null ) {
-            throw new NegocioException( "A lotação da ação não foi informada!" );
+            throw new BusinessException( "A lotação da ação não foi informada!" );
         }
 
         var lotacaoOpt = lotacaoRepository.findById( acao.getLotacao().getId() );
         if( lotacaoOpt.isEmpty() ) {
-            throw new NegocioException( "A lotação informada não é válida!" );
+            throw new BusinessException( "A lotação informada não é válida!" );
         } else {
             acao.setLotacao( lotacaoOpt.get() );
         }
@@ -245,19 +246,19 @@ public class AcaoServiceImpl implements AcaoService {
     private void validarCoordenador( Coordenador coordenador ) {
 
         if( coordenador == null ) {
-            throw new NegocioException( "Não foram informados os dados do coordenador!" );
+            throw new BusinessException( "Não foram informados os dados do coordenador!" );
         }
 
         if( coordenador.getNome() == null || coordenador.getNome().isEmpty() ) {
-            throw new NegocioException( "Não foi informado o nome do coordenador!" );
+            throw new BusinessException( "Não foi informado o nome do coordenador!" );
         }
 
         if( coordenador.getEmail() == null || coordenador.getEmail().isEmpty() ) {
-            throw new NegocioException( "Não foi informado o e-mail do coordenador!" );
+            throw new BusinessException( "Não foi informado o e-mail do coordenador!" );
         }
 
         if( coordenador.getTipoVinculo() == null ) {
-            throw new NegocioException( "Não foi informado o vínculo do coordenador!" );
+            throw new BusinessException( "Não foi informado o vínculo do coordenador!" );
         }
     }
 

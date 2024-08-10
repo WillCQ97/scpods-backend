@@ -7,7 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.ufes.willcq.scpods.api.dto.select.SelectModelString;
-import br.ufes.willcq.scpods.domain.exception.NegocioException;
+import br.ufes.willcq.scpods.domain.exception.BusinessException;
+import br.ufes.willcq.scpods.domain.exception.EntityNotFoundException;
 import br.ufes.willcq.scpods.domain.model.Unidade;
 import br.ufes.willcq.scpods.domain.model.enums.CampusEnum;
 import br.ufes.willcq.scpods.domain.repository.UnidadeRepository;
@@ -48,14 +49,14 @@ public class UnidadeServiceImpl implements UnidadeService {
             return result.get();
         }
 
-        throw new NegocioException( "O código informado para a unidade não existe!" );
+        throw new EntityNotFoundException( "Não foi encontrada uma unidade para o código informado!" );
     }
 
     private CampusEnum obterCampusEnum( String campus ) {
 
         var campusEnum = CampusEnum.obterEnum( campus );
         if( campusEnum == null ) {
-            throw new NegocioException( "O campus informado não é válido!" );
+            throw new BusinessException( "O campus informado não é válido!" );
         }
         return campusEnum;
     }
