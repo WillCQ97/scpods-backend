@@ -47,8 +47,8 @@ public class SubmissaoController {
 
     @PostMapping( "/search" )
     @PreAuthorize( "hasRole('ADMIN')" )
-    public ResponseEntity<List<AcaoSearchDTO>> search( @RequestBody AcaoSearchOptions acaoGridOptions ) {
-        return ResponseEntity.ok( acaoService.searchSubmissoes( acaoGridOptions ) );
+    public ResponseEntity<List<AcaoSearchDTO>> search( @RequestBody AcaoSearchOptions options ) {
+        return ResponseEntity.ok( acaoService.searchSubmissoes( options ) );
     }
 
     @DeleteMapping( "/rejeitar" )

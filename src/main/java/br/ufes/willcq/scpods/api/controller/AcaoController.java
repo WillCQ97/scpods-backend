@@ -43,13 +43,13 @@ public class AcaoController {
     }
 
     @PostMapping( "/search" )
-    public ResponseEntity<List<AcaoSearchDTO>> search( @RequestBody AcaoSearchOptions acaoSearchOptions ) {
-        return ResponseEntity.ok( acaoService.searchAcoes( acaoSearchOptions ) );
+    public ResponseEntity<List<AcaoSearchDTO>> search( @RequestBody AcaoSearchOptions options ) {
+        return ResponseEntity.ok( acaoService.searchAcoes( options ) );
     }
 
     @PostMapping( "/submeter" )
     // TODO: Adicionar alguma validação
-    public ResponseEntity<Void> salvar( @RequestBody SubmissaoInputDTO submissao ) {
+    public ResponseEntity<Void> salvarSubmissao( @RequestBody SubmissaoInputDTO submissao ) {
         acaoService.inserirSubmissao( this.mapToAcao( submissao ) );
         return ResponseEntity.status( HttpStatus.CREATED ).build();
     }

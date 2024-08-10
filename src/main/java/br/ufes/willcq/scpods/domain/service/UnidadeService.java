@@ -4,13 +4,16 @@ import java.util.List;
 
 import org.springframework.validation.annotation.Validated;
 
+import br.ufes.willcq.scpods.api.dto.select.SelectModel;
+import br.ufes.willcq.scpods.api.dto.select.SelectModelString;
 import br.ufes.willcq.scpods.domain.model.Unidade;
-import br.ufes.willcq.scpods.domain.model.enums.CampusEnum;
 
 @Validated
 public interface UnidadeService {
 
-    public List<CampusEnum> listarOpcoesCampus();
+    public List<SelectModelString> listarOpcoesCampus();
+
+    public List<SelectModel<String>> listarOpcoesUnidades();
 
     public List<Unidade> listarUnidades( String campus );
 

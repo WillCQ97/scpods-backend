@@ -13,8 +13,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.ufes.willcq.scpods.api.dto.response.UnidadeInfoDTO;
 import br.ufes.willcq.scpods.api.dto.response.UnidadeResponseDTO;
+import br.ufes.willcq.scpods.api.dto.select.SelectModel;
+import br.ufes.willcq.scpods.api.dto.select.SelectModelString;
 import br.ufes.willcq.scpods.domain.model.Unidade;
-import br.ufes.willcq.scpods.domain.model.enums.CampusEnum;
 import br.ufes.willcq.scpods.domain.service.UnidadeService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
@@ -35,8 +36,13 @@ public class UnidadeController {
     }
 
     @GetMapping( "/opcoes-campus" )
-    public ResponseEntity<List<CampusEnum>> listarOpcoesCampus() {
+    public ResponseEntity<List<SelectModelString>> listarOpcoesCampus() {
         return ResponseEntity.ok().body( service.listarOpcoesCampus() );
+    }
+
+    @GetMapping( "/opcoes-unidade" )
+    public ResponseEntity<List<SelectModel<String>>> listarOpcoesUnidades() {
+        return ResponseEntity.ok().body( service.listarOpcoesUnidades() );
     }
 
     @GetMapping( "/info" )

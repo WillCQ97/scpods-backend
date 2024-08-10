@@ -1,11 +1,18 @@
 package br.ufes.willcq.scpods.domain.model.enums;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
+@AllArgsConstructor
+@Getter
 public enum CampusEnum {
 
-    ALEGRE,
-    GOIABEIRAS,
-    MARUIPE,
-    SAO_MATEUS;
+    ALEGRE( "Alegre" ),
+    GOIABEIRAS( "Goiabeiras" ),
+    MARUIPE( "Maruípe" ),
+    SAO_MATEUS( "São Mateus" );
+
+    private String descricao;
 
     public static CampusEnum obterEnum( String campus ) {
 

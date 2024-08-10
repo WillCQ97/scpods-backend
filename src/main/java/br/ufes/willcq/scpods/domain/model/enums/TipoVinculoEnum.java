@@ -1,7 +1,9 @@
 package br.ufes.willcq.scpods.domain.model.enums;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 
+@AllArgsConstructor
 @Getter
 public enum TipoVinculoEnum {
 
@@ -12,9 +14,5 @@ public enum TipoVinculoEnum {
     OUTRO( "Outro" );
 
     private String descricao;
-
-    private TipoVinculoEnum( String descricao ) {
-        this.descricao = descricao;
-    }
 
 }
