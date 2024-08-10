@@ -10,7 +10,6 @@ import org.springframework.data.repository.ListCrudRepository;
 
 import br.ufes.willcq.scpods.api.dto.AcaoSearchDTO;
 import br.ufes.willcq.scpods.domain.model.Acao;
-import br.ufes.willcq.scpods.domain.model.enums.CampusEnum;
 
 public interface AcaoRepository extends ListCrudRepository<Acao, Long> {
 
@@ -44,7 +43,12 @@ public interface AcaoRepository extends ListCrudRepository<Acao, Long> {
                 and (lower(c.nome) like concat('%', trim(lower(:nomeCoordenador)),'%') or :nomeCoordenador is null)
                 and (a.dataCadastro >= cast(:dataInicial as date) or cast(:dataInicial as date) is null)
                 and (a.dataCadastro <= cast(:dataFinal as date) or cast(:dataFinal as date) is null)
-                and (lower(lc.nomePrincipal) like concat('%', trim(lower(:nomeLocal)),'%') or :nomeLocal is null)
+                and (
+                    lower(lc.nomePrincipal) like concat('%', trim(lower(:nomeLocal)),'%')
+                    or lower(lc.nomeSecundario) like concat('%', trim(lower(:nomeLocal)),'%')
+                    or lower(lc.nomeTerciario) like concat('%', trim(lower(:nomeLocal)),'%')
+                    or :nomeLocal is null
+                )
                 and (lower(lt.sigla) like concat('%', trim(lower(:siglaLotacao)),'%') or :siglaLotacao is null)
                 and (lower(o.codigo) like trim(lower(:codigoObjetivo)) or :codigoObjetivo is null)
                 and (lower(un.codigo) like trim(lower(:codigoUnidade)) or :codigoUnidade is null)
@@ -52,6 +56,6 @@ public interface AcaoRepository extends ListCrudRepository<Acao, Long> {
                 and (lower(un.campus) like trim(lower(:campus)) or :campus is null)
                 and (a.aceito = :aceito)
             """ )
-    List<AcaoSearchDTO> search( String titulo, CampusEnum campus, String nomeCoordenador, String nomeLocal, String siglaLotacao, String nomeUnidade, String codigoObjetivo, String codigoUnidade, LocalDate dataInicial, LocalDate dataFinal, boolean aceito );
+    List<AcaoSearchDTO> search( String titulo, String campus, String nomeCoordenador, String nomeLocal, String siglaLotacao, String nomeUnidade, String codigoObjetivo, String codigoUnidade, LocalDate dataInicial, LocalDate dataFinal, boolean aceito );
 
 }

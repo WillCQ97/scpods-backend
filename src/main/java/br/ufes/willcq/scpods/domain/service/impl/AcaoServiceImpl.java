@@ -125,7 +125,7 @@ public class AcaoServiceImpl implements AcaoService {
 
         return acaoRepository.search(
                 options.getTitulo(),
-                this.obterCampusParaSearch( options.getCampus() ),
+                options.getCampus(),
                 options.getNomeCoordenador(),
                 options.getNomeLocal(),
                 options.getSiglaLotacao(),
@@ -143,7 +143,7 @@ public class AcaoServiceImpl implements AcaoService {
 
         return acaoRepository.search(
                 options.getTitulo(),
-                this.obterCampusParaSearch( options.getCampus() ),
+                options.getCampus(),
                 options.getNomeCoordenador(),
                 options.getNomeLocal(),
                 options.getSiglaLotacao(),
