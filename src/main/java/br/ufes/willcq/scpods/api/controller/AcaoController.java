@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.ufes.willcq.scpods.api.dto.AcaoSearchDTO;
-import br.ufes.willcq.scpods.api.dto.AcaoSearchFilter;
+import br.ufes.willcq.scpods.api.dto.AcaoSearchOptions;
 import br.ufes.willcq.scpods.api.dto.input.SubmissaoInputDTO;
 import br.ufes.willcq.scpods.api.dto.response.AcaoResponseDTO;
 import br.ufes.willcq.scpods.domain.model.Acao;
@@ -43,8 +43,8 @@ public class AcaoController {
     }
 
     @PostMapping( "/search" )
-    public ResponseEntity<List<AcaoSearchDTO>> search( @RequestBody AcaoSearchFilter filter ) {
-        return ResponseEntity.ok( acaoService.searchAcoes( filter ) );
+    public ResponseEntity<List<AcaoSearchDTO>> search( @RequestBody AcaoSearchOptions options ) {
+        return ResponseEntity.ok( acaoService.searchAcoes( options ) );
     }
 
     @PostMapping( "/submeter" )
