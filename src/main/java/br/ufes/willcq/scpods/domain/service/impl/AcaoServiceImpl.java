@@ -132,6 +132,8 @@ public class AcaoServiceImpl implements AcaoService {
                 options.getNomeUnidade(),
                 options.getCodigoObjetivo(),
                 options.getCodigoUnidade(),
+                options.getDataInicial(),
+                options.getDataFinal(),
                 true );
 
     }
@@ -148,6 +150,8 @@ public class AcaoServiceImpl implements AcaoService {
                 options.getNomeUnidade(),
                 options.getCodigoObjetivo(),
                 options.getCodigoUnidade(),
+                options.getDataInicial(),
+                options.getDataFinal(),
                 false );
 
     }
