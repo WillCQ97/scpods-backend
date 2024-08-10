@@ -49,7 +49,7 @@ public class AcaoController {
 
     @PostMapping( "/submeter" )
     // TODO: Adicionar alguma validação
-    public ResponseEntity<Void> salvar( @RequestBody SubmissaoInputDTO submissao ) {
+    public ResponseEntity<Void> salvarSubmissao( @RequestBody SubmissaoInputDTO submissao ) {
         acaoService.inserirSubmissao( this.mapToAcao( submissao ) );
         return ResponseEntity.status( HttpStatus.CREATED ).build();
     }
