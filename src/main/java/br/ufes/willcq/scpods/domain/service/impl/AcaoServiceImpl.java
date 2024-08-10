@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import br.ufes.willcq.scpods.api.dto.AcaoSearchDTO;
-import br.ufes.willcq.scpods.api.dto.AcaoSearchOptions;
+import br.ufes.willcq.scpods.api.dto.AcaoSearchFilter;
 import br.ufes.willcq.scpods.domain.exception.BusinessException;
 import br.ufes.willcq.scpods.domain.exception.EntityNotFoundException;
 import br.ufes.willcq.scpods.domain.model.Acao;
@@ -121,19 +121,33 @@ public class AcaoServiceImpl implements AcaoService {
     }
 
     @Override
-    public List<AcaoSearchDTO> searchAcoes( AcaoSearchOptions options ) {
+    public List<AcaoSearchDTO> searchAcoes( AcaoSearchFilter filter ) {
 
-        return acaoRepository.search( options.getTitulo(), this.obterCampusParaSearch( options.getCampus() ), options.getNomeCoordenador(),
-                options.getNomeLotacao(), options.getNomeUnidade(), options.getCodigoObjetivo(), options.getCodigoUnidade(),
+        return acaoRepository.search(
+                filter.getTitulo(),
+                this.obterCampusParaSearch( filter.getCampus() ),
+                filter.getNomeCoordenador(),
+                filter.getNomeLocal(),
+                filter.getNomeLotacao(),
+                filter.getNomeUnidade(),
+                filter.getCodigoObjetivo(),
+                filter.getCodigoUnidade(),
                 true );
 
     }
 
     @Override
-    public List<AcaoSearchDTO> searchSubmissoes( AcaoSearchOptions options ) {
+    public List<AcaoSearchDTO> searchSubmissoes( AcaoSearchFilter filter ) {
 
-        return acaoRepository.search( options.getTitulo(), this.obterCampusParaSearch( options.getCampus() ), options.getNomeCoordenador(),
-                options.getNomeLotacao(), options.getNomeUnidade(), options.getCodigoObjetivo(), options.getCodigoUnidade(),
+        return acaoRepository.search(
+                filter.getTitulo(),
+                this.obterCampusParaSearch( filter.getCampus() ),
+                filter.getNomeCoordenador(),
+                filter.getNomeLocal(),
+                filter.getNomeLotacao(),
+                filter.getNomeUnidade(),
+                filter.getCodigoObjetivo(),
+                filter.getCodigoUnidade(),
                 false );
 
     }

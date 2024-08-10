@@ -9,12 +9,13 @@ import lombok.Setter;
 @AllArgsConstructor
 @Getter
 @Setter
-public class AcaoSearchOptions {
+public class AcaoSearchFilter {
 
     private String titulo;
     private String campus;
 
     private String nomeCoordenador;
+    private String nomeLocal;
     private String nomeLotacao;
     private String nomeUnidade;
 
