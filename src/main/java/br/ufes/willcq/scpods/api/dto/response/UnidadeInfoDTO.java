@@ -19,4 +19,5 @@ public class UnidadeInfoDTO {
     private String campus;
 
     private List<LocalInfoDTO> locais;
+
 }

@@ -18,6 +18,7 @@ public class LocalAcaoResponseDTO {
     private String nomePrincipal;
     private String nomeSecundario;
     private String nomeTerciario;
+
     private Point localizacao;
 
     private UnidadeAcaoReponseDTO unidade;
