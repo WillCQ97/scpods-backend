@@ -1,0 +1,41 @@
+# Exemplo de um docker compose para a aplicação que realiza o build dos projetos
+# e os configura de acordo
+version: "2"
+services:
+  scpods-frontend:
+    container_name: scpods-fronted
+    build:
+      context: scpods-fronted
+      dockerfile: Dockerfile
+    image: willcq97/scpods-fronted:2.0.0
+    ports:
+      - 3000:3000
+    networks:
+      - scpods-network
+
+  scpods-api:
+    container_name: scpods-api
+    build:
+      context: scpods-backend
+      dockerfile: Dockerfile
+    image: willcq97/scpods-api:1.0.0
+    ports:
+      - 8080:8080
+    networks:
+      - scpods-network
+
+  postgis-acoes-db:
+    container_name: postgis-acoes-db
+    image: postgis/postgis:16-3.4
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_DB: acoes_db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: admin.123
+    networks:
+      - scpods-network
+
+networks:
+  scpods-network:
+    driver: bridge
