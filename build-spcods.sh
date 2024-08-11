@@ -14,11 +14,10 @@ podman build -t willcq97/scpods-api:1.0.0 .
 
 cd ..
 
-POD_NAME=scpods-pod
-podman pod create --name $POD_NAME -p 8080:8080 -p 3000:3000 -p 5432:5432
+podman pod create --name scpods-pod -p 8080:8080 -p 3000:3000 -p 5432:5432
 
 podman run -d \
-    --pod $POD_NAME \
+    --pod scpods-pod \
     --name postgis-acoes-db \
     -e POSTGRES_DB=acoes_db \
     -e POSTGRES_PASSWORD=admin.123 \
@@ -27,12 +26,12 @@ podman run -d \
     docker.io/postgis/postgis:16-3.4
 
 podman run -d \
-    --pod $POD_NAME \
+    --pod scpods-pod \
     --name scpods-api \
     willcq97/scpods-api:1.0.0
 
 podman run -d \
-    --pod $POD_NAME \
+    --pod scpods-pod \
     --name scpods-fronted \
     willcq97/scpods-frontend:2.0.0
 
