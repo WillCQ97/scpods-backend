@@ -3,14 +3,16 @@
 # Exemplo com docker-compose em src/main/resource/docker-compose.yml
 
 cd ..
-cd scpods-frontend
-yarn build
-podman build -t willcq97/scpods-frontend:2.0.0 .
-
-cd ..
 cd scpods-backend
 ./mvnw clean package -DskipTests
-podman build -t willcq97/scpods-api:1.0.0 .
+podman build --platform linux/amd64 -t willcq97/scpods-api:1.0.0-amd64 .
+podman build --platform linux/arm64 -t willcq97/scpods-api:1.0.0-arm64 .
+
+cd ..
+cd scpods-frontend
+yarn build
+podman build --platform linux/amd64 -t willcq97/scpods-frontend:2.0.0-amd64 .
+podman build --platform linux/arm64 -t willcq97/scpods-frontend:2.0.0-arm64 .
 
 cd ..
 
@@ -25,10 +27,10 @@ podman run -d \
     -v acoes-db-data:/var/lib/postgresql/data \
     docker.io/postgis/postgis:16-3.4
 
-podman run -d \
-    --pod scpods-pod \
-    --name scpods-api \
-    willcq97/scpods-api:1.0.0
+    podman run -d \
+        --pod scpods-pod \
+        --name scpods-api \
+        willcq97/scpods-api:1.0.0
 
 podman run -d \
     --pod scpods-pod \
