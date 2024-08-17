@@ -1,3 +1,8 @@
+#
+# Este dockerfile apenas copia o target para dentro do container.
+# Logo o projeto deve ser buildado antes da geração da imagem.
+#
+
 FROM docker.io/openjdk:21
 MAINTAINER WillCQ97
 
