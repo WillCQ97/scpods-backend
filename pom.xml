@@ -6,11 +6,11 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.2.8</version>
+        <version>3.3.2</version>
         <relativePath /> <!-- lookup parent from repository -->
     </parent>
     <groupId>br.ufes.willcq</groupId>
-    <artifactId>scpods-backend</artifactId>
+    <artifactId>scpods-api</artifactId>
     <version>1.0.0-SNAPSHOT</version>
     <name>CadastroProjetosODSBackend</name>
     <description>Backend do sistema para cadastro de projetos relacionados aos ODS na UFES.</description>
@@ -35,6 +35,10 @@
         <dependency>
             <groupId>org.flywaydb</groupId>
             <artifactId>flyway-core</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.flywaydb</groupId>
+            <artifactId>flyway-database-postgresql</artifactId>
         </dependency>
 
         <!-- Suport for spatial datatypes -->

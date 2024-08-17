@@ -1,6 +1,6 @@
 app:
   admin:
-    username: willcq
+    username: admin
     password: admin.123
     roles:
       - ADMIN
