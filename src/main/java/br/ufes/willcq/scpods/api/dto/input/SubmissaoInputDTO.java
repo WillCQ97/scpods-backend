@@ -15,6 +15,7 @@ public class SubmissaoInputDTO {
 
     private String titulo;
     private String descricao;
+    private String urlEvidencia;
 
     private LocalDate dataInicio;
     private LocalDate dataEncerramento;
