@@ -16,6 +16,7 @@ public class AcaoResponseDTO {
     private Long id;
     private String titulo;
     private String descricao;
+    private String urlEvidencia;
 
     private LocalDate dataCadastro;
     private LocalDate dataInicio;

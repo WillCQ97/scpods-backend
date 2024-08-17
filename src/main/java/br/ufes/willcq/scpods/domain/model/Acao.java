@@ -37,6 +37,9 @@ public class Acao {
     @NotBlank( message = "Não foi informada a descrição da ação!" )
     private String descricao;
 
+    @Column( name = "url_evidencia" )
+    private String urlEvidencia;
+
     @Column( name = "dt_cadastro" )
     @NotNull
     private LocalDate dataCadastro;
