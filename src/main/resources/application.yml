@@ -19,6 +19,14 @@ app:
       name: "MIT License"
       url: https://github.com/WillCQ97/scpods-backend/blob/main/LICENSE
 
+feign:
+  client:
+    config:
+      default:
+        connectTimeout: 5000
+        readTimeout: 5000
+        loggerLevel: basic
+
 logging:
   level:
     "[org.hibernate.type.descriptor.sql.BasicBinder]": TRACE
