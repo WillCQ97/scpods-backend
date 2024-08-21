@@ -37,28 +37,18 @@ public class SubmissaoController {
     @GetMapping( "/{id}" )
     @PreAuthorize( "hasRole('ADMIN')" )
     public ResponseEntity<SubmissaoResponseDTO> findById( @PathVariable Long id ) {
-
-        var optAcao = acaoService.findSubmissaoById( id );
-        if( optAcao.isPresent() ) {
-            return ResponseEntity.ok().body( this.mapToSubmissaoResponseDTO( optAcao.get() ) );
-        }
-        return ResponseEntity.notFound().build();
+        return ResponseEntity.ok().body( this.mapToSubmissaoResponseDTO( acaoService.findSubmissaoById( id ) ) );
     }
 
     @PostMapping( "/search" )
     @PreAuthorize( "hasRole('ADMIN')" )
     public ResponseEntity<List<AcaoSearchDTO>> search( @RequestBody AcaoSearchOptions options ) {
-        return ResponseEntity.ok( acaoService.searchSubmissoes( options ) );
+        return ResponseEntity.ok( acaoService.search( options, false ) );
     }
 
     @DeleteMapping( "/rejeitar" )
     @PreAuthorize( "hasRole('ADMIN')" )
     public ResponseEntity<Void> rejeitar( @RequestParam( required = true ) Long id ) {
-
-        if( !acaoService.existsById( id ) ) {
-            return ResponseEntity.notFound().build();
-        }
-
         acaoService.excluirSubmissao( id );
         return ResponseEntity.noContent().build();
     }
@@ -66,11 +56,6 @@ public class SubmissaoController {
     @PatchMapping( "/aceitar" )
     @PreAuthorize( "hasRole('ADMIN')" )
     public ResponseEntity<Void> aceitar( @RequestParam( required = true ) Long id ) {
-
-        if( !acaoService.existsById( id ) ) {
-            return ResponseEntity.notFound().build();
-        }
-
         acaoService.aceitarSubmissao( id );
         return ResponseEntity.ok().build();
     }

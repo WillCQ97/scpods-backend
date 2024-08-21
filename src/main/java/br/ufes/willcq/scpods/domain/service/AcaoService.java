@@ -1,7 +1,6 @@
 package br.ufes.willcq.scpods.domain.service;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.validation.annotation.Validated;
 
@@ -20,15 +19,13 @@ public interface AcaoService {
 
     public List<Acao> listarPorUnidade( boolean aceito, String codigoUnidade );
 
+    public List<AcaoSearchDTO> search( AcaoSearchOptions options, boolean aceito );
+
     public Acao findById( Long id );
 
-    public Optional<Acao> findAcaoById( Long id );
+    public Acao findAcaoById( Long id );
 
-    public Optional<Acao> findSubmissaoById( Long id );
-
-    public List<AcaoSearchDTO> searchAcoes( AcaoSearchOptions options );
-
-    public List<AcaoSearchDTO> searchSubmissoes( AcaoSearchOptions options );
+    public Acao findSubmissaoById( Long id );
 
     public Acao atualizar( Acao acao );
 

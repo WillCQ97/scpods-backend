@@ -40,7 +40,7 @@ public class Acao {
     @Column( name = "url_evidencia" )
     private String urlEvidencia;
 
-    @Column( name = "dt_cadastro" )
+    @Column( name = "dt_cadastro", updatable = false )
     @NotNull
     private LocalDate dataCadastro;
 

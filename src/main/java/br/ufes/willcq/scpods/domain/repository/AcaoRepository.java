@@ -15,6 +15,8 @@ public interface AcaoRepository extends ListCrudRepository<Acao, Long> {
 
     Optional<Acao> findByTitulo( String titulo );
 
+    boolean existsByTitulo( String titulo );
+
     List<Acao> findByAceito( Boolean aceito );
 
     @Modifying
