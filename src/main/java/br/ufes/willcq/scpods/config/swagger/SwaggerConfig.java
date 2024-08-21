@@ -41,7 +41,7 @@ public class SwaggerConfig {
     public GroupedOpenApi publicApi() {
         return GroupedOpenApi.builder()
                 .group( "Público" )
-                .pathsToMatch( "/acoes/**", "/lotacoes/**", "/objetivos/**", "/unidades/**" )
+                .pathsToMatch( "/acoes/**", "/lotacoes/**", "/objetivos/**", "/unidades/**", "/usuarios/validar-login" )
                 .build();
     }
 
@@ -49,7 +49,7 @@ public class SwaggerConfig {
     public GroupedOpenApi protectedApi() {
         return GroupedOpenApi.builder()
                 .group( "Administração" )
-                .pathsToMatch( "/submissoes/**", "/usuarios/**" )
+                .pathsToMatch( "/submissoes/**", "/usuarios/validar-admin" )
                 .addOperationCustomizer( ( operation, handlerMethod ) -> operation
                         .addSecurityItem( new SecurityRequirement().addList( "basicAuth" ) ) )
                 .build();
