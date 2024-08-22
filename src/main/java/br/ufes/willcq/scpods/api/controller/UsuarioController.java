@@ -29,7 +29,7 @@ public class UsuarioController {
         return ResponseEntity.ok().build();
     }
 
-    @PostMapping( "/validar-login" )
+    @PostMapping( "/validar-login-ufes" )
     public ResponseEntity<?> validarLoginUfes( @Valid @RequestBody LoginUsuarioDTO loginDTO ) {
         usuarioService.validarLoginUfes( loginDTO );
         return ResponseEntity.ok().build();

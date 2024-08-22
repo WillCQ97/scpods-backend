@@ -41,7 +41,7 @@ public class SwaggerConfig {
     public GroupedOpenApi publicApi() {
         return GroupedOpenApi.builder()
                 .group( "Público" )
-                .pathsToMatch( "/acoes/**", "/lotacoes/**", "/objetivos/**", "/unidades/**", "/usuarios/validar-login" )
+                .pathsToMatch( "/acoes/**", "/lotacoes/**", "/objetivos/**", "/unidades/**", "/usuarios/validar-login-ufes" )
                 .build();
     }
 
