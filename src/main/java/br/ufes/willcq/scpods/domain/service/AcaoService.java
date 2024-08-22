@@ -7,11 +7,12 @@ import org.springframework.validation.annotation.Validated;
 import br.ufes.willcq.scpods.api.dto.AcaoSearchDTO;
 import br.ufes.willcq.scpods.api.dto.AcaoSearchOptions;
 import br.ufes.willcq.scpods.domain.model.Acao;
+import jakarta.validation.constraints.NotNull;
 
 @Validated
 public interface AcaoService {
 
-    public boolean existsById( Long idAcao );
+    public boolean existsById( @NotNull Long idAcao );
 
     public List<Acao> listar( boolean aceito );
 
@@ -21,17 +22,17 @@ public interface AcaoService {
 
     public List<AcaoSearchDTO> search( AcaoSearchOptions options, boolean aceito );
 
-    public Acao findById( Long id );
+    public Acao findById( @NotNull Long id );
 
-    public Acao findAcaoById( Long id );
+    public Acao findAcaoById( @NotNull Long id );
 
-    public Acao findSubmissaoById( Long id );
+    public Acao findSubmissaoById( @NotNull Long id );
 
     public Acao atualizar( Acao acao );
 
     public void inserirSubmissao( Acao acao );
 
-    public void excluirSubmissao( Long idAcao );
+    public void excluirSubmissao( @NotNull Long idAcao );
 
-    public void aceitarSubmissao( Long idAcao );
+    public void aceitarSubmissao( @NotNull Long idAcao );
 }

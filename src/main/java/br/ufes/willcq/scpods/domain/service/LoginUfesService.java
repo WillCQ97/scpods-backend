@@ -37,11 +37,11 @@ public class LoginUfesService {
         var executionValue = getExecutionFormValue();
 
         if( executionValue.isEmpty() ) {
-            throw new BusinessException( "Não foi possível realizar o login!" );
+            throw new BusinessException( "Não foi possível validar seu usuário!" );
         }
 
         if( !this.verifyUserLogin( usuario.getUsername(), usuario.getPassword(), executionValue.get() ) ) {
-            throw new BusinessException( "Login informado é inválido!" );
+            throw new BusinessException( "As informações de login são inválidas!" );
         }
 
     }
