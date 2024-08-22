@@ -1,5 +1,5 @@
 # Exemplo de um docker compose para a aplicação que realiza o build dos projetos
-# e os configura de acordo
+# e os configura de acordo.
 version: "2"
 services:
   scpods-frontend:
