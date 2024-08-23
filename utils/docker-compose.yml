@@ -3,11 +3,11 @@
 version: "2"
 services:
   scpods-frontend:
-    container_name: scpods-fronted
+    container_name: scpods-site
     build:
       context: scpods-fronted
       dockerfile: Dockerfile
-    image: willcq97/scpods-fronted:2.0.0
+    image: willcq97/scpods-site:2.0.0
     ports:
       - 3000:3000
     networks:
