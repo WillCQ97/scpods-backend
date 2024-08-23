@@ -14,10 +14,11 @@ public class RestServiceCorsApplication {
 
         return new WebMvcConfigurer() {
 
+            // TODO: refinar o acesso a estes métodos
             @Override
             public void addCorsMappings( @NonNull CorsRegistry registry ) {
                 registry.addMapping( "/**" )
-                        .allowedOrigins( "http://localhost:3000" )
+                        .allowedOrigins( "http://localhost", "http://localhost:80", "http://localhost:3000", "http://localhost:8080", "http://localhost:8001" )
                         .allowedMethods( "HEAD", "GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS" );
             }
         };
