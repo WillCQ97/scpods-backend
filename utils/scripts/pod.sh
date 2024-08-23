@@ -21,6 +21,6 @@ podman run -d \
 
 podman run -d \
     --pod scpods-pod \
-    --name scpods-fronted \
-    willcq97/scpods-frontend:2.0.0
+    --name scpods-site \
+    willcq97/scpods-site:2.0.0
 
