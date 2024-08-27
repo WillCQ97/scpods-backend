@@ -6,6 +6,7 @@ Wants=postgresql@16-main.service
 [Service]
 Type=simple
 User=willcq
+EnvironmentFile=/home/willcq/my-apps/scpods-api/env
 ExecStart=/home/willcq/Programs/jdk-21.0.4+7-jre/bin/java -jar /home/willcq/my-apps/scpods-api/scpods-api-1.0.0-RC.jar
 Restart=on-failure
 RestartSec=10
