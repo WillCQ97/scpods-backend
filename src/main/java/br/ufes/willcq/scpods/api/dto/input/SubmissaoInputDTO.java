@@ -34,7 +34,7 @@ public class SubmissaoInputDTO {
     @NotNull( message = "Não foi informado o id do local para a ação!" )
     private Long localId;
 
-    @NotNull( message = "Não foi informada o id da lotação para a ação!" )
+    @NotNull( message = "Não foi informado o id da lotação para a ação!" )
     private Long lotacaoId;
 
     @NotNull( message = "Não foi informado o coordenador da ação!" )

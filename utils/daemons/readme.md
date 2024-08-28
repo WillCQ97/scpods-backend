@@ -1,10 +1,17 @@
 # Arquivos .service
 
-- Para fazer um deploy de testes, foram criados arquivos .service para o front e backend.
-- São arquivos para execução de comandos manejados pelo systemd no linux.
-- Para tal, tais arquivos devem estar presentes no diretório `/etc/systemd/system`, podem ser links simbólicos para outros arquivos.
-- Nesse caso, foram instalados o javaJRE e o node em `~/Programs/`.
-- O scpods-api e scp-site ficaram em `~/my-apps`:
+- Para fazer testes de deploy foram criados arquivos .service para o front-end e back-end.
+- São arquivos para configurar processos gerenciados pelo `systemd` em sistemas linux.
+- Para isso, os arquivos .service devem estar presentes no diretório `/etc/systemd/system` e podem ser links simbólicos.
+- O deploy de teste foi realizado em um Raspberry Pi:
+  - Foram instalados o Java JRE (OpenJDK21U-jre_aarch64_linux_hotspot_21.0.4_7.tar.gz) e o NodeJS (node-v20.17.0-linux-arm64.tar.xz) em `~/Programs/`.
+  - O scpods-api e scp-site ficaram em `~/my-apps`:
+
+```bash
+sha256sum *.tar.*
+7ebbb636c23f89dbf66648e227fbd0998ce33db4c588520256425102d97dd1a4  node-v20.17.0-linux-arm64.tar.xz
+58845ce4275f3ec74fba075597c8216bb201773da036c4703be8b7b7b457355d  OpenJDK21U-jre_aarch64_linux_hotspot_21.0.4_7.tar.gz
+```
 
 ```bash
 my-apps
