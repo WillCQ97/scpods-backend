@@ -51,7 +51,6 @@ public class LoginUfesService {
      *
      * @return the extracted execution value needed for login validation
      */
-
     private Optional<String> getExecutionFormValue() {
 
         ResponseEntity<String> response = restTemplate.getForEntity( URL_LOGIN, String.class );
