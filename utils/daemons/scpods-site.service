@@ -6,6 +6,7 @@ Wants=scpods-api.service
 [Service]
 Type=simple
 User=willcq
+EnvironmentFile=/home/willcq/my-apps/scpods-site/env
 ExecStart=/home/willcq/Programs/node-v20.17.0-linux-arm64/bin/node /home/willcq/my-apps/scpods-site/server/index.mjs
 Restart=on-failure
 RestartSec=10
