@@ -12,7 +12,7 @@
     <groupId>br.ufes.willcq</groupId>
     <artifactId>scpods-api</artifactId>
     <version>1.0.0-RC</version>
-    <name>CadastroProjetosODSBackend</name>
+    <name>SCPODS API</name>
     <description>Backend do sistema para cadastro de projetos relacionados aos ODS na UFES.</description>
     <properties>
         <modelmapper.version>3.0.0</modelmapper.version>
