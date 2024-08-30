@@ -18,7 +18,7 @@ public class RestServiceCorsApplication {
             @Override
             public void addCorsMappings( @NonNull CorsRegistry registry ) {
                 registry.addMapping( "/**" )
-                        .allowedOrigins( "*" )
+                        .allowedOriginPatterns( "*" )
                         .allowedMethods( "HEAD", "GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS" );
             }
         };
