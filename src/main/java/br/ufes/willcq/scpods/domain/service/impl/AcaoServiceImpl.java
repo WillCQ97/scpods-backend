@@ -166,7 +166,6 @@ public class AcaoServiceImpl implements AcaoService {
         this.validar( acao );
 
         acao.setAceito( optAcao.get().getAceito() );
-        acao.setDataCadastro( optAcao.get().getDataCadastro() );
 
         return acaoRepository.save( acao );
 
@@ -210,7 +209,7 @@ public class AcaoServiceImpl implements AcaoService {
         }
 
         if( !localRepository.existsById( acao.getLocal().getId() ) ) {
-            throw new BusinessException( "O local informado não foi encontrada!" );
+            throw new BusinessException( "O local informado não foi encontrado!" );
         }
 
         if( !lotacaoRepository.existsById( acao.getLotacao().getId() ) ) {
