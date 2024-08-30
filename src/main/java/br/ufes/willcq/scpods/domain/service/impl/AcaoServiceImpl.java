@@ -3,7 +3,6 @@ package br.ufes.willcq.scpods.domain.service.impl;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,7 +13,6 @@ import br.ufes.willcq.scpods.api.dto.AcaoSearchOptions;
 import br.ufes.willcq.scpods.domain.exception.BusinessException;
 import br.ufes.willcq.scpods.domain.exception.EntityNotFoundException;
 import br.ufes.willcq.scpods.domain.model.Acao;
-import br.ufes.willcq.scpods.domain.model.Coordenador;
 import br.ufes.willcq.scpods.domain.model.enums.CampusEnum;
 import br.ufes.willcq.scpods.domain.repository.AcaoRepository;
 import br.ufes.willcq.scpods.domain.repository.LocalRepository;
@@ -48,27 +46,25 @@ public class AcaoServiceImpl implements AcaoService {
 
     @Override
     public Acao findById( Long id ) {
-        return acaoRepository.findById( id ).orElseThrow(
-                () -> new EntityNotFoundException( "A ação informada não foi encontrada!" ) );
+        return acaoRepository.findById( id )
+                .orElseThrow( () -> new EntityNotFoundException( "A ação informada não foi encontrada!" ) );
     }
 
     @Override
-    public Optional<Acao> findAcaoById( Long id ) {
-        var acaoOptional = acaoRepository.findById( id );
-        if( acaoOptional.isPresent() && acaoOptional.get().getAceito() ) {
-            return acaoOptional;
-        }
-        return Optional.empty();
+    public Acao findAcaoById( Long id ) {
+        return acaoRepository
+                .findById( id )
+                .filter( acao -> Boolean.TRUE.equals( acao.getAceito() ) )
+                .orElseThrow( () -> new EntityNotFoundException( "Não foi encontrada uma ação para o id informado!" ) );
     }
 
     @Override
-    public Optional<Acao> findSubmissaoById( Long id ) {
+    public Acao findSubmissaoById( Long id ) {
 
-        var acaoOptional = acaoRepository.findById( id );
-        if( acaoOptional.isPresent() && !acaoOptional.get().getAceito() ) {
-            return acaoOptional;
-        }
-        return Optional.empty();
+        return acaoRepository
+                .findById( id )
+                .filter( acao -> Boolean.FALSE.equals( acao.getAceito() ) )
+                .orElseThrow( () -> new EntityNotFoundException( "Não foi encontrada uma submissão para o id informado!" ) );
     }
 
     @Override
@@ -121,7 +117,11 @@ public class AcaoServiceImpl implements AcaoService {
     }
 
     @Override
-    public List<AcaoSearchDTO> searchAcoes( AcaoSearchOptions options ) {
+    public List<AcaoSearchDTO> search( AcaoSearchOptions options, boolean aceito ) {
+
+        if( options.getCampus() != null ) {
+            this.validarCampusSearch( options.getCampus() );
+        }
 
         return acaoRepository.search(
                 options.getTitulo(),
@@ -134,25 +134,7 @@ public class AcaoServiceImpl implements AcaoService {
                 options.getCodigoUnidade(),
                 options.getDataInicial(),
                 options.getDataFinal(),
-                true );
-
-    }
-
-    @Override
-    public List<AcaoSearchDTO> searchSubmissoes( AcaoSearchOptions options ) {
-
-        return acaoRepository.search(
-                options.getTitulo(),
-                options.getCampus(),
-                options.getNomeCoordenador(),
-                options.getNomeLocal(),
-                options.getSiglaLotacao(),
-                options.getNomeUnidade(),
-                options.getCodigoObjetivo(),
-                options.getCodigoUnidade(),
-                options.getDataInicial(),
-                options.getDataFinal(),
-                false );
+                aceito );
 
     }
 
@@ -160,12 +142,11 @@ public class AcaoServiceImpl implements AcaoService {
     @Transactional
     public void inserirSubmissao( Acao acao ) {
 
-        var optAcao = acaoRepository.findByTitulo( acao.getTitulo() );
-        if( optAcao.isPresent() ) {
+        if( acaoRepository.existsByTitulo( acao.getTitulo() ) ) {
             throw new BusinessException( "Já existe uma ação cadastrada com esse título!" );
         }
 
-        this.validarAcao( acao );
+        this.validar( acao );
 
         acao.setAceito( Boolean.FALSE );
         acao.setDataCadastro( LocalDate.now() );
@@ -182,10 +163,9 @@ public class AcaoServiceImpl implements AcaoService {
             throw new BusinessException( "Já existe uma ação diferente cadastrada com esse título!" );
         }
 
-        this.validarAcao( acao );
+        this.validar( acao );
 
         acao.setAceito( optAcao.get().getAceito() );
-        acao.setDataCadastro( optAcao.get().getDataCadastro() );
 
         return acaoRepository.save( acao );
 
@@ -214,70 +194,28 @@ public class AcaoServiceImpl implements AcaoService {
         acaoRepository.aceitarSubmissao( idAcao );
     }
 
-    private CampusEnum obterCampusParaSearch( String campus ) {
+    private void validarCampusSearch( String campus ) {
+
         var campusEnum = CampusEnum.obterEnum( campus );
         if( campus != null && campusEnum == null ) {
             throw new BusinessException( "O valor informado para o campus não é válido!" );
         }
-        return campusEnum;
     }
 
-    private void validarAcao( Acao acao ) {
+    private void validar( Acao acao ) {
 
-        if( acao.getMeta() == null || acao.getMeta().getId() == null ) {
-            throw new BusinessException( "Não foi informada uma meta para a ação!" );
+        if( !metaRepository.existsById( acao.getMeta().getId() ) ) {
+            throw new BusinessException( "A meta informada para a ação não foi encontrada!" );
         }
 
-        var metaOpt = metaRepository.findById( acao.getMeta().getId() );
-        if( metaOpt.isEmpty() ) {
-            throw new BusinessException( "A meta informada para a ação não é válida!" );
-        } else {
-            acao.setMeta( metaOpt.get() );
+        if( !localRepository.existsById( acao.getLocal().getId() ) ) {
+            throw new BusinessException( "O local informado não foi encontrado!" );
         }
 
-        if( acao.getLocal() == null || acao.getLocal().getId() == null ) {
-            throw new BusinessException( "O local da ação não foi informado!" );
+        if( !lotacaoRepository.existsById( acao.getLotacao().getId() ) ) {
+            throw new BusinessException( "A lotação informada não foi encontrada!" );
         }
 
-        var localOpt = localRepository.findById( acao.getLocal().getId() );
-        if( localOpt.isEmpty() ) {
-            throw new BusinessException( "O local informado não é válido!" );
-        } else {
-            acao.setLocal( localOpt.get() );
-        }
-
-        if( acao.getLotacao() == null || acao.getLotacao().getId() == null ) {
-            throw new BusinessException( "A lotação da ação não foi informada!" );
-        }
-
-        var lotacaoOpt = lotacaoRepository.findById( acao.getLotacao().getId() );
-        if( lotacaoOpt.isEmpty() ) {
-            throw new BusinessException( "A lotação informada não é válida!" );
-        } else {
-            acao.setLotacao( lotacaoOpt.get() );
-        }
-
-        this.validarCoordenador( acao.getCoordenador() );
-
-    }
-
-    private void validarCoordenador( Coordenador coordenador ) {
-
-        if( coordenador == null ) {
-            throw new BusinessException( "Não foram informados os dados do coordenador!" );
-        }
-
-        if( coordenador.getNome() == null || coordenador.getNome().isEmpty() ) {
-            throw new BusinessException( "Não foi informado o nome do coordenador!" );
-        }
-
-        if( coordenador.getEmail() == null || coordenador.getEmail().isEmpty() ) {
-            throw new BusinessException( "Não foi informado o e-mail do coordenador!" );
-        }
-
-        if( coordenador.getTipoVinculo() == null ) {
-            throw new BusinessException( "Não foi informado o vínculo do coordenador!" );
-        }
     }
 
 }

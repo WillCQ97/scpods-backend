@@ -43,7 +43,7 @@ public class ObjetivoController {
         return ResponseEntity.notFound().build();
     }
 
-    @GetMapping( "/metas/{codigo}" )
+    @GetMapping( "/meta/{codigo}" )
     public ResponseEntity<MetaResponseDTO> buscarMeta( @PathVariable String codigo ) {
 
         var optMeta = objetivoService.findMetaByCodigo( codigo );

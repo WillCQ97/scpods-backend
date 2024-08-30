@@ -28,15 +28,15 @@ public class Coordenador {
     @GeneratedValue( strategy = GenerationType.IDENTITY )
     private Long id;
 
-    @NotBlank
+    @NotBlank( message = "Não foi informado o nome do coordenador" )
     private String nome;
 
-    @NotBlank
+    @NotBlank( message = "Não foi informado o email do coordenador" )
     private String email;
 
     @Enumerated( EnumType.STRING )
     @Column( name = "tipo_vinculo" )
-    @NotNull
+    @NotNull( message = "Não foi informado o tipo do vínculo do coordenador" )
     private TipoVinculoEnum tipoVinculo;
 
     @Column( name = "ds_vinculo" )

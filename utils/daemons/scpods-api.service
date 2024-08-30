@@ -1,0 +1,15 @@
+[Unit]
+Description=SCPODS API - Backend do sistema para cadastro de projetos relacionados aos ODS na UFES.
+After=network.target postgresql@16-main.service
+Wants=postgresql@16-main.service
+
+[Service]
+Type=simple
+User=willcq
+EnvironmentFile=/home/willcq/my-apps/scpods-api/env
+ExecStart=/home/willcq/Programs/jdk-21.0.4+7-jre/bin/java -jar /home/willcq/my-apps/scpods-api/scpods-api-1.0.0-RC.jar
+Restart=on-failure
+RestartSec=10
+
+[Install]
+WantedBy=multi-user.target
