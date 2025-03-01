@@ -9,7 +9,7 @@
         <version>3.3.9</version>
         <relativePath /> <!-- lookup parent from repository -->
     </parent>
-    <groupId>br.ufes.willcq</groupId>
+    <groupId>com.github.willcq97</groupId>
     <artifactId>scpods-api</artifactId>
     <version>1.0.0-RC</version>
     <name>SCPODS API</name>
