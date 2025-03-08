@@ -9,7 +9,7 @@ import com.bedatadriven.jackson.datatype.jts.JtsModule;
 public class JacksonConfig {
 
     @Bean
-    public JtsModule jtsModule() {
+    JtsModule jtsModule() {
         return new JtsModule();
     }
 }

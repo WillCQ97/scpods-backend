@@ -20,7 +20,7 @@ public class SwaggerConfig {
     private AppSwaggerProperties appSwaggerProperties;
 
     @Bean
-    public OpenAPI openAPI() {
+    OpenAPI openAPI() {
         return new OpenAPI()
                 .components( new Components().addSecuritySchemes( "Basic Auth", createAPIKeyScheme() ) )
                 .info( new Info()
@@ -38,7 +38,7 @@ public class SwaggerConfig {
     }
 
     @Bean
-    public GroupedOpenApi publicApi() {
+    GroupedOpenApi publicApi() {
         return GroupedOpenApi.builder()
                 .group( "Público" )
                 .pathsToMatch( "/acoes/**", "/lotacoes/**", "/objetivos/**", "/unidades/**", "/usuarios/validar-login-ufes" )
@@ -46,7 +46,7 @@ public class SwaggerConfig {
     }
 
     @Bean
-    public GroupedOpenApi protectedApi() {
+    GroupedOpenApi protectedApi() {
         return GroupedOpenApi.builder()
                 .group( "Administração" )
                 .pathsToMatch( "/submissoes/**", "/usuarios/validar-admin" )

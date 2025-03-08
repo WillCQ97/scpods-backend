@@ -21,7 +21,7 @@ public class SecurityConfig {
     private AdminConfigProperties admin;
 
     @Bean
-    public InMemoryUserDetailsManager userDetailsManager() throws Exception {
+    InMemoryUserDetailsManager userDetailsManager() throws Exception {
         UserDetails user = User.withUsername( admin.getUsername() )
                 .password( passwordEncoder().encode( admin.getPassword() ) )
                 .roles( admin.getRoles().toArray( new String[0] ) )
@@ -30,7 +30,7 @@ public class SecurityConfig {
     }
 
     @Bean
-    public SecurityFilterChain filterChain( HttpSecurity http ) throws Exception {
+    SecurityFilterChain filterChain( HttpSecurity http ) throws Exception {
         http.authorizeHttpRequests(
                 expressionIntercepterUrlRegistry -> expressionIntercepterUrlRegistry
                         .requestMatchers( "/api-docs/**", "/swagger-ui/**" ).permitAll()
@@ -42,7 +42,7 @@ public class SecurityConfig {
     }
 
     @Bean
-    public PasswordEncoder passwordEncoder() {
+    PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
