@@ -11,7 +11,7 @@
     </parent>
     <groupId>com.github.willcq97</groupId>
     <artifactId>scpods-api</artifactId>
-    <version>1.0.0</version>
+    <version>1.1.0</version>
     <name>SCPODS API</name>
     <description>Backend do sistema para cadastro de projetos relacionados aos ODS na UFES.</description>
     <properties>
