@@ -1,0 +1,22 @@
+package com.github.willcq97.scpods.domain.repository;
+
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.ListCrudRepository;
+
+import com.github.willcq97.scpods.api.dto.select.SelectModel;
+import com.github.willcq97.scpods.domain.model.Unidade;
+import com.github.willcq97.scpods.domain.model.enums.CampusEnum;
+
+public interface UnidadeRepository extends ListCrudRepository<Unidade, Long> {
+
+    List<Unidade> findByCampus( CampusEnum campus );
+
+    Optional<Unidade> findByCodigo( String codigo );
+
+    @Query( "SELECT u.codigo as value, u.nome as description FROM Unidade u" )
+    List<SelectModel<String>> listarOpcoesUnidades();
+
+}
