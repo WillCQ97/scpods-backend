@@ -88,7 +88,7 @@ WantedBy=multi-user.target
 
 ### scpods-api/env
 
-```
+```text
 # Configurações de Conexão com o Banco de Dados
 #POSTGRESQL_SERVER_NAME="servername"
 POSTGRESQL_USERNAME="username"
@@ -97,7 +97,7 @@ POSTGRESQL_PASSWORD="password"
 
 ### scpods-site/env
 
-```
+```text
 # Configuração de consumo da api
 NUXT_PUBLIC_API_BASE_URL="http://apibaselink/"
 ```

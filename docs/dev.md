@@ -34,8 +34,6 @@ docker build -t willcq97/postgis-ods-db:latest .
 - Com `podman` no Linux:
 
 ```bash
-podman pull docker.io/postgis/postgis:16-3.4
-
 podman run -d \
     --name postgis_ods \
     -e POSTGRES_PASSWORD=admin.123 \
@@ -73,7 +71,7 @@ podman exec -it postgis_ods bash
 psql -Upostgres acoes_db < acoes_db-dump.sql
 ```
 
-## Criação de um container com a aplicação (apenas backend)
+## Build do backend
 
 Na raiz do projeto:
 
@@ -83,7 +81,8 @@ docker build -t willcq97/scpods-backend:latest -f ./Dockerfile .
 
 ## Build do backend e frontend
 
-- Script bash contendo os comandos com `podman` para o build de cada projeto e, em seguida, criar as imagens dos contêineres considerando o diretório atual `./scpods-backend`
+- Script bash contendo os comandos com `podman` para o build de cada projeto e, em seguida, criar as imagens dos contêineres considerando o diretório atual `./scpods-backend`.
+- Atenção quanto a atualização das versões.
 
 ```bash
 cd ..
@@ -99,9 +98,9 @@ podman build --platform linux/amd64 -t willcq97/scpods-site:1.0.0-amd64 .
 podman build --platform linux/arm64 -t willcq97/scpods-site:1.0.0-arm64 .
 ```
 
-## Comunicação entre contêineres usando `podman`
+## Comunicação entre contêineres
 
-- Exemplo de uso de pod para criar um ambiente em que os contêineres do banco de dados, backend e frontend possam se comunicar.
+- Exemplo de uso do `podman` para criar um ambiente em que os contêineres do banco de dados, backend e frontend possam se comunicar.
 
 ```bash
 podman pod create --name scpods-pod -p 8080:8080 -p 3000:3000 -p 5432:5432
@@ -126,9 +125,7 @@ podman run -d \
     willcq97/scpods-site:2.0.0
 ```
 
-## Exemplo com `docker-compose`
-
-- Exemplo de um docker compose para a aplicação que realiza o build dos projetos e os configura de acordo.
+- Exemplo de um `docker compose` para a aplicação que realiza o build dos projetos e os configura de acordo.
 
 ```yaml
 version: "2"
