@@ -4,7 +4,6 @@ import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.UUID;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.http.HttpHeaders;
@@ -23,14 +22,15 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 import com.github.willcq97.scpods.domain.exception.BusinessException;
 import com.github.willcq97.scpods.domain.exception.EntityNotFoundException;
 
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 @ControllerAdvice
 @Slf4j
+@AllArgsConstructor
 public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
 
-    @Autowired
-    private MessageSource messageSource;
+    private final MessageSource messageSource;
 
     @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid( @NonNull MethodArgumentNotValidException ex, @NonNull HttpHeaders headers, @NonNull HttpStatusCode status, @NonNull WebRequest request ) {

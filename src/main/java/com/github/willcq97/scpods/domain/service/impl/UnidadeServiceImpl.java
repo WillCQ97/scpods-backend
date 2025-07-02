@@ -3,7 +3,6 @@ package com.github.willcq97.scpods.domain.service.impl;
 import java.util.Arrays;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.github.willcq97.scpods.api.dto.select.SelectModel;
@@ -15,12 +14,13 @@ import com.github.willcq97.scpods.domain.repository.UnidadeRepository;
 import com.github.willcq97.scpods.domain.service.UnidadeService;
 
 import jakarta.persistence.EntityNotFoundException;
+import lombok.AllArgsConstructor;
 
 @Service
+@AllArgsConstructor
 public class UnidadeServiceImpl implements UnidadeService {
 
-    @Autowired
-    private UnidadeRepository unidadeRepository;
+    private final UnidadeRepository unidadeRepository;
 
     @Override
     public List<SelectModelString> listarOpcoesCampus() {

@@ -4,7 +4,6 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,23 +20,21 @@ import com.github.willcq97.scpods.domain.repository.MetaRepository;
 import com.github.willcq97.scpods.domain.repository.UnidadeRepository;
 import com.github.willcq97.scpods.domain.service.AcaoService;
 
+import lombok.AllArgsConstructor;
+
 @Service
+@AllArgsConstructor
 public class AcaoServiceImpl implements AcaoService {
 
-    @Autowired
-    private AcaoRepository acaoRepository;
+    private final AcaoRepository acaoRepository;
 
-    @Autowired
-    private LocalRepository localRepository;
+    private final LocalRepository localRepository;
 
-    @Autowired
-    private LotacaoRepository lotacaoRepository;
+    private final LotacaoRepository lotacaoRepository;
 
-    @Autowired
-    private MetaRepository metaRepository;
+    private final MetaRepository metaRepository;
 
-    @Autowired
-    private UnidadeRepository unidadeRepository;
+    private final UnidadeRepository unidadeRepository;
 
     @Override
     public boolean existsById( Long id ) {
