@@ -8,7 +8,7 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.ListCrudRepository;
 
-import com.github.willcq97.scpods.api.dto.AcaoSearchDTO;
+import com.github.willcq97.scpods.api.dto.search.AcaoSearchDTO;
 import com.github.willcq97.scpods.domain.model.Acao;
 
 public interface AcaoRepository extends ListCrudRepository<Acao, Long> {
@@ -24,7 +24,7 @@ public interface AcaoRepository extends ListCrudRepository<Acao, Long> {
     void aceitarSubmissao( Long idAcao );
 
     @Query( value = """
-            SELECT new com.github.willcq97.scpods.api.dto.AcaoSearchDTO(
+            SELECT new com.github.willcq97.scpods.api.dto.search.AcaoSearchDTO(
                 a.id as id,
                 a.titulo as titulo,
                 a.dataCadastro as dataCadastro,

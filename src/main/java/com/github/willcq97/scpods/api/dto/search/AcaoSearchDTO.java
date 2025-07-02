@@ -1,4 +1,4 @@
-package com.github.willcq97.scpods.api.dto;
+package com.github.willcq97.scpods.api.dto.search;
 
 import java.time.LocalDate;
 

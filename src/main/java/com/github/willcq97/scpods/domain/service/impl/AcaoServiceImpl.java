@@ -7,8 +7,8 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.github.willcq97.scpods.api.dto.AcaoSearchDTO;
-import com.github.willcq97.scpods.api.dto.AcaoSearchOptions;
+import com.github.willcq97.scpods.api.dto.search.AcaoSearchDTO;
+import com.github.willcq97.scpods.api.dto.search.AcaoSearchOptionsDTO;
 import com.github.willcq97.scpods.domain.exception.BusinessException;
 import com.github.willcq97.scpods.domain.exception.EntityNotFoundException;
 import com.github.willcq97.scpods.domain.model.Acao;
@@ -114,23 +114,23 @@ public class AcaoServiceImpl implements AcaoService {
     }
 
     @Override
-    public List<AcaoSearchDTO> search( AcaoSearchOptions options, boolean aceito ) {
+    public List<AcaoSearchDTO> search( AcaoSearchOptionsDTO options, boolean aceito ) {
 
-        if( options.getCampus() != null ) {
-            this.validarCampusSearch( options.getCampus() );
+        if( options.campus() != null ) {
+            this.validarCampusSearch( options.campus() );
         }
 
         return acaoRepository.search(
-                options.getTitulo(),
-                options.getCampus(),
-                options.getNomeCoordenador(),
-                options.getNomeLocal(),
-                options.getSiglaLotacao(),
-                options.getNomeUnidade(),
-                options.getCodigoObjetivo(),
-                options.getCodigoUnidade(),
-                options.getDataInicial(),
-                options.getDataFinal(),
+                options.titulo(),
+                        options.campus(),
+                options.nomeCoordenador(),
+                options.nomeLocal(),
+                options.siglaLotacao(),
+                options.nomeUnidade(),
+                options.codigoObjetivo(),
+                options.codigoUnidade(),
+                options.dataInicial(),
+                options.dataFinal(),
                 aceito );
 
     }

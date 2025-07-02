@@ -4,8 +4,8 @@ import java.util.List;
 
 import org.springframework.validation.annotation.Validated;
 
-import com.github.willcq97.scpods.api.dto.AcaoSearchDTO;
-import com.github.willcq97.scpods.api.dto.AcaoSearchOptions;
+import com.github.willcq97.scpods.api.dto.search.AcaoSearchDTO;
+import com.github.willcq97.scpods.api.dto.search.AcaoSearchOptionsDTO;
 import com.github.willcq97.scpods.domain.model.Acao;
 
 import jakarta.validation.constraints.NotNull;
@@ -21,7 +21,7 @@ public interface AcaoService {
 
     public List<Acao> listarPorUnidade( boolean aceito, String codigoUnidade );
 
-    public List<AcaoSearchDTO> search( AcaoSearchOptions options, boolean aceito );
+    public List<AcaoSearchDTO> search( AcaoSearchOptionsDTO options, boolean aceito );
 
     public Acao findById( @NotNull Long id );
 

@@ -15,9 +15,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.github.willcq97.scpods.api.dto.AcaoSearchDTO;
-import com.github.willcq97.scpods.api.dto.AcaoSearchOptions;
 import com.github.willcq97.scpods.api.dto.response.SubmissaoResponseDTO;
+import com.github.willcq97.scpods.api.dto.search.AcaoSearchDTO;
+import com.github.willcq97.scpods.api.dto.search.AcaoSearchOptionsDTO;
 import com.github.willcq97.scpods.domain.model.Acao;
 import com.github.willcq97.scpods.domain.service.AcaoService;
 
@@ -42,7 +42,7 @@ public class SubmissaoController {
 
     @PostMapping( "/search" )
     @PreAuthorize( "hasRole('ADMIN')" )
-    public ResponseEntity<List<AcaoSearchDTO>> search( @RequestBody AcaoSearchOptions options ) {
+    public ResponseEntity<List<AcaoSearchDTO>> search( @RequestBody AcaoSearchOptionsDTO options ) {
         return ResponseEntity.ok( acaoService.search( options, false ) );
     }
 
