@@ -13,7 +13,7 @@ public class UsuarioService {
     private final LoginService loginService;
 
     public void validarLoginUfes( LoginUsuarioDTO usuario ) {
-        loginService.validarLogin( usuario );
+        loginService.validar( usuario );
     }
 
 }

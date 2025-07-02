@@ -35,48 +35,47 @@ public class LoginUfesServiceImpl implements LoginService {
         this.restTemplate = new RestTemplate();
     }
 
-    public void validarLogin( LoginUsuarioDTO usuario ) {
-        var executionValue = getExecutionFormValue();
+    public void validar( LoginUsuarioDTO usuario ) {
+        var executionValue = extractExecutionFormValue();
 
         if( executionValue.isEmpty() ) {
             throw new BusinessException( "Não foi possível validar seu usuário!" );
         }
 
-        if( !this.verifyUserLogin( usuario.getUsername(), usuario.getPassword(), executionValue.get() ) ) {
+        if( !this.verificarLoginUsuario( usuario.getUsername(), usuario.getPassword(), executionValue.get() ) ) {
             throw new BusinessException( "As informações de login são inválidas!" );
         }
 
     }
 
     /**
-     * Retrieves the HTML content of the login page and processes it to extract the hidden input field containing the execution value. This value is required to authenticate a user by making a subsequent request.
-     *
-     * @return the extracted execution value needed for login validation
+     * Recupera o conteúdo HTML da página de login e processa para extrair o campo input oculto contendo o executionFormValue. Esse valor é necessário para autenticar um usuário ao fazer uma requisição subsequente. Este método é altamente preso a estrutura HTML da página de login, para tornar o
+     * login possível nesta aplicação.
+     * 
+     * @return o executionFormValue extraído necessário para validação do login
      */
-    private Optional<String> getExecutionFormValue() {
+    private Optional<String> extractExecutionFormValue() {
 
         ResponseEntity<String> response = restTemplate.getForEntity( URL_LOGIN, String.class );
         HttpStatusCode statusCode = response.getStatusCode();
-        log.debug( "Execution Input Form Request. Status Code: {}", statusCode );
+        log.debug( "extractExecutionFormValue. Status Code: {}", statusCode );
 
         String body = response.getBody();
         Matcher matcher = EXECUTION_INPUT_PATTERN.matcher( body );
 
         if( matcher.find() ) {
-            String input = matcher.group( 0 ); // the first item will be the desired input
-            log.debug( "Execution Input Form Request. input: {}", input );
+            String input = matcher.group( 0 );
+            log.debug( "extractExecutionFormValue. input: {}", input );
 
-            // Use regex capturing group directly or validate input length before substring
             String[] inputItems = input.split( " " );
 
             if( inputItems.length > 0 ) {
-                String inputValue = inputItems[inputItems.length - 1]; // value will be the last item on split
+                String inputValue = inputItems[inputItems.length - 1];
 
                 if( inputValue.length() >= 10 ) {
                     String value = inputValue.substring( 7, inputValue.length() - 3 );
-                    log.debug( "Execution Input Form Request. value: {}", value );
+                    log.debug( "extractExecutionFormValue. value: {}", value );
                     return Optional.of( value );
-
                 }
             }
         }
@@ -85,17 +84,17 @@ public class LoginUfesServiceImpl implements LoginService {
     }
 
     /**
-     * Verifies the user's login credentials by sending an HTTP POST request to the login URL with the provided username, password, and execution value. The method constructs the request with the appropriate headers and form data, and then sends the request to validate the login.
+     * Verifica as credenciais de login do usuário enviando uma requisição HTTP POST para a URL de login com o username, senha e valor de execução fornecidos. O método constrói a requisição com os headers e dados de formulário apropriados, e então envia a requisição para validar o login.
      *
-     * The method expects the response to be HTTP 200 OK for a successful login. If the response status is 401 Unauthorized, it indicates incorrect login credentials. Any other exceptions are propagated further.
+     * O método espera que a resposta seja HTTP 200 OK para um login bem-sucedido. Se a resposta for 401 Unauthorized, indica credenciais incorretas. Outras exceções são propagadas.
      *
-     * @param username       the user's username to be authenticated
-     * @param password       the user's password to be authenticated
-     * @param executionValue a unique value extracted from the login page required for login validation
-     * @return {@code true} if the login is successful (HTTP 200 OK), {@code false} if the login fails due to incorrect credentials (HTTP 401 Unauthorized)
-     * @throws Exception if any other error occurs during the HTTP request
+     * @param username       o nome de usuário a ser autenticado
+     * @param password       a senha do usuário a ser autenticado
+     * @param executionValue valor único extraído da página de login necessário para validação
+     * @return {@code true} se o login for bem-sucedido (HTTP 200 OK), {@code false} se falhar por credenciais incorretas (HTTP 401 Unauthorized)
+     * @throws Exception se ocorrer qualquer outro erro durante a requisição HTTP
      */
-    private boolean verifyUserLogin( String username, String password, String executionValue ) {
+    private boolean verificarLoginUsuario( String username, String password, String executionValue ) {
 
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType( MediaType.APPLICATION_FORM_URLENCODED );
@@ -111,15 +110,11 @@ public class LoginUfesServiceImpl implements LoginService {
         try {
 
             ResponseEntity<String> response = restTemplate.exchange( URL_LOGIN, HttpMethod.POST, requestEntity, String.class );
-            log.debug( "Login Ufes Verification. Response received: " + response.getBody() );
-            return response.getStatusCode() == HttpStatus.OK;
+            log.debug( "VerificarLoginUsuario. Response: " + response.getBody() );
+            return HttpStatus.OK.equals( response.getStatusCode() );
 
         } catch ( HttpClientErrorException.Unauthorized unauthorized ) {
-
             return false;
-
-        } catch ( Exception e ) {
-            throw e;
         }
     }
 
