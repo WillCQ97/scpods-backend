@@ -25,13 +25,12 @@ public class UsuarioController {
 
     @GetMapping( "/validar-admin" )
     @PreAuthorize( "hasRole('ADMIN')" )
-    public ResponseEntity<?> validarAdmin() {
-        // TODO: maneira mais simples para validar as credenciais usando BasicAuth
+    public ResponseEntity<Object> validarAdmin() {
         return ResponseEntity.ok().build();
     }
 
     @PostMapping( "/validar-login-ufes" )
-    public ResponseEntity<?> validarLoginUfes( @Valid @RequestBody LoginUsuarioDTO loginDTO ) {
+    public ResponseEntity<Object> validarLoginUfes( @Valid @RequestBody LoginUsuarioDTO loginDTO ) {
         usuarioService.validarLoginUfes( loginDTO );
         return ResponseEntity.ok().build();
     }

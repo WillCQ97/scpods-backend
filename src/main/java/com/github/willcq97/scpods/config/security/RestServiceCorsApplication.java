@@ -14,7 +14,6 @@ public class RestServiceCorsApplication {
 
         return new WebMvcConfigurer() {
 
-            // TODO: limitar acesso
             @Override
             public void addCorsMappings( @NonNull CorsRegistry registry ) {
                 registry.addMapping( "/**" )
