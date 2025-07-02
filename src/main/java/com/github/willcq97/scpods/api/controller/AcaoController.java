@@ -3,7 +3,6 @@ package com.github.willcq97.scpods.api.controller;
 import java.util.List;
 
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,17 +21,17 @@ import com.github.willcq97.scpods.domain.service.AcaoService;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
+import lombok.AllArgsConstructor;
 
 @RestController
 @RequestMapping( "/acoes" )
 @Tag( name = "Ações/Projetos" )
+@AllArgsConstructor
 public class AcaoController {
 
-    @Autowired
-    private AcaoService acaoService;
+    private final AcaoService acaoService;
 
-    @Autowired
-    private ModelMapper modelMapper;
+    private final ModelMapper modelMapper;
 
     @GetMapping( "/{id}" )
     public ResponseEntity<AcaoResponseDTO> findById( @PathVariable Long id ) {

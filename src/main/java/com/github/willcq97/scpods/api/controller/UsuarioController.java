@@ -1,6 +1,5 @@
 package com.github.willcq97.scpods.api.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,14 +13,15 @@ import com.github.willcq97.scpods.domain.service.UsuarioService;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
+import lombok.AllArgsConstructor;
 
 @RestController
 @RequestMapping( "/usuarios" )
 @Tag( name = "Usuários" )
+@AllArgsConstructor
 public class UsuarioController {
 
-    @Autowired
-    private UsuarioService usuarioService;
+    private final UsuarioService usuarioService;
 
     @GetMapping( "/validar-admin" )
     @PreAuthorize( "hasRole('ADMIN')" )

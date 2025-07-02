@@ -3,7 +3,6 @@ package com.github.willcq97.scpods.api.controller;
 import java.util.List;
 
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -23,17 +22,17 @@ import com.github.willcq97.scpods.domain.model.Acao;
 import com.github.willcq97.scpods.domain.service.AcaoService;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
+import lombok.AllArgsConstructor;
 
 @RestController
 @RequestMapping( "/submissoes" )
 @Tag( name = "Submissões" )
+@AllArgsConstructor
 public class SubmissaoController {
 
-    @Autowired
-    private AcaoService acaoService;
+    private final AcaoService acaoService;
 
-    @Autowired
-    private ModelMapper modelMapper;
+    private final ModelMapper modelMapper;
 
     @GetMapping( "/{id}" )
     @PreAuthorize( "hasRole('ADMIN')" )
