@@ -1,18 +1,19 @@
 package com.github.willcq97.scpods.domain.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.github.willcq97.scpods.api.dto.input.LoginUsuarioDTO;
 
+import lombok.AllArgsConstructor;
+
 @Service
+@AllArgsConstructor
 public class UsuarioService {
 
-    @Autowired
-    private LoginUfesService loginUfesService;
+    private final LoginService loginService;
 
     public void validarLoginUfes( LoginUsuarioDTO usuario ) {
-        loginUfesService.validarLoginUfes( usuario );
+        loginService.validarLogin( usuario );
     }
 
 }

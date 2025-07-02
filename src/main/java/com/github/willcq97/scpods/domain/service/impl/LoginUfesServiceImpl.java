@@ -1,4 +1,4 @@
-package com.github.willcq97.scpods.domain.service;
+package com.github.willcq97.scpods.domain.service.impl;
 
 import java.util.Optional;
 import java.util.regex.Matcher;
@@ -19,22 +19,23 @@ import org.springframework.web.client.RestTemplate;
 
 import com.github.willcq97.scpods.api.dto.input.LoginUsuarioDTO;
 import com.github.willcq97.scpods.domain.exception.BusinessException;
+import com.github.willcq97.scpods.domain.service.LoginService;
 
 import lombok.extern.slf4j.Slf4j;
 
 @Service
 @Slf4j
-public class LoginUfesService {
+public class LoginUfesServiceImpl implements LoginService {
 
     private static final String URL_LOGIN = "https://acesso.ufes.br/login";
     private static final Pattern EXECUTION_INPUT_PATTERN = Pattern.compile( "<input type=\"hidden\" name=\"execution\" value=\"[a-zA-Z0-9-_]+\"/>" );
     private final RestTemplate restTemplate;
 
-    public LoginUfesService() {
+    public LoginUfesServiceImpl() {
         this.restTemplate = new RestTemplate();
     }
 
-    public void validarLoginUfes( LoginUsuarioDTO usuario ) {
+    public void validarLogin( LoginUsuarioDTO usuario ) {
         var executionValue = getExecutionFormValue();
 
         if( executionValue.isEmpty() ) {
