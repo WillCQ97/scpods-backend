@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -12,6 +13,12 @@ import com.github.willcq97.scpods.api.dto.search.AcaoSearchOptionsDTO;
 import com.github.willcq97.scpods.domain.exception.BusinessException;
 import com.github.willcq97.scpods.domain.exception.EntityNotFoundException;
 import com.github.willcq97.scpods.domain.model.Acao;
+import com.github.willcq97.scpods.domain.model.Coordenador;
+import com.github.willcq97.scpods.domain.model.Local;
+import com.github.willcq97.scpods.domain.model.Lotacao;
+import com.github.willcq97.scpods.domain.model.Meta;
+import com.github.willcq97.scpods.domain.model.Objetivo;
+import com.github.willcq97.scpods.domain.model.Unidade;
 import com.github.willcq97.scpods.domain.model.enums.CampusEnum;
 import com.github.willcq97.scpods.domain.repository.AcaoRepository;
 import com.github.willcq97.scpods.domain.repository.LocalRepository;
@@ -20,6 +27,7 @@ import com.github.willcq97.scpods.domain.repository.MetaRepository;
 import com.github.willcq97.scpods.domain.repository.UnidadeRepository;
 import com.github.willcq97.scpods.domain.service.AcaoService;
 
+import jakarta.persistence.criteria.Join;
 import lombok.AllArgsConstructor;
 
 @Service
@@ -120,18 +128,73 @@ public class AcaoServiceImpl implements AcaoService {
             this.validarCampusSearch( options.campus() );
         }
 
-        return acaoRepository.search(
-                options.titulo(),
-                        options.campus(),
-                options.nomeCoordenador(),
-                options.nomeLocal(),
-                options.siglaLotacao(),
-                options.nomeUnidade(),
-                options.codigoObjetivo(),
-                options.codigoUnidade(),
-                options.dataInicial(),
-                options.dataFinal(),
-                aceito );
+        Specification<Acao> spec = ( root, query, cb ) -> {
+            var predicates = cb.conjunction();
+
+            cb.equal( root.<Boolean>get( "aceito" ), aceito );
+
+            if( options.titulo() != null && !options.titulo().isBlank() ) {
+                var titulo = options.titulo().trim().toLowerCase();
+                predicates = cb.and( predicates, cb.like( cb.lower( root.<String>get( "titulo" ) ), "%" + titulo + "%" ) );
+            }
+
+            if( options.dataInicial() != null ) {
+                predicates = cb.and( predicates, cb.greaterThanOrEqualTo( root.<LocalDate>get( "dataCadastro" ), options.dataInicial() ) );
+            }
+
+            if( options.dataFinal() != null ) {
+                predicates = cb.and( predicates, cb.lessThanOrEqualTo( root.<LocalDate>get( "dataCadastro" ), options.dataFinal() ) );
+            }
+
+            Join<Acao, Coordenador> coordenadorJoin = root.join( "coordenador" );
+            if( options.nomeCoordenador() != null && !options.nomeCoordenador().isBlank() ) {
+                var nomeCoordenador = options.nomeCoordenador().trim().toLowerCase();
+                predicates = cb.and( predicates, cb.like( cb.lower( coordenadorJoin.<String>get( "nome" ) ), "%" + nomeCoordenador + "%" ) );
+            }
+
+            Join<Acao, Local> localJoin = root.join( "local" );
+            if( options.nomeLocal() != null && !options.nomeLocal().isBlank() ) {
+                var nomeLocal = options.nomeLocal().trim().toLowerCase();
+
+                var localPredicates = cb.like( cb.lower( localJoin.<String>get( "nomePrincipal" ) ), "%" + nomeLocal + "%" );
+                localPredicates = cb.or( localPredicates, cb.like( cb.lower( localJoin.<String>get( "nomeSecundario" ) ), "%" + nomeLocal + "%" ) );
+                localPredicates = cb.or( localPredicates, cb.like( cb.lower( localJoin.<String>get( "nomeTerciario" ) ), "%" + nomeLocal + "%" ) );
+
+                predicates = cb.and( predicates, localPredicates );
+            }
+
+            Join<Local, Unidade> unidadeJoin = localJoin.join( "unidade" );
+            if( options.codigoUnidade() != null && !options.codigoUnidade().isBlank() ) {
+                predicates = cb.and( predicates, cb.like( unidadeJoin.<String>get( "codigo" ), options.codigoUnidade() ) );
+            }
+
+            if( options.nomeUnidade() != null && !options.nomeUnidade().isBlank() ) {
+                var nomeUnidade = options.nomeUnidade().trim().toLowerCase();
+                predicates = cb.and( predicates, cb.like( cb.lower( unidadeJoin.<String>get( "nome" ) ), nomeUnidade ) );
+            }
+
+            if( options.campus() != null && !options.campus().isBlank() ) {
+                predicates = cb.and( predicates, cb.like( unidadeJoin.<String>get( "campus" ), options.campus().trim() ) );
+            }
+
+            Join<Acao, Lotacao> lotacaoJoin = root.join( "lotacao" );
+            if( options.siglaLotacao() != null && !options.siglaLotacao().isBlank() ) {
+                var sigla = options.siglaLotacao().trim().toLowerCase();
+                predicates = cb.and( predicates, cb.like( cb.lower( lotacaoJoin.<String>get( "sigla" ) ), "%" + sigla + "%" ) );
+            }
+
+            Join<Meta, Objetivo> objetivoJoin = root.join( "meta" ).join( "objetivo" );
+            if( options.codigoObjetivo() != null && !options.codigoObjetivo().isBlank() ) {
+                predicates = cb.and( predicates, cb.like( objetivoJoin.<String>get( "objetivo" ), options.codigoObjetivo().trim() ) );
+            }
+
+            return predicates;
+        };
+
+        return acaoRepository.findAll( spec )
+                .stream()
+                .map( acao -> new AcaoSearchDTO( acao.getId(), acao.getTitulo(), acao.getDataCadastro(), acao.getCodigoObjetivo(), acao.getMeta().getCodigo(), acao.getLocal().getNomePrincipal(), acao.getCoordenador().getNome(), acao.getLotacao().getSigla() ) )
+                .toList();
 
     }
 
