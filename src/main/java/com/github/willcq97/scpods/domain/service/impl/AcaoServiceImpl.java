@@ -26,11 +26,9 @@ import com.github.willcq97.scpods.domain.repository.LotacaoRepository;
 import com.github.willcq97.scpods.domain.repository.MetaRepository;
 import com.github.willcq97.scpods.domain.repository.UnidadeRepository;
 import com.github.willcq97.scpods.domain.service.AcaoService;
+import com.github.willcq97.scpods.utils.SpecificationUtil;
 
-import jakarta.persistence.criteria.CriteriaBuilder;
 import jakarta.persistence.criteria.Join;
-import jakarta.persistence.criteria.Path;
-import jakarta.persistence.criteria.Predicate;
 import lombok.AllArgsConstructor;
 
 @Service
@@ -136,11 +134,11 @@ public class AcaoServiceImpl implements AcaoService {
 
             cb.equal( root.<Boolean>get( "aceito" ), aceito );
 
-            predicates = addLikeIgnoreCase( root, cb, predicates, "titulo", options.titulo() );
-            predicates = addBetweenDates( root, cb, predicates, "dataCadastro", options.dataInicial(), options.dataFinal() );
+            predicates = SpecificationUtil.addLikeIgnoreCase( root, cb, predicates, "titulo", options.titulo() );
+            predicates = SpecificationUtil.addBetweenDates( root, cb, predicates, "dataCadastro", options.dataInicial(), options.dataFinal() );
 
             Join<Acao, Coordenador> coordenadorJoin = root.join( "coordenador" );
-            predicates = addLikeIgnoreCase( coordenadorJoin, cb, predicates, "nome", options.nomeCoordenador() );
+            predicates = SpecificationUtil.addLikeIgnoreCase( coordenadorJoin, cb, predicates, "nome", options.nomeCoordenador() );
 
             Join<Acao, Local> localJoin = root.join( "local" );
             if( options.nomeLocal() != null && !options.nomeLocal().isBlank() ) {
@@ -154,15 +152,15 @@ public class AcaoServiceImpl implements AcaoService {
             }
 
             Join<Local, Unidade> unidadeJoin = localJoin.join( "unidade" );
-            predicates = addLike( unidadeJoin, cb, predicates, "codigo", options.codigoUnidade() );
-            predicates = addLikeIgnoreCase( unidadeJoin, cb, predicates, "nome", options.nomeUnidade() );
-            predicates = addLike( unidadeJoin, cb, predicates, "campus", options.campus() );
+            predicates = SpecificationUtil.addLike( unidadeJoin, cb, predicates, "codigo", options.codigoUnidade() );
+            predicates = SpecificationUtil.addLikeIgnoreCase( unidadeJoin, cb, predicates, "nome", options.nomeUnidade() );
+            predicates = SpecificationUtil.addLike( unidadeJoin, cb, predicates, "campus", options.campus() );
 
             Join<Acao, Lotacao> lotacaoJoin = root.join( "lotacao" );
-            predicates = addLikeIgnoreCase( lotacaoJoin, cb, predicates, "sigla", options.siglaLotacao() );
+            predicates = SpecificationUtil.addLikeIgnoreCase( lotacaoJoin, cb, predicates, "sigla", options.siglaLotacao() );
 
             Join<Meta, Objetivo> objetivoJoin = root.join( "meta" ).join( "objetivo" );
-            predicates = addLike( objetivoJoin, cb, predicates, "codigo", options.codigoObjetivo() );
+            predicates = SpecificationUtil.addLike( objetivoJoin, cb, predicates, "codigo", options.codigoObjetivo() );
 
             return predicates;
         };
@@ -254,31 +252,6 @@ public class AcaoServiceImpl implements AcaoService {
 
     }
 
-    private Predicate addLike( Path<?> rootOrJoin, CriteriaBuilder cb, Predicate predicate, String attr, String compareValue ) {
-        if( compareValue != null && !compareValue.isBlank() ) {
-            var cleanedString = compareValue.trim().toLowerCase();
-            return cb.and( predicate, cb.like( cb.lower( rootOrJoin.<String>get( attr ) ), cleanedString ) );
-        }
-        return predicate;
-    }
 
-    private Predicate addLikeIgnoreCase( Path<?> rootOrJoin, CriteriaBuilder cb, Predicate predicate, String attr, String compareValue ) {
-        if( compareValue != null && !compareValue.isBlank() ) {
-            var cleanedString = compareValue.trim().toLowerCase();
-            return cb.and( predicate, cb.like( cb.lower( rootOrJoin.<String>get( attr ) ), "%" + cleanedString + "%" ) );
-        }
-        return predicate;
-    }
-
-    private Predicate addBetweenDates( Path<?> rootOrJoin, CriteriaBuilder cb, Predicate predicate, String attr, LocalDate start, LocalDate end ) {
-        if( start != null ) {
-            predicate = cb.and( predicate, cb.greaterThanOrEqualTo( rootOrJoin.<LocalDate>get( attr ), start ) );
-        }
-
-        if( end != null ) {
-            predicate = cb.and( predicate, cb.lessThanOrEqualTo( rootOrJoin.<LocalDate>get( attr ), end ) );
-        }
-        return predicate;
-    }
 
 }
