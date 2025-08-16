@@ -1,4 +1,4 @@
-package com.github.willcq97.scpods.api.exception;
+package com.github.willcq97.scpods.core.exception;
 
 import java.time.OffsetDateTime;
 import java.util.ArrayList;

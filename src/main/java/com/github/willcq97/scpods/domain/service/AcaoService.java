@@ -6,7 +6,7 @@ import org.springframework.validation.annotation.Validated;
 
 import com.github.willcq97.scpods.api.dto.search.AcaoSearchDTO;
 import com.github.willcq97.scpods.api.dto.search.AcaoSearchOptionsDTO;
-import com.github.willcq97.scpods.domain.model.Acao;
+import com.github.willcq97.scpods.domain.model.entity.Acao;
 
 import jakarta.validation.constraints.NotNull;
 

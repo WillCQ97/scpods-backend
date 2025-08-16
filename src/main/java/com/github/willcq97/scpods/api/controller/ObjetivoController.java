@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.github.willcq97.scpods.api.dto.response.MetaResponseDTO;
 import com.github.willcq97.scpods.api.dto.response.ObjetivoResponseDTO;
-import com.github.willcq97.scpods.domain.model.Objetivo;
+import com.github.willcq97.scpods.domain.model.entity.Objetivo;
 import com.github.willcq97.scpods.domain.service.ObjetivoService;
 
 import io.swagger.v3.oas.annotations.tags.Tag;

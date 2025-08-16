@@ -7,23 +7,22 @@ Segue uma organização estruturada das recomendações do especialista, agrupan
 * **Separar a aplicação em pacotes claros**:
 
   * **domain**
-
     * `model`
-
-      * `repository`
       * `entity`
-      * `enums`
+      * `enums`    
+      * `repository`
     * `service`
+  
   * **core**
-
     * `config`
     * `exception`
     * `security` *(pode ser considerado parte de `infra` junto com `repository`)*
+  
   * **api**
-
     * `controller`
     * `dto`
     * `mapper` *(para mapeamentos estáticos antes feitos dentro dos controllers)*
+
 * **Adicionar um docker-compose** para subir a aplicação e o banco de dados juntos.
 
 ---

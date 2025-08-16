@@ -14,7 +14,7 @@ import com.github.willcq97.scpods.api.dto.response.UnidadeInfoDTO;
 import com.github.willcq97.scpods.api.dto.response.UnidadeResponseDTO;
 import com.github.willcq97.scpods.api.dto.select.SelectModel;
 import com.github.willcq97.scpods.api.dto.select.SelectModelString;
-import com.github.willcq97.scpods.domain.model.Unidade;
+import com.github.willcq97.scpods.domain.model.entity.Unidade;
 import com.github.willcq97.scpods.domain.service.UnidadeService;
 
 import io.swagger.v3.oas.annotations.tags.Tag;

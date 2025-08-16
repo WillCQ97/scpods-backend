@@ -16,7 +16,7 @@ import com.github.willcq97.scpods.api.dto.input.SubmissaoInputDTO;
 import com.github.willcq97.scpods.api.dto.response.AcaoResponseDTO;
 import com.github.willcq97.scpods.api.dto.search.AcaoSearchDTO;
 import com.github.willcq97.scpods.api.dto.search.AcaoSearchOptionsDTO;
-import com.github.willcq97.scpods.domain.model.Acao;
+import com.github.willcq97.scpods.domain.model.entity.Acao;
 import com.github.willcq97.scpods.domain.service.AcaoService;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
