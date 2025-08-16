@@ -2,7 +2,6 @@ package com.github.willcq97.scpods.api.controller;
 
 import java.util.List;
 
-import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,7 +15,7 @@ import com.github.willcq97.scpods.api.dto.input.SubmissaoInputDTO;
 import com.github.willcq97.scpods.api.dto.response.AcaoResponseDTO;
 import com.github.willcq97.scpods.api.dto.search.AcaoSearchDTO;
 import com.github.willcq97.scpods.api.dto.search.AcaoSearchOptionsDTO;
-import com.github.willcq97.scpods.domain.model.entity.Acao;
+import com.github.willcq97.scpods.api.mapper.AcaoMapper;
 import com.github.willcq97.scpods.domain.service.AcaoService;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -31,11 +30,11 @@ public class AcaoController {
 
     private final AcaoService acaoService;
 
-    private final ModelMapper modelMapper;
+    private final AcaoMapper mapper;
 
     @GetMapping( "/{id}" )
     public ResponseEntity<AcaoResponseDTO> findById( @PathVariable Long id ) {
-        return ResponseEntity.ok().body( this.mapToAcaoResponseDTO( acaoService.findAcaoById( id ) ) );
+        return ResponseEntity.ok().body( mapper.mapToResponse( acaoService.findAcaoById( id ) ) );
     }
 
     @PostMapping( "/search" )
@@ -45,16 +44,8 @@ public class AcaoController {
 
     @PostMapping( "/submeter" )
     public ResponseEntity<Void> salvarSubmissao( @Valid @RequestBody SubmissaoInputDTO submissao ) {
-        acaoService.inserirSubmissao( this.mapToAcao( submissao ) );
+        acaoService.inserirSubmissao( mapper.mapToEntity( submissao ) );
         return ResponseEntity.status( HttpStatus.CREATED ).build();
-    }
-
-    private Acao mapToAcao( SubmissaoInputDTO dto ) {
-        return modelMapper.map( dto, Acao.class );
-    }
-
-    private AcaoResponseDTO mapToAcaoResponseDTO( Acao acao ) {
-        return modelMapper.map( acao, AcaoResponseDTO.class );
     }
 
 }

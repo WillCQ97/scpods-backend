@@ -2,7 +2,6 @@ package com.github.willcq97.scpods.api.controller;
 
 import java.util.List;
 
-import org.modelmapper.ModelMapper;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,7 +13,7 @@ import com.github.willcq97.scpods.api.dto.response.UnidadeInfoDTO;
 import com.github.willcq97.scpods.api.dto.response.UnidadeResponseDTO;
 import com.github.willcq97.scpods.api.dto.select.SelectModel;
 import com.github.willcq97.scpods.api.dto.select.SelectModelString;
-import com.github.willcq97.scpods.domain.model.entity.Unidade;
+import com.github.willcq97.scpods.api.mapper.UnidadeMapper;
 import com.github.willcq97.scpods.domain.service.UnidadeService;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -28,11 +27,11 @@ public class UnidadeController {
 
     private final UnidadeService service;
 
-    private final ModelMapper modelMapper;
+    private final UnidadeMapper mapper;
 
     @GetMapping
     public ResponseEntity<List<UnidadeResponseDTO>> listarUnidades( @RequestParam( required = false ) String campus ) {
-        return ResponseEntity.ok().body( service.listarUnidades( campus ).stream().map( this::mapUnidadeToUnidadeResponseDTO ).toList() );
+        return ResponseEntity.ok().body( mapper.mapAllToResponse( service.listarUnidades( campus ) ) );
     }
 
     @GetMapping( "/opcoes-campus" )
@@ -47,20 +46,12 @@ public class UnidadeController {
 
     @GetMapping( "/info" )
     public ResponseEntity<List<UnidadeInfoDTO>> obterContabilizacaoCampus( @RequestParam( required = true ) String campus ) {
-        return ResponseEntity.ok().body( service.obterContabilizacaoPorCampus( campus ).stream().map( this::mapUnidadeToUnidadeInfo ).toList() );
+        return ResponseEntity.ok().body( mapper.mapAllToUnidadeInfo( service.obterContabilizacaoPorCampus( campus ) ) );
     }
 
     @GetMapping( "/info/{codigo}" )
     public ResponseEntity<UnidadeInfoDTO> obterContabilizacaoUnidade( @PathVariable String codigo ) {
-        return ResponseEntity.ok().body( this.mapUnidadeToUnidadeInfo( service.obterContabilizacaoParaUnidade( codigo ) ) );
-    }
-
-    private UnidadeInfoDTO mapUnidadeToUnidadeInfo( Unidade unidade ) {
-        return modelMapper.map( unidade, UnidadeInfoDTO.class );
-    }
-
-    private UnidadeResponseDTO mapUnidadeToUnidadeResponseDTO( Unidade unidade ) {
-        return modelMapper.map( unidade, UnidadeResponseDTO.class );
+        return ResponseEntity.ok().body( mapper.mapToUnidadeInfo( service.obterContabilizacaoParaUnidade( codigo ) ) );
     }
 
 }

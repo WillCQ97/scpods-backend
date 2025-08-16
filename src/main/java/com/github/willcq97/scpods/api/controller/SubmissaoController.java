@@ -2,7 +2,6 @@ package com.github.willcq97.scpods.api.controller;
 
 import java.util.List;
 
-import org.modelmapper.ModelMapper;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -18,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.github.willcq97.scpods.api.dto.response.SubmissaoResponseDTO;
 import com.github.willcq97.scpods.api.dto.search.AcaoSearchDTO;
 import com.github.willcq97.scpods.api.dto.search.AcaoSearchOptionsDTO;
-import com.github.willcq97.scpods.domain.model.entity.Acao;
+import com.github.willcq97.scpods.api.mapper.AcaoMapper;
 import com.github.willcq97.scpods.domain.service.AcaoService;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -32,12 +31,12 @@ public class SubmissaoController {
 
     private final AcaoService acaoService;
 
-    private final ModelMapper modelMapper;
+    private final AcaoMapper mapper;
 
     @GetMapping( "/{id}" )
     @PreAuthorize( "hasRole('ADMIN')" )
     public ResponseEntity<SubmissaoResponseDTO> findById( @PathVariable Long id ) {
-        return ResponseEntity.ok().body( this.mapToSubmissaoResponseDTO( acaoService.findSubmissaoById( id ) ) );
+        return ResponseEntity.ok().body( mapper.mapToSubmissaoResponse( acaoService.findSubmissaoById( id ) ) );
     }
 
     @PostMapping( "/search" )
@@ -59,8 +58,5 @@ public class SubmissaoController {
         acaoService.aceitarSubmissao( id );
         return ResponseEntity.ok().build();
     }
-
-    private SubmissaoResponseDTO mapToSubmissaoResponseDTO( Acao acao ) {
-        return modelMapper.map( acao, SubmissaoResponseDTO.class );
-    }
+    
 }

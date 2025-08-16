@@ -2,7 +2,6 @@ package com.github.willcq97.scpods.api.controller;
 
 import java.util.List;
 
-import org.modelmapper.ModelMapper;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -11,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.github.willcq97.scpods.api.dto.response.MetaResponseDTO;
 import com.github.willcq97.scpods.api.dto.response.ObjetivoResponseDTO;
-import com.github.willcq97.scpods.domain.model.entity.Objetivo;
+import com.github.willcq97.scpods.api.mapper.ObjetivoMapper;
 import com.github.willcq97.scpods.domain.service.ObjetivoService;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -25,11 +24,11 @@ public class ObjetivoController {
 
     private final ObjetivoService objetivoService;
 
-    private final ModelMapper modelMapper;
+    private final ObjetivoMapper mapper;
 
     @GetMapping
     public List<ObjetivoResponseDTO> listar() {
-        return this.mapAllToObjetivoResponseDTO( objetivoService.listar() );
+        return mapper.mapAllToResponse( objetivoService.listar() );
     }
 
     @GetMapping( "/{codigo}" )
@@ -38,7 +37,7 @@ public class ObjetivoController {
         var optObjetivo = objetivoService.findObjetivoByCodigo( codigo );
 
         if( optObjetivo.isPresent() ) {
-            return ResponseEntity.ok().body( modelMapper.map( optObjetivo.get(), ObjetivoResponseDTO.class ) );
+            return ResponseEntity.ok().body( mapper.mapToResponse( optObjetivo.get() ) );
         }
         return ResponseEntity.notFound().build();
     }
@@ -49,13 +48,9 @@ public class ObjetivoController {
         var optMeta = objetivoService.findMetaByCodigo( codigo );
 
         if( optMeta.isPresent() ) {
-            return ResponseEntity.ok().body( modelMapper.map( optMeta.get(), MetaResponseDTO.class ) );
+            return ResponseEntity.ok().body( mapper.mapToResponse( optMeta.get() ) );
         }
         return ResponseEntity.notFound().build();
-    }
-
-    private List<ObjetivoResponseDTO> mapAllToObjetivoResponseDTO( List<Objetivo> objetivos ) {
-        return objetivos.stream().map( obj -> modelMapper.map( obj, ObjetivoResponseDTO.class ) ).toList();
     }
 
 }
