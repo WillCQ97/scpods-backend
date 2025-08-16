@@ -3,6 +3,7 @@ package com.github.willcq97.scpods.api.mapper;
 import java.util.List;
 
 import org.modelmapper.ModelMapper;
+import org.springframework.stereotype.Component;
 
 import com.github.willcq97.scpods.api.dto.response.MetaResponseDTO;
 import com.github.willcq97.scpods.api.dto.response.ObjetivoResponseDTO;
@@ -11,6 +12,7 @@ import com.github.willcq97.scpods.domain.model.entity.Objetivo;
 
 import lombok.AllArgsConstructor;
 
+@Component
 @AllArgsConstructor
 public class ObjetivoMapper {
 

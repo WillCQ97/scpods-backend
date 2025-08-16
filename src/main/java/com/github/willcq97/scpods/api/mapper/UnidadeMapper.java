@@ -3,6 +3,7 @@ package com.github.willcq97.scpods.api.mapper;
 import java.util.List;
 
 import org.modelmapper.ModelMapper;
+import org.springframework.stereotype.Component;
 
 import com.github.willcq97.scpods.api.dto.response.UnidadeInfoDTO;
 import com.github.willcq97.scpods.api.dto.response.UnidadeResponseDTO;
@@ -10,6 +11,7 @@ import com.github.willcq97.scpods.domain.model.entity.Unidade;
 
 import lombok.AllArgsConstructor;
 
+@Component
 @AllArgsConstructor
 public class UnidadeMapper {
 
