@@ -66,7 +66,6 @@ public class AcaoServiceImpl implements AcaoService {
 
     @Override
     public Acao findSubmissaoById( Long id ) {
-
         return acaoRepository
                 .findById( id )
                 .filter( acao -> Boolean.FALSE.equals( acao.getAceito() ) )
@@ -251,7 +250,5 @@ public class AcaoServiceImpl implements AcaoService {
         }
 
     }
-
-
 
 }

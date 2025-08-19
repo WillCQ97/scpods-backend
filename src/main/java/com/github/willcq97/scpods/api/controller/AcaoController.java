@@ -3,12 +3,12 @@ package com.github.willcq97.scpods.api.controller;
 import java.util.List;
 
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.github.willcq97.scpods.api.dto.input.SubmissaoInputDTO;
@@ -29,23 +29,24 @@ import lombok.AllArgsConstructor;
 public class AcaoController {
 
     private final AcaoService acaoService;
-
     private final AcaoMapper mapper;
 
     @GetMapping( "/{id}" )
-    public ResponseEntity<AcaoResponseDTO> findById( @PathVariable Long id ) {
-        return ResponseEntity.ok().body( mapper.mapToResponse( acaoService.findAcaoById( id ) ) );
+    @ResponseStatus( HttpStatus.OK )
+    public AcaoResponseDTO findById( @PathVariable Long id ) {
+        return mapper.mapToResponse( acaoService.findAcaoById( id ) );
     }
 
     @PostMapping( "/search" )
-    public ResponseEntity<List<AcaoSearchDTO>> search( @RequestBody AcaoSearchOptionsDTO options ) {
-        return ResponseEntity.ok( acaoService.search( options, true ) );
+    @ResponseStatus( HttpStatus.OK )
+    public List<AcaoSearchDTO> search( @RequestBody AcaoSearchOptionsDTO options ) {
+        return acaoService.search( options, true );
     }
 
     @PostMapping( "/submeter" )
-    public ResponseEntity<Void> salvarSubmissao( @Valid @RequestBody SubmissaoInputDTO submissao ) {
+    @ResponseStatus( HttpStatus.CREATED )
+    public void salvarSubmissao( @Valid @RequestBody SubmissaoInputDTO submissao ) {
         acaoService.inserirSubmissao( mapper.mapToEntity( submissao ) );
-        return ResponseEntity.status( HttpStatus.CREATED ).build();
     }
 
 }
