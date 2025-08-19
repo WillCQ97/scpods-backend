@@ -3,7 +3,6 @@ package com.github.willcq97.scpods.api.controller;
 import java.util.List;
 
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,26 +12,26 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.github.willcq97.scpods.api.dto.AcaoSearchDTO;
-import com.github.willcq97.scpods.api.dto.AcaoSearchOptions;
 import com.github.willcq97.scpods.api.dto.input.SubmissaoInputDTO;
 import com.github.willcq97.scpods.api.dto.response.AcaoResponseDTO;
+import com.github.willcq97.scpods.api.dto.search.AcaoSearchDTO;
+import com.github.willcq97.scpods.api.dto.search.AcaoSearchOptionsDTO;
 import com.github.willcq97.scpods.domain.model.Acao;
 import com.github.willcq97.scpods.domain.service.AcaoService;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
+import lombok.AllArgsConstructor;
 
 @RestController
 @RequestMapping( "/acoes" )
 @Tag( name = "Ações/Projetos" )
+@AllArgsConstructor
 public class AcaoController {
 
-    @Autowired
-    private AcaoService acaoService;
+    private final AcaoService acaoService;
 
-    @Autowired
-    private ModelMapper modelMapper;
+    private final ModelMapper modelMapper;
 
     @GetMapping( "/{id}" )
     public ResponseEntity<AcaoResponseDTO> findById( @PathVariable Long id ) {
@@ -40,7 +39,7 @@ public class AcaoController {
     }
 
     @PostMapping( "/search" )
-    public ResponseEntity<List<AcaoSearchDTO>> search( @RequestBody AcaoSearchOptions options ) {
+    public ResponseEntity<List<AcaoSearchDTO>> search( @RequestBody AcaoSearchOptionsDTO options ) {
         return ResponseEntity.ok( acaoService.search( options, true ) );
     }
 

@@ -3,7 +3,6 @@ package com.github.willcq97.scpods.api.controller;
 import java.util.List;
 
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -16,24 +15,24 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.github.willcq97.scpods.api.dto.AcaoSearchDTO;
-import com.github.willcq97.scpods.api.dto.AcaoSearchOptions;
 import com.github.willcq97.scpods.api.dto.response.SubmissaoResponseDTO;
+import com.github.willcq97.scpods.api.dto.search.AcaoSearchDTO;
+import com.github.willcq97.scpods.api.dto.search.AcaoSearchOptionsDTO;
 import com.github.willcq97.scpods.domain.model.Acao;
 import com.github.willcq97.scpods.domain.service.AcaoService;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
+import lombok.AllArgsConstructor;
 
 @RestController
 @RequestMapping( "/submissoes" )
 @Tag( name = "Submissões" )
+@AllArgsConstructor
 public class SubmissaoController {
 
-    @Autowired
-    private AcaoService acaoService;
+    private final AcaoService acaoService;
 
-    @Autowired
-    private ModelMapper modelMapper;
+    private final ModelMapper modelMapper;
 
     @GetMapping( "/{id}" )
     @PreAuthorize( "hasRole('ADMIN')" )
@@ -43,7 +42,7 @@ public class SubmissaoController {
 
     @PostMapping( "/search" )
     @PreAuthorize( "hasRole('ADMIN')" )
-    public ResponseEntity<List<AcaoSearchDTO>> search( @RequestBody AcaoSearchOptions options ) {
+    public ResponseEntity<List<AcaoSearchDTO>> search( @RequestBody AcaoSearchOptionsDTO options ) {
         return ResponseEntity.ok( acaoService.search( options, false ) );
     }
 

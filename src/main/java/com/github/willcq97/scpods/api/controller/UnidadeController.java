@@ -3,7 +3,6 @@ package com.github.willcq97.scpods.api.controller;
 import java.util.List;
 
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -19,17 +18,17 @@ import com.github.willcq97.scpods.domain.model.Unidade;
 import com.github.willcq97.scpods.domain.service.UnidadeService;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
+import lombok.AllArgsConstructor;
 
 @RestController
 @RequestMapping( "/unidades" )
 @Tag( name = "Campus, Locais e Unidades da Universidade" )
+@AllArgsConstructor
 public class UnidadeController {
 
-    @Autowired
-    private UnidadeService service;
+    private final UnidadeService service;
 
-    @Autowired
-    private ModelMapper modelMapper;
+    private final ModelMapper modelMapper;
 
     @GetMapping
     public ResponseEntity<List<UnidadeResponseDTO>> listarUnidades( @RequestParam( required = false ) String campus ) {

@@ -3,7 +3,6 @@ package com.github.willcq97.scpods.api.controller;
 import java.util.List;
 
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,17 +15,17 @@ import com.github.willcq97.scpods.domain.model.Objetivo;
 import com.github.willcq97.scpods.domain.service.ObjetivoService;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
+import lombok.AllArgsConstructor;
 
 @RestController
 @RequestMapping( "/objetivos" )
 @Tag( name = "Objetivos e Metas de Desenvolvimento Sustentável" )
+@AllArgsConstructor
 public class ObjetivoController {
 
-    @Autowired
-    private ObjetivoService objetivoService;
+    private final ObjetivoService objetivoService;
 
-    @Autowired
-    private ModelMapper modelMapper;
+    private final ModelMapper modelMapper;
 
     @GetMapping
     public List<ObjetivoResponseDTO> listar() {

@@ -1,7 +1,6 @@
 package com.github.willcq97.scpods.config.swagger;
 
 import org.springdoc.core.models.GroupedOpenApi;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -12,12 +11,13 @@ import io.swagger.v3.oas.models.info.Info;
 import io.swagger.v3.oas.models.info.License;
 import io.swagger.v3.oas.models.security.SecurityRequirement;
 import io.swagger.v3.oas.models.security.SecurityScheme;
+import lombok.AllArgsConstructor;
 
 @Configuration
+@AllArgsConstructor
 public class SwaggerConfig {
 
-    @Autowired
-    private AppSwaggerProperties appSwaggerProperties;
+    private final AppSwaggerProperties appSwaggerProperties;
 
     @Bean
     OpenAPI openAPI() {

@@ -1,4 +1,4 @@
-package com.github.willcq97.scpods.api.exception_handler;
+package com.github.willcq97.scpods.api.exception;
 
 import java.time.OffsetDateTime;
 import java.util.List;

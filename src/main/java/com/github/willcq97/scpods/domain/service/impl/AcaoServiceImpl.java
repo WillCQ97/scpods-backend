@@ -4,15 +4,21 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.github.willcq97.scpods.api.dto.AcaoSearchDTO;
-import com.github.willcq97.scpods.api.dto.AcaoSearchOptions;
+import com.github.willcq97.scpods.api.dto.search.AcaoSearchDTO;
+import com.github.willcq97.scpods.api.dto.search.AcaoSearchOptionsDTO;
 import com.github.willcq97.scpods.domain.exception.BusinessException;
 import com.github.willcq97.scpods.domain.exception.EntityNotFoundException;
 import com.github.willcq97.scpods.domain.model.Acao;
+import com.github.willcq97.scpods.domain.model.Coordenador;
+import com.github.willcq97.scpods.domain.model.Local;
+import com.github.willcq97.scpods.domain.model.Lotacao;
+import com.github.willcq97.scpods.domain.model.Meta;
+import com.github.willcq97.scpods.domain.model.Objetivo;
+import com.github.willcq97.scpods.domain.model.Unidade;
 import com.github.willcq97.scpods.domain.model.enums.CampusEnum;
 import com.github.willcq97.scpods.domain.repository.AcaoRepository;
 import com.github.willcq97.scpods.domain.repository.LocalRepository;
@@ -20,24 +26,24 @@ import com.github.willcq97.scpods.domain.repository.LotacaoRepository;
 import com.github.willcq97.scpods.domain.repository.MetaRepository;
 import com.github.willcq97.scpods.domain.repository.UnidadeRepository;
 import com.github.willcq97.scpods.domain.service.AcaoService;
+import com.github.willcq97.scpods.utils.SpecificationUtil;
+
+import jakarta.persistence.criteria.Join;
+import lombok.AllArgsConstructor;
 
 @Service
+@AllArgsConstructor
 public class AcaoServiceImpl implements AcaoService {
 
-    @Autowired
-    private AcaoRepository acaoRepository;
+    private final AcaoRepository acaoRepository;
 
-    @Autowired
-    private LocalRepository localRepository;
+    private final LocalRepository localRepository;
 
-    @Autowired
-    private LotacaoRepository lotacaoRepository;
+    private final LotacaoRepository lotacaoRepository;
 
-    @Autowired
-    private MetaRepository metaRepository;
+    private final MetaRepository metaRepository;
 
-    @Autowired
-    private UnidadeRepository unidadeRepository;
+    private final UnidadeRepository unidadeRepository;
 
     @Override
     public boolean existsById( Long id ) {
@@ -117,24 +123,52 @@ public class AcaoServiceImpl implements AcaoService {
     }
 
     @Override
-    public List<AcaoSearchDTO> search( AcaoSearchOptions options, boolean aceito ) {
+    public List<AcaoSearchDTO> search( AcaoSearchOptionsDTO options, boolean aceito ) {
 
-        if( options.getCampus() != null ) {
-            this.validarCampusSearch( options.getCampus() );
+        if( options.campus() != null ) {
+            this.validarCampusSearch( options.campus() );
         }
 
-        return acaoRepository.search(
-                options.getTitulo(),
-                options.getCampus(),
-                options.getNomeCoordenador(),
-                options.getNomeLocal(),
-                options.getSiglaLotacao(),
-                options.getNomeUnidade(),
-                options.getCodigoObjetivo(),
-                options.getCodigoUnidade(),
-                options.getDataInicial(),
-                options.getDataFinal(),
-                aceito );
+        Specification<Acao> spec = ( root, query, cb ) -> {
+            var predicates = cb.conjunction();
+
+            cb.equal( root.<Boolean>get( "aceito" ), aceito );
+
+            predicates = SpecificationUtil.addLikeIgnoreCase( root, cb, predicates, "titulo", options.titulo() );
+            predicates = SpecificationUtil.addBetweenDates( root, cb, predicates, "dataCadastro", options.dataInicial(), options.dataFinal() );
+
+            Join<Acao, Coordenador> coordenadorJoin = root.join( "coordenador" );
+            predicates = SpecificationUtil.addLikeIgnoreCase( coordenadorJoin, cb, predicates, "nome", options.nomeCoordenador() );
+
+            Join<Acao, Local> localJoin = root.join( "local" );
+            if( options.nomeLocal() != null && !options.nomeLocal().isBlank() ) {
+                var nomeLocal = options.nomeLocal().trim().toLowerCase();
+
+                var localPredicates = cb.like( cb.lower( localJoin.<String>get( "nomePrincipal" ) ), "%" + nomeLocal + "%" );
+                localPredicates = cb.or( localPredicates, cb.like( cb.lower( localJoin.<String>get( "nomeSecundario" ) ), "%" + nomeLocal + "%" ) );
+                localPredicates = cb.or( localPredicates, cb.like( cb.lower( localJoin.<String>get( "nomeTerciario" ) ), "%" + nomeLocal + "%" ) );
+
+                predicates = cb.and( predicates, localPredicates );
+            }
+
+            Join<Local, Unidade> unidadeJoin = localJoin.join( "unidade" );
+            predicates = SpecificationUtil.addLike( unidadeJoin, cb, predicates, "codigo", options.codigoUnidade() );
+            predicates = SpecificationUtil.addLikeIgnoreCase( unidadeJoin, cb, predicates, "nome", options.nomeUnidade() );
+            predicates = SpecificationUtil.addLike( unidadeJoin, cb, predicates, "campus", options.campus() );
+
+            Join<Acao, Lotacao> lotacaoJoin = root.join( "lotacao" );
+            predicates = SpecificationUtil.addLikeIgnoreCase( lotacaoJoin, cb, predicates, "sigla", options.siglaLotacao() );
+
+            Join<Meta, Objetivo> objetivoJoin = root.join( "meta" ).join( "objetivo" );
+            predicates = SpecificationUtil.addLike( objetivoJoin, cb, predicates, "codigo", options.codigoObjetivo() );
+
+            return predicates;
+        };
+
+        return acaoRepository.findAll( spec )
+                .stream()
+                .map( acao -> new AcaoSearchDTO( acao.getId(), acao.getTitulo(), acao.getDataCadastro(), acao.getCodigoObjetivo(), acao.getMeta().getCodigo(), acao.getLocal().getNomePrincipal(), acao.getCoordenador().getNome(), acao.getLotacao().getSigla() ) )
+                .toList();
 
     }
 
@@ -217,5 +251,7 @@ public class AcaoServiceImpl implements AcaoService {
         }
 
     }
+
+
 
 }
