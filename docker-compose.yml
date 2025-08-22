@@ -4,7 +4,7 @@ services:
     build:
       context: ./
       dockerfile: Dockerfile
-    image: willcq97/scpods-api:latest
+    image: willcq97/scpods-backend:latest
     ports:
       - 8080:8080
     environment:

@@ -9,7 +9,7 @@
 
 ## Imagem docker com banco de dados inicializado
 
-É possível criar um dockerfile que já inicialize o banco de dados. Como no exemplo abaixo:
+- É possível criar um dockerfile que já inicialize o banco de dados. Como no exemplo abaixo:
 
 ```dockerfile
 # Cria um container com postGIS pré populado com dados de teste
@@ -17,13 +17,13 @@
 
 FROM docker.io/postgis/postgis:16-3.4
 
-ENV POSTGRES_PASSWORD admin.123
 ENV POSTGRES_DB acoes_db
+ENV POSTGRES_PASSWORD admin.123
 
 COPY acoes_db-dump.sql /docker-entrypoint-initdb.d/
 ```
 
-Então, para criar a imagem do banco de dados, basta executar o comando abaixo no diretório onde está o `Dockerfile`:
+- Então, para criar a imagem do banco de dados, basta executar o comando abaixo no diretório onde está o `Dockerfile` acima:
 
 ```bash
 docker build -t willcq97/postgis-ods-db:latest .
@@ -36,6 +36,7 @@ docker build -t willcq97/postgis-ods-db:latest .
 ```bash
 podman run -d \
     --name postgis_ods \
+    -e POSTGRES_DB=acoes_db \
     -e POSTGRES_PASSWORD=admin.123 \
     -p 5432:5432 \
     --restart always \
@@ -48,6 +49,7 @@ podman run -d \
 ```powershell
 docker run -d `
     --name postgis_ods `
+    -e POSTGRES_DB=acoes_db `
     -e POSTGRES_PASSWORD=admin.123 `
     -p 5432:5432 `
     --restart always `
@@ -81,26 +83,28 @@ docker build -t willcq97/scpods-backend:latest -f ./Dockerfile .
 
 ## Build do backend e frontend
 
-- Script bash contendo os comandos com `podman` para o build de cada projeto e, em seguida, criar as imagens dos contêineres considerando o diretório atual `./scpods-backend`.
-- Atenção quanto a atualização das versões.
+- **Atenção quanto a atualização das versões conforme desejado**.
+
+### Backend
 
 ```bash
-cd ..
 cd scpods-backend
-./mvnw clean package -DskipTests
-podman build --platform linux/amd64 -t willcq97/scpods-api:1.0.0-amd64 .
-podman build --platform linux/arm64 -t willcq97/scpods-api:1.0.0-arm64 .
+podman build -t willcq97/scpods-api:latest .
+```
 
-cd ..
+### Frontend
+
+```bash
 cd scpods-frontend
 yarn build
-podman build --platform linux/amd64 -t willcq97/scpods-site:1.0.0-amd64 .
-podman build --platform linux/arm64 -t willcq97/scpods-site:1.0.0-arm64 .
+podman build -t willcq97/scpods-site:latest .
 ```
 
 ## Comunicação entre contêineres
 
-- Exemplo de uso do `podman` para criar um ambiente em que os contêineres do banco de dados, backend e frontend possam se comunicar.
+### Pod
+
+- Exemplo de uso do `podman` para criar um ambiente (pod) em que os contêineres do banco de dados, backend e frontend possam se comunicar.
 
 ```bash
 podman pod create --name scpods-pod -p 8080:8080 -p 3000:3000 -p 5432:5432
@@ -117,15 +121,17 @@ podman run -d \
 podman run -d \
     --pod scpods-pod \
     --name scpods-api \
-    willcq97/scpods-api:1.0.0
+    willcq97/scpods-api:latest
 
 podman run -d \
     --pod scpods-pod \
     --name scpods-site \
-    willcq97/scpods-site:2.0.0
+    willcq97/scpods-site:latest
 ```
 
-- Exemplo de um `docker compose` para a aplicação que realiza o build dos projetos e os configura de acordo.
+### Docker Compose
+
+- Exemplo de um `docker compose` para a aplicação que realiza o build dos projetos e os configura de acordo, considerando que o diretório atual contém os projetos `scpods-backend` e `scpods-frontend`.
 
 ```yaml
 services:
@@ -134,7 +140,7 @@ services:
     build:
       context: scpods-fronted
       dockerfile: Dockerfile
-    image: willcq97/scpods-site:2.0.0
+    image: willcq97/scpods-site:latest
     ports:
       - 3000:3000
     networks:
@@ -145,15 +151,19 @@ services:
     build:
       context: scpods-backend
       dockerfile: Dockerfile
-    image: willcq97/scpods-api:1.0.0
+    image: willcq97/scpods-backend:latest
     ports:
       - 8080:8080
+    environment:
+      POSTGRES_SERVER_NAME: postgis-acoes-db
+      POSTGRES_SERVER_PORT: 5432
+      POSTGRES_DATABASE: acoes_db
     networks:
       - scpods-network
 
   postgis-acoes-db:
     container_name: postgis-acoes-db
-    image: postgis/postgis:16-3.4
+    image: docker.io/postgis/postgis:16-3.4
     ports:
       - 5432:5432
     environment:
