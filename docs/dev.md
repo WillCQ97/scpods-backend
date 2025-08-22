@@ -170,10 +170,16 @@ services:
       POSTGRES_DB: acoes_db
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: admin.123
+    volumes:
+      - postgis_data:/var/lib/postgresql/data
     networks:
       - scpods-network
 
 networks:
   scpods-network:
     driver: bridge
+
+volumes:
+  postgis_data:
+
 ```
