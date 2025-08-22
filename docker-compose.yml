@@ -7,6 +7,10 @@ services:
     image: willcq97/scpods-api
     ports:
       - 8080:8080
+    environment:
+      POSTGRES_SERVER_NAME: postgis-acoes-db
+      POSTGRES_SERVER_PORT: 5432
+      POSTGRES_DATABASE: acoes_db
     networks:
       - scpods-network
 
