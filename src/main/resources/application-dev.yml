@@ -13,7 +13,7 @@ logging:
 spring:
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://${POSTGRESQL_SERVER_NAME:localhost}:${POSTGRESQL_SERVER_PORT:5432}/${POSTGRESQL_DATABASE_NAME:acoes_db}
+    url: jdbc:postgresql://${POSTGRESQL_SERVER_NAME:postgis-acoes-db}:${POSTGRESQL_SERVER_PORT:5432}/${POSTGRESQL_DATABASE_NAME:acoes_db}
     username: ${POSTGRESQL_USERNAME:postgres}
     password: ${POSTGRESQL_PASSWORD:admin.123}
 

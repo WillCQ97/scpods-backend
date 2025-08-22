@@ -1,11 +1,13 @@
-# Este dockerfile apenas copia o target para dentro do container.
-# Logo o build do projeto deve ser executado antes da geração da imagem.
+# Etapa 1: build
+FROM docker.io/maven:3.9.11-eclipse-temurin-21 AS builder
+WORKDIR /app
+COPY pom.xml .
+COPY src ./src
+RUN mvn clean package -DskipTests
 
+# Etapa 2: runtime
 FROM docker.io/openjdk:21
-
 EXPOSE 8080
-WORKDIR /app-scpods-backend/
-
-COPY target/scpods-api-1.1.0-SNAPSHOT.jar scpods-api-1.1.0-SNAPSHOT.jar
-
-ENTRYPOINT ["java","-jar","/app-scpods-backend/scpods-api-1.1.0-SNAPSHOT.jar"]
+WORKDIR /app
+COPY --from=builder /app/target/scpods-api.jar scpods-api.jar
+ENTRYPOINT ["java","-jar","scpods-api.jar"]

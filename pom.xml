@@ -9,17 +9,20 @@
         <version>3.5.4</version>
         <relativePath /> <!-- lookup parent from repository -->
     </parent>
+    
     <groupId>com.github.willcq97</groupId>
     <artifactId>scpods-api</artifactId>
     <version>1.1.0</version>
     <name>SCPODS API</name>
     <description>Backend do sistema para cadastro de projetos relacionados aos ODS na UFES.</description>
+    
     <properties>
         <modelmapper.version>3.0.0</modelmapper.version>
         <jackson.version>2.14</jackson.version>
         <java.version>21</java.version>
         <swagger.version>2.6.0</swagger.version>
     </properties>
+    
     <dependencies>
 
         <!-- Add-on module for Jackson (http://jackson.codehaus.org) to support JTS geometry types
@@ -36,6 +39,7 @@
             <groupId>org.flywaydb</groupId>
             <artifactId>flyway-core</artifactId>
         </dependency>
+
         <dependency>
             <groupId>org.flywaydb</groupId>
             <artifactId>flyway-database-postgresql</artifactId>
@@ -124,6 +128,6 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
         </plugins>
+        <finalName>scpods-api</finalName>
     </build>
-
 </project>

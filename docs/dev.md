@@ -128,7 +128,6 @@ podman run -d \
 - Exemplo de um `docker compose` para a aplicação que realiza o build dos projetos e os configura de acordo.
 
 ```yaml
-version: "2"
 services:
   scpods-frontend:
     container_name: scpods-site
