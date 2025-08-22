@@ -1,8 +1,11 @@
 # Notas de desenvolvimento
 
+- A seguir são apresentadas notas abordando diferentes formas para criar as imagens e executar os contêineres contendo o frontend (site), backend (api) e o banco de dados.
+- Também são apresentadas formas de aplicar e restaurar o banco de dados.
+
 ## Banco de dados
 
-- Está sendo utilizado um container do `postgres` com `postgis` com a configuração abaixo:
+- Está sendo utilizado um contêiner do `postgres` com `postgis` com a configuração abaixo:
   - OS debian 11 bullseye
   - Postgres 16
   - PostGIS 3.4.2
@@ -12,7 +15,7 @@
 - É possível criar um dockerfile que já inicialize o banco de dados. Como no exemplo abaixo:
 
 ```dockerfile
-# Cria um container com postGIS pré populado com dados de teste
+# Cria um contêiner com postGIS pré populado com dados de teste
 # https://dev.to/andre347/how-to-easily-create-a-postgres-database-in-docker-4moj
 
 FROM docker.io/postgis/postgis:16-3.4
@@ -23,24 +26,24 @@ ENV POSTGRES_PASSWORD admin.123
 COPY acoes_db-dump.sql /docker-entrypoint-initdb.d/
 ```
 
-- Então, para criar a imagem do banco de dados, basta executar o comando abaixo no diretório onde está o `Dockerfile` acima:
+- Então, para criar a imagem do banco de dados, basta executar o comando abaixo no diretório onde está o `Dockerfile`:
 
 ```bash
-docker build -t willcq97/postgis-ods-db:latest .
+docker build -t willcq97/postgis-acoes-db:latest .
 ```
 
-## Execução do container de banco de dados
+## Execução do contêiner de banco de dados
 
 - Com `podman` no Linux:
 
 ```bash
 podman run -d \
-    --name postgis_ods \
+    --name postgis-db \
     -e POSTGRES_DB=acoes_db \
     -e POSTGRES_PASSWORD=admin.123 \
     -p 5432:5432 \
-    --restart always \
     -v postgis_data:/var/lib/postgresql/data \
+    --restart always \
     docker.io/postgis/postgis:16-3.4
 ```
 
@@ -48,24 +51,24 @@ podman run -d \
 
 ```powershell
 docker run -d `
-    --name postgis_ods `
+    --name postgis-db `
     -e POSTGRES_DB=acoes_db `
     -e POSTGRES_PASSWORD=admin.123 `
     -p 5432:5432 `
-    --restart always `
     -v postgis_data:/var/lib/postgresql/data `
+    --restart always `
     docker.io/postgis/postgis:16-3.4
 ```
 
-## Dump do banco diretamente pelo container
+## Dump do banco diretamente pelo contêiner
 
 ```bash
 # Dump em SQL do banco de dados
-podman exec postgis_ods pg_dump -U postgres -h localhost acoes_db > acoes_db-dump.sql
+podman exec postgis-db pg_dump -U postgres -h localhost acoes_db > acoes_db-dump.sql
 
-# Passos intermediarios (cópia do arquivo para dentro do container e execução do shell no container)
-podman cp ./acoes_db-dump.sql postgis_ods:/
-podman exec -it postgis_ods bash
+# Passos intermediários (cópia do arquivo para dentro do contêiner e execução do shell no contêiner)
+podman cp ./acoes_db-dump.sql postgis-db:/
+podman exec -it postgis-db bash
 
 # Restore a partir do arquivo sql
 # Segundo a documentação o arquivo de texto gerado pelo pg_dump deve ser restaurado usando psql
@@ -73,23 +76,16 @@ podman exec -it postgis_ods bash
 psql -Upostgres acoes_db < acoes_db-dump.sql
 ```
 
-## Build do backend
-
-Na raiz do projeto:
-
-```bash
-docker build -t willcq97/scpods-backend:latest -f ./Dockerfile .
-```
-
-## Build do backend e frontend
+## Build dos projetos com Podman
 
 - **Atenção quanto a atualização das versões conforme desejado**.
+- Considera um diretório que contém ambos os projetos do *backend* e *frontend*.
 
 ### Backend
 
 ```bash
 cd scpods-backend
-podman build -t willcq97/scpods-api:latest .
+podman build -t willcq97/scpods-backend:latest .
 ```
 
 ### Frontend
@@ -97,7 +93,7 @@ podman build -t willcq97/scpods-api:latest .
 ```bash
 cd scpods-frontend
 yarn build
-podman build -t willcq97/scpods-site:latest .
+podman build -t willcq97/scpods-frontend:latest .
 ```
 
 ## Comunicação entre contêineres
@@ -107,26 +103,30 @@ podman build -t willcq97/scpods-site:latest .
 - Exemplo de uso do `podman` para criar um ambiente (pod) em que os contêineres do banco de dados, backend e frontend possam se comunicar.
 
 ```bash
-podman pod create --name scpods-pod -p 8080:8080 -p 3000:3000 -p 5432:5432
+# Criação do pod nomeado como 'scpods-pod'
+podman pod create --name scpods-pod -p 5432:5432 -p 8080:8080 -p 3000:3000
 
+# Criação do contêiner com o banco de dados
 podman run -d \
     --pod scpods-pod \
-    --name postgis-acoes-db \
+    --name postgis-db \
     -e POSTGRES_DB=acoes_db \
     -e POSTGRES_PASSWORD=admin.123 \
+    -v postgis_data:/var/lib/postgresql/data \
     --restart always \
-    -v acoes-db-data:/var/lib/postgresql/data \
     docker.io/postgis/postgis:16-3.4
 
+# Criação do contêiner com o backend (api)
 podman run -d \
     --pod scpods-pod \
     --name scpods-api \
-    willcq97/scpods-api:latest
+    willcq97/scpods-backend:latest
 
+# Criação do contêiner com o frontend (site)
 podman run -d \
     --pod scpods-pod \
     --name scpods-site \
-    willcq97/scpods-site:latest
+    willcq97/scpods-frontend:latest
 ```
 
 ### Docker Compose
@@ -135,12 +135,12 @@ podman run -d \
 
 ```yaml
 services:
-  scpods-frontend:
+  scpods-site:
     container_name: scpods-site
     build:
-      context: scpods-fronted
+      context: scpods-frontend
       dockerfile: Dockerfile
-    image: willcq97/scpods-site:latest
+    image: willcq97/scpods-frontend:latest
     ports:
       - 3000:3000
     networks:
@@ -155,14 +155,14 @@ services:
     ports:
       - 8080:8080
     environment:
-      POSTGRES_SERVER_NAME: postgis-acoes-db
+      POSTGRES_SERVER_NAME: postgis-db
       POSTGRES_SERVER_PORT: 5432
       POSTGRES_DATABASE: acoes_db
     networks:
       - scpods-network
 
-  postgis-acoes-db:
-    container_name: postgis-acoes-db
+  postgis-db:
+    container_name: postgis-db
     image: docker.io/postgis/postgis:16-3.4
     ports:
       - 5432:5432
