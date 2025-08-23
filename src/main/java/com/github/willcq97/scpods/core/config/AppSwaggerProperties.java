@@ -1,4 +1,4 @@
-package com.github.willcq97.scpods.config.swagger;
+package com.github.willcq97.scpods.core.config;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;

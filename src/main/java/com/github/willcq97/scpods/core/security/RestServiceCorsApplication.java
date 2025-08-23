@@ -1,4 +1,4 @@
-package com.github.willcq97.scpods.config.security;
+package com.github.willcq97.scpods.core.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

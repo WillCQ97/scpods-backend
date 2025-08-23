@@ -1,14 +1,14 @@
 package com.github.willcq97.scpods.domain.service.impl;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
-import com.github.willcq97.scpods.domain.model.Meta;
-import com.github.willcq97.scpods.domain.model.Objetivo;
-import com.github.willcq97.scpods.domain.repository.MetaRepository;
-import com.github.willcq97.scpods.domain.repository.ObjetivoRepository;
+import com.github.willcq97.scpods.domain.exception.EntityNotFoundException;
+import com.github.willcq97.scpods.domain.model.entity.Meta;
+import com.github.willcq97.scpods.domain.model.entity.Objetivo;
+import com.github.willcq97.scpods.domain.model.repository.MetaRepository;
+import com.github.willcq97.scpods.domain.model.repository.ObjetivoRepository;
 import com.github.willcq97.scpods.domain.service.ObjetivoService;
 
 import lombok.AllArgsConstructor;
@@ -27,13 +27,15 @@ public class ObjetivoServiceImpl implements ObjetivoService {
     }
 
     @Override
-    public Optional<Objetivo> findObjetivoByCodigo( String codigo ) {
-        return objetivoRepository.findByCodigo( codigo );
+    public Objetivo findObjetivoByCodigo( String codigo ) {
+        return objetivoRepository.findByCodigo( codigo )
+                .orElseThrow( () -> new EntityNotFoundException( "Não foi encontrada um objetivo com o id informado" ) );
     }
 
     @Override
-    public Optional<Meta> findMetaByCodigo( String codigo ) {
-        return metaRepository.findByCodigo( codigo );
+    public Meta findMetaByCodigo( String codigo ) {
+        return metaRepository.findByCodigo( codigo )
+                .orElseThrow( () -> new EntityNotFoundException( "Não foi encontrada uma meta com o id informado" ) );
     }
 
 }

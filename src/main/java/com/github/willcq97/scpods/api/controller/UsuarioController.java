@@ -1,11 +1,12 @@
 package com.github.willcq97.scpods.api.controller;
 
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.github.willcq97.scpods.api.dto.input.LoginUsuarioDTO;
@@ -24,14 +25,16 @@ public class UsuarioController {
     private final UsuarioService usuarioService;
 
     @GetMapping( "/validar-admin" )
+    @ResponseStatus( HttpStatus.OK )
     @PreAuthorize( "hasRole('ADMIN')" )
-    public ResponseEntity<Object> validarAdmin() {
-        return ResponseEntity.ok().build();
+    public String validarAdmin() {
+        return "Administrador validado";
     }
 
     @PostMapping( "/validar-login-ufes" )
-    public ResponseEntity<Object> validarLoginUfes( @Valid @RequestBody LoginUsuarioDTO loginDTO ) {
+    @ResponseStatus( HttpStatus.OK )
+    public String validarLoginUfes( @Valid @RequestBody LoginUsuarioDTO loginDTO ) {
         usuarioService.validarLoginUfes( loginDTO );
-        return ResponseEntity.ok().build();
+        return "Login UFES Validado";
     }
 }

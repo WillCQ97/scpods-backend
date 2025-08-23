@@ -1,4 +1,4 @@
-package com.github.willcq97.scpods.domain.model;
+package com.github.willcq97.scpods.domain.model.entity;
 
 import java.util.List;
 
@@ -11,7 +11,6 @@ import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -22,23 +21,22 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-@Table( name = "tb_unidades" )
-public class Unidade {
+@Table( name = "tb_lotacoes" )
+public class Lotacao {
 
     @Id
     private Long id;
 
     @NotBlank
-    private String nome;
+    private String descricao;
 
     @NotBlank
-    private String codigo;
+    private String sigla;
 
-    @NotNull
     @Enumerated( EnumType.STRING )
     private CampusEnum campus;
 
-    @OneToMany( mappedBy = "unidade" )
-    private List<Local> locais;
+    @OneToMany( mappedBy = "lotacao" )
+    private List<Acao> acoes;
 
 }

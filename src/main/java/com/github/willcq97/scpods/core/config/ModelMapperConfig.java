@@ -1,4 +1,4 @@
-package com.github.willcq97.scpods.config;
+package com.github.willcq97.scpods.core.config;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;

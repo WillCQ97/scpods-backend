@@ -1,4 +1,4 @@
-package com.github.willcq97.scpods.domain.model;
+package com.github.willcq97.scpods.domain.model.entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

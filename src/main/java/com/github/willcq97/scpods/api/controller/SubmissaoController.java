@@ -2,8 +2,7 @@ package com.github.willcq97.scpods.api.controller;
 
 import java.util.List;
 
-import org.modelmapper.ModelMapper;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,12 +12,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.github.willcq97.scpods.api.dto.response.SubmissaoResponseDTO;
 import com.github.willcq97.scpods.api.dto.search.AcaoSearchDTO;
 import com.github.willcq97.scpods.api.dto.search.AcaoSearchOptionsDTO;
-import com.github.willcq97.scpods.domain.model.Acao;
+import com.github.willcq97.scpods.api.mapper.AcaoMapper;
 import com.github.willcq97.scpods.domain.service.AcaoService;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -31,36 +31,34 @@ import lombok.AllArgsConstructor;
 public class SubmissaoController {
 
     private final AcaoService acaoService;
-
-    private final ModelMapper modelMapper;
+    private final AcaoMapper mapper;
 
     @GetMapping( "/{id}" )
+    @ResponseStatus( HttpStatus.OK )
     @PreAuthorize( "hasRole('ADMIN')" )
-    public ResponseEntity<SubmissaoResponseDTO> findById( @PathVariable Long id ) {
-        return ResponseEntity.ok().body( this.mapToSubmissaoResponseDTO( acaoService.findSubmissaoById( id ) ) );
+    public SubmissaoResponseDTO findById( @PathVariable Long id ) {
+        return mapper.mapToSubmissaoResponse( acaoService.findSubmissaoById( id ) );
     }
 
     @PostMapping( "/search" )
+    @ResponseStatus( HttpStatus.OK )
     @PreAuthorize( "hasRole('ADMIN')" )
-    public ResponseEntity<List<AcaoSearchDTO>> search( @RequestBody AcaoSearchOptionsDTO options ) {
-        return ResponseEntity.ok( acaoService.search( options, false ) );
+    public List<AcaoSearchDTO> search( @RequestBody AcaoSearchOptionsDTO options ) {
+        return acaoService.search( options, false );
     }
 
     @DeleteMapping( "/rejeitar" )
+    @ResponseStatus( HttpStatus.OK )
     @PreAuthorize( "hasRole('ADMIN')" )
-    public ResponseEntity<Void> rejeitar( @RequestParam( required = true ) Long id ) {
+    public void rejeitar( @RequestParam( required = true ) Long id ) {
         acaoService.excluirSubmissao( id );
-        return ResponseEntity.noContent().build();
     }
 
     @PatchMapping( "/aceitar" )
+    @ResponseStatus( HttpStatus.OK )
     @PreAuthorize( "hasRole('ADMIN')" )
-    public ResponseEntity<Void> aceitar( @RequestParam( required = true ) Long id ) {
+    public void aceitar( @RequestParam( required = true ) Long id ) {
         acaoService.aceitarSubmissao( id );
-        return ResponseEntity.ok().build();
     }
 
-    private SubmissaoResponseDTO mapToSubmissaoResponseDTO( Acao acao ) {
-        return modelMapper.map( acao, SubmissaoResponseDTO.class );
-    }
 }

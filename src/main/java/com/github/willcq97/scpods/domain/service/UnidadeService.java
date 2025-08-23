@@ -6,7 +6,7 @@ import org.springframework.validation.annotation.Validated;
 
 import com.github.willcq97.scpods.api.dto.select.SelectModel;
 import com.github.willcq97.scpods.api.dto.select.SelectModelString;
-import com.github.willcq97.scpods.domain.model.Unidade;
+import com.github.willcq97.scpods.domain.model.entity.Unidade;
 
 @Validated
 public interface UnidadeService {

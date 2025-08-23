@@ -1,4 +1,4 @@
-package com.github.willcq97.scpods.domain.repository;
+package com.github.willcq97.scpods.domain.model.repository;
 
 import java.util.List;
 import java.util.Optional;
@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.ListCrudRepository;
 
 import com.github.willcq97.scpods.api.dto.select.SelectModel;
-import com.github.willcq97.scpods.domain.model.Unidade;
+import com.github.willcq97.scpods.domain.model.entity.Unidade;
 import com.github.willcq97.scpods.domain.model.enums.CampusEnum;
 
 public interface UnidadeRepository extends ListCrudRepository<Unidade, Long> {
