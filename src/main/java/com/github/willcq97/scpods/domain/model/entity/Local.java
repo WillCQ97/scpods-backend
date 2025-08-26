@@ -14,8 +14,6 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.persistence.Transient;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -38,7 +36,6 @@ public class Local {
 
     private String filename;
 
-    @NotBlank
     @Column( name = "nome_principal" )
     private String nomePrincipal;
 
@@ -48,7 +45,6 @@ public class Local {
     @Column( name = "nome_terciario" )
     private String nomeTerciario;
 
-    @NotNull
     private Point localizacao;
 
     @ManyToOne
