@@ -21,7 +21,7 @@ public class CoordenadorInputDTO {
     @NotBlank( message = "Não foi informado o email do coordenador" )
     private String email;
 
-    @NotNull( message = "Não foi informado o tipo do vínculo do coordenador" )
+    @NotNull( message = "Não foi informado o tipo de vínculo do coordenador" )
     private TipoVinculoEnum tipoVinculo;
 
     private String descricaoVinculo;
