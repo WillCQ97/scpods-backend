@@ -48,7 +48,7 @@ journalctl -f -u scpods-site.service
 
 ```ini
 [Unit]
-Description=SCPODS API - Backend do sistema para cadastro de projetos relacionados aos ODS na UFES.
+Description=SCPODS API - Backend do sistema para cadastro de projetos relacionados aos ODS na Ufes.
 After=network.target postgresql@16-main.service
 Wants=postgresql@16-main.service
 
@@ -68,7 +68,7 @@ WantedBy=multi-user.target
 
 ```ini
 [Unit]
-Description=SCPODS Site - Frontend do sistema para cadastro de projetos relacionados aos ODS na UFES.
+Description=SCPODS Site - Frontend do sistema para cadastro de projetos relacionados aos ODS na Ufes.
 After=network.target scpods-api.service
 Wants=scpods-api.service
 
