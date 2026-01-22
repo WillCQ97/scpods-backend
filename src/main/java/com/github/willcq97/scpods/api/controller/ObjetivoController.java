@@ -24,7 +24,7 @@ public class ObjetivoController {
 
     private final ObjetivoService objetivoService;
 
-    @GetMapping( "/" )
+    @GetMapping
     @ResponseStatus( HttpStatus.OK )
     public List<ObjetivoResponseDTO> listar() {
         return objetivoService.findAll().stream().map( ObjetivoResponseDTO::fromEntity ).toList();
