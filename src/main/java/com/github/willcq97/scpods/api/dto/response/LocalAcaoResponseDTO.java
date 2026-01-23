@@ -2,25 +2,18 @@ package com.github.willcq97.scpods.api.dto.response;
 
 import org.locationtech.jts.geom.Point;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import com.github.willcq97.scpods.domain.model.entity.Local;
 
-@AllArgsConstructor
-@NoArgsConstructor
-@Getter
-@Setter
-public class LocalAcaoResponseDTO {
+public record LocalAcaoResponseDTO( Long id, Long idd, String nomePrincipal, String nomeSecundario, String nomeTerciario, Point localizacao, UnidadeAcaoReponseDTO unidade ) {
 
-    private Long id;
-    private Long idd;
-    private String nomePrincipal;
-    private String nomeSecundario;
-    private String nomeTerciario;
-
-    private Point localizacao;
-
-    private UnidadeAcaoReponseDTO unidade;
-
+    public static LocalAcaoResponseDTO fromEntity( Local local ) {
+        return new LocalAcaoResponseDTO(
+                local.getId(),
+                local.getIdd(),
+                local.getNomePrincipal(),
+                local.getNomeSecundario(),
+                local.getNomeTerciario(),
+                local.getLocalizacao(),
+                UnidadeAcaoReponseDTO.fromEntity( local.getUnidade() ) );
+    }
 }

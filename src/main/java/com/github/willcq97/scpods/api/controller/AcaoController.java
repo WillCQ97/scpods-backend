@@ -34,7 +34,7 @@ public class AcaoController {
     @GetMapping( "/{id}" )
     @ResponseStatus( HttpStatus.OK )
     public AcaoResponseDTO findById( @PathVariable Long id ) {
-        return mapper.mapToResponse( acaoService.findAcaoById( id ) );
+        return AcaoResponseDTO.fromEntity( acaoService.findAcaoById( id ) );
     }
 
     @PostMapping( "/search" )

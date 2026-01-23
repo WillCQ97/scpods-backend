@@ -1,20 +1,14 @@
 package com.github.willcq97.scpods.api.dto.response;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import com.github.willcq97.scpods.domain.model.entity.Meta;
 
-@AllArgsConstructor
-@NoArgsConstructor
-@Getter
-@Setter
-public class MetaAcaoResponseDTO {
+public record MetaAcaoResponseDTO( Long id, String codigo, String descricao, ObjetivoAcaoResponseDTO objetivo ) {
 
-    private Long id;
-    private String codigo;
-    private String descricao;
-
-    private ObjetivoAcaoResponseDTO objetivo;
-
+    public static MetaAcaoResponseDTO fromEntity( Meta meta ) {
+        return new MetaAcaoResponseDTO(
+                meta.getId(),
+                meta.getCodigo(),
+                meta.getDescricao(),
+                ObjetivoAcaoResponseDTO.fromEntity( meta.getObjetivo() ) );
+    }
 }

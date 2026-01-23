@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.github.willcq97.scpods.api.dto.response.SubmissaoResponseDTO;
 import com.github.willcq97.scpods.api.dto.search.AcaoSearchDTO;
 import com.github.willcq97.scpods.api.dto.search.AcaoSearchOptionsDTO;
-import com.github.willcq97.scpods.api.mapper.AcaoMapper;
 import com.github.willcq97.scpods.domain.service.AcaoService;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -31,13 +30,12 @@ import lombok.AllArgsConstructor;
 public class SubmissaoController {
 
     private final AcaoService acaoService;
-    private final AcaoMapper mapper;
 
     @GetMapping( "/{id}" )
     @ResponseStatus( HttpStatus.OK )
     @PreAuthorize( "hasRole('ADMIN')" )
     public SubmissaoResponseDTO findById( @PathVariable Long id ) {
-        return mapper.mapToSubmissaoResponse( acaoService.findSubmissaoById( id ) );
+        return SubmissaoResponseDTO.fromEntity( acaoService.findSubmissaoById( id ) );
     }
 
     @PostMapping( "/search" )

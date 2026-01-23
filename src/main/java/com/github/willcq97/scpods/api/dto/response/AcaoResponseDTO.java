@@ -2,31 +2,24 @@ package com.github.willcq97.scpods.api.dto.response;
 
 import java.time.LocalDate;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import com.github.willcq97.scpods.domain.model.entity.Acao;
 
-@NoArgsConstructor
-@AllArgsConstructor
-@Getter
-@Setter
-public class AcaoResponseDTO {
+public record AcaoResponseDTO( Long id, String titulo, String descricao, String urlEvidencia, LocalDate dataCadastro, LocalDate dataInicio, LocalDate dataEncerramento, boolean aceito, CoordenadorAcaoResponseDTO coordenador, MetaAcaoResponseDTO meta, LocalAcaoResponseDTO local, LotacaoAcaoResponseDTO lotacao ) {
 
-    private Long id;
-    private String titulo;
-    private String descricao;
-    private String urlEvidencia;
-
-    private LocalDate dataCadastro;
-    private LocalDate dataInicio;
-    private LocalDate dataEncerramento;
-
-    private boolean aceito;
-
-    private CoordenadorAcaoResponseDTO coordenador;
-    private MetaAcaoResponseDTO meta;
-    private LocalAcaoResponseDTO local;
-    private LotacaoAcaoResponseDTO lotacao;
+    public static AcaoResponseDTO fromEntity( Acao acao ) {
+        return new AcaoResponseDTO(
+                acao.getId(),
+                acao.getTitulo(),
+                acao.getDescricao(),
+                acao.getUrlEvidencia(),
+                acao.getDataCadastro(),
+                acao.getDataInicio(),
+                acao.getDataEncerramento(),
+                acao.getAceito(),
+                CoordenadorAcaoResponseDTO.fromEntity( acao.getCoordenador() ),
+                MetaAcaoResponseDTO.fromEntity( acao.getMeta() ),
+                LocalAcaoResponseDTO.fromEntity( acao.getLocal() ),
+                LotacaoAcaoResponseDTO.fromEntity( acao.getLotacao() ) );
+    }
 
 }

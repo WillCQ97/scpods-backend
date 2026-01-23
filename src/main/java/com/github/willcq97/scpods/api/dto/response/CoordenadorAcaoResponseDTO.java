@@ -1,20 +1,16 @@
 package com.github.willcq97.scpods.api.dto.response;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import com.github.willcq97.scpods.domain.model.entity.Coordenador;
+import com.github.willcq97.scpods.domain.model.enums.TipoVinculoEnum;
 
-@AllArgsConstructor
-@NoArgsConstructor
-@Getter
-@Setter
-public class CoordenadorAcaoResponseDTO {
+public record CoordenadorAcaoResponseDTO( Long id, String nome, TipoVinculoEnum tipoVinculo, String descricaoVinculo ) {
 
-    private Long id;
-    private String nome;
-
-    private String tipoVinculo;
-    private String descricaoVinculo;
+    public static CoordenadorAcaoResponseDTO fromEntity( Coordenador coordenador ) {
+        return new CoordenadorAcaoResponseDTO(
+                coordenador.getId(),
+                coordenador.getNome(),
+                coordenador.getTipoVinculo(),
+                coordenador.getDescricaoVinculo() );
+    }
 
 }
