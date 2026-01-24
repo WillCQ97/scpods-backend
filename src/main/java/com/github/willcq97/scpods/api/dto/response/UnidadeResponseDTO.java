@@ -2,22 +2,21 @@ package com.github.willcq97.scpods.api.dto.response;
 
 import java.util.List;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import com.github.willcq97.scpods.domain.model.entity.Unidade;
+import com.github.willcq97.scpods.domain.model.enums.CampusEnum;
 
-@AllArgsConstructor
-@NoArgsConstructor
-@Getter
-@Setter
-public class UnidadeResponseDTO {
+public record UnidadeResponseDTO( Long id, String nome, String codigo, CampusEnum campus, List<LocalResponseDTO> locais ) {
 
-    private Long id;
-    private String nome;
-    private String codigo;
-    private String campus;
+    public static UnidadeResponseDTO fromEntity( Unidade unidade ) {
+        List<LocalResponseDTO> locais = unidade.getLocais().stream()
+                .map( LocalResponseDTO::fromEntity )
+                .toList();
 
-    private List<LocalResponseDTO> locais;
-
+        return new UnidadeResponseDTO(
+                unidade.getId(),
+                unidade.getNome(),
+                unidade.getCodigo(),
+                unidade.getCampus(),
+                locais );
+    }
 }

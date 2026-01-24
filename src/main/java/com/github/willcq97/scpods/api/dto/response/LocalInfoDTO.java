@@ -2,28 +2,21 @@ package com.github.willcq97.scpods.api.dto.response;
 
 import org.locationtech.jts.geom.Point;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import com.github.willcq97.scpods.domain.model.entity.Local;
 
-@AllArgsConstructor
-@NoArgsConstructor
-@Getter
-@Setter
-public class LocalInfoDTO {
+public record LocalInfoDTO( Long id, Long idd, String nomePrincipal, String nomeSecundario, String nomeTerciario, Point localizacao, Long projetosTotais, Long projetosAtivos, Long objetivosAtendidos, Long idObjetivoComMaisProjetos ) {
 
-    private Long id;
-    private Long idd;
-    private String nomePrincipal;
-    private String nomeSecundario;
-    private String nomeTerciario;
-
-    private Point localizacao;
-
-    private Long projetosTotais;
-    private Long projetosAtivos;
-    private Long objetivosAtendidos;
-    private Long idObjetivoComMaisProjetos;
-
+    public static LocalInfoDTO fromEntity( Local local ) {
+        return new LocalInfoDTO(
+                local.getId(),
+                local.getIdd(),
+                local.getNomePrincipal(),
+                local.getNomeSecundario(),
+                local.getNomeTerciario(),
+                local.getLocalizacao(),
+                local.getProjetosTotais(),
+                local.getProjetosAtivos(),
+                local.getObjetivosAtendidos(),
+                local.getIdObjetivoComMaisProjetos() );
+    }
 }

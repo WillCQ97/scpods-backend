@@ -1,20 +1,15 @@
 package com.github.willcq97.scpods.api.dto.response;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import com.github.willcq97.scpods.domain.model.entity.Local;
 
-@AllArgsConstructor
-@NoArgsConstructor
-@Getter
-@Setter
-public class LocalResponseDTO {
+public record LocalResponseDTO( Long id, Long idd, String nomePrincipal, String nomeSecundario, String nomeTerciario ) {
 
-    private Long id;
-    private Long idd;
-    private String nomePrincipal;
-    private String nomeSecundario;
-    private String nomeTerciario;
-
+    public static LocalResponseDTO fromEntity( Local local ) {
+        return new LocalResponseDTO(
+                local.getId(),
+                local.getIdd(),
+                local.getNomePrincipal(),
+                local.getNomeSecundario(),
+                local.getNomeTerciario() );
+    }
 }

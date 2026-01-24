@@ -11,7 +11,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @Getter
 @Setter
-public class AcaoSearchDTO {
+public class AcaoSearchDTO { // todo: transformar em record
 
     private Long id;
     private String titulo;
