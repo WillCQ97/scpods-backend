@@ -7,8 +7,8 @@
 
 - Está sendo utilizado um contêiner do `postgres` com `postgis` com a configuração abaixo:
   - OS debian 11 bullseye
-  - Postgres 16
-  - PostGIS 3.4.2
+  - Postgres 18
+  - PostGIS 3.6
 
 ## Imagem docker com banco de dados inicializado
 
@@ -18,7 +18,7 @@
 # Cria um contêiner com postGIS pré populado com dados de teste
 # https://dev.to/andre347/how-to-easily-create-a-postgres-database-in-docker-4moj
 
-FROM docker.io/postgis/postgis:16-3.4
+FROM docker.io/postgis/postgis:18-3.6
 
 ENV POSTGRES_DB acoes_db
 ENV POSTGRES_PASSWORD admin.123
@@ -42,9 +42,8 @@ podman run -d \
     -e POSTGRES_DB=acoes_db \
     -e POSTGRES_PASSWORD=admin.123 \
     -p 5432:5432 \
-    -v postgis_data:/var/lib/postgresql/data \
-    --restart always \
-    docker.io/postgis/postgis:16-3.4
+    -v postgis_data:/var/lib/postgresql \
+    docker.io/postgis/postgis:18-3.6
 ```
 
 - Com `docker` no Windows:
@@ -55,9 +54,9 @@ docker run -d `
     -e POSTGRES_DB=acoes_db `
     -e POSTGRES_PASSWORD=admin.123 `
     -p 5432:5432 `
-    -v postgis_data:/var/lib/postgresql/data `
+    -v postgis_data:/var/lib/postgresql `
     --restart always `
-    docker.io/postgis/postgis:16-3.4
+    docker.io/postgis/postgis:18-3.6
 ```
 
 ## Dump do banco diretamente pelo contêiner
@@ -112,9 +111,9 @@ podman run -d \
     --name postgis-db \
     -e POSTGRES_DB=acoes_db \
     -e POSTGRES_PASSWORD=admin.123 \
-    -v postgis_data:/var/lib/postgresql/data \
+    -v postgis_data:/var/lib/postgresql \
     --restart always \
-    docker.io/postgis/postgis:16-3.4
+    docker.io/postgis/postgis:18-3.6
 
 # Criação do contêiner com o backend (api)
 podman run -d \
@@ -163,7 +162,7 @@ services:
 
   postgis-db:
     container_name: postgis-db
-    image: docker.io/postgis/postgis:16-3.4
+    image: docker.io/postgis/postgis:18-3.6
     ports:
       - 5432:5432
     environment:
@@ -171,7 +170,7 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: admin.123
     volumes:
-      - postgis_data:/var/lib/postgresql/data
+      - postgis_data:/var/lib/postgresql
     networks:
       - scpods-network
 

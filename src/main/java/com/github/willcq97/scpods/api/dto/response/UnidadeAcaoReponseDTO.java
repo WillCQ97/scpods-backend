@@ -1,19 +1,16 @@
 package com.github.willcq97.scpods.api.dto.response;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import com.github.willcq97.scpods.domain.model.entity.Unidade;
+import com.github.willcq97.scpods.domain.model.enums.CampusEnum;
 
-@AllArgsConstructor
-@NoArgsConstructor
-@Getter
-@Setter
-public class UnidadeAcaoReponseDTO {
+public record UnidadeAcaoReponseDTO( Long id, String nome, CampusEnum campus, String codigo ) {
 
-    private Long id;
-    private String nome;
-    private String campus;
-    private String codigo;
+    public static UnidadeAcaoReponseDTO fromEntity( Unidade unidade ) {
+        return new UnidadeAcaoReponseDTO(
+                unidade.getId(),
+                unidade.getNome(),
+                unidade.getCampus(),
+                unidade.getCodigo() );
+    }
 
 }

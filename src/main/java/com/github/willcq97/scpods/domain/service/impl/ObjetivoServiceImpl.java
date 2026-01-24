@@ -22,7 +22,7 @@ public class ObjetivoServiceImpl implements ObjetivoService {
     private final MetaRepository metaRepository;
 
     @Override
-    public List<Objetivo> listar() {
+    public List<Objetivo> findAll() {
         return objetivoRepository.findAllOrdered();
     }
 

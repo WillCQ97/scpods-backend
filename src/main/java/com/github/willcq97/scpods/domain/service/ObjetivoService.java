@@ -10,7 +10,7 @@ import com.github.willcq97.scpods.domain.model.entity.Objetivo;
 @Validated
 public interface ObjetivoService {
 
-    List<Objetivo> listar();
+    List<Objetivo> findAll();
 
     Objetivo findObjetivoByCodigo( String codigo );
 

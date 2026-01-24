@@ -131,7 +131,7 @@ public class AcaoServiceImpl implements AcaoService {
         Specification<Acao> spec = ( root, query, cb ) -> {
             var predicates = cb.conjunction();
 
-            cb.equal( root.<Boolean>get( "aceito" ), aceito );
+            predicates = cb.equal( root.<Boolean>get( "aceito" ), aceito );
 
             predicates = SpecificationUtil.addLikeIgnoreCase( root, cb, predicates, "titulo", options.titulo() );
             predicates = SpecificationUtil.addBetweenDates( root, cb, predicates, "dataCadastro", options.dataInicial(), options.dataFinal() );

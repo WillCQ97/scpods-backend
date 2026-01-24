@@ -10,7 +10,6 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -27,10 +26,8 @@ public class Lotacao {
     @Id
     private Long id;
 
-    @NotBlank
     private String descricao;
 
-    @NotBlank
     private String sigla;
 
     @Enumerated( EnumType.STRING )

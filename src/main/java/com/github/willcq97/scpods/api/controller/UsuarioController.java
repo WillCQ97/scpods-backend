@@ -35,6 +35,6 @@ public class UsuarioController {
     @ResponseStatus( HttpStatus.OK )
     public String validarLoginUfes( @Valid @RequestBody LoginUsuarioDTO loginDTO ) {
         usuarioService.validarLoginUfes( loginDTO );
-        return "Login UFES Validado";
+        return "Login Ufes Validado";
     }
 }

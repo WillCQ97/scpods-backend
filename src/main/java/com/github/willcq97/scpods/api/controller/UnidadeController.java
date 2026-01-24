@@ -14,7 +14,6 @@ import com.github.willcq97.scpods.api.dto.response.UnidadeInfoDTO;
 import com.github.willcq97.scpods.api.dto.response.UnidadeResponseDTO;
 import com.github.willcq97.scpods.api.dto.select.SelectModel;
 import com.github.willcq97.scpods.api.dto.select.SelectModelString;
-import com.github.willcq97.scpods.api.mapper.UnidadeMapper;
 import com.github.willcq97.scpods.domain.service.UnidadeService;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -27,12 +26,11 @@ import lombok.AllArgsConstructor;
 public class UnidadeController {
 
     private final UnidadeService service;
-    private final UnidadeMapper mapper;
 
     @GetMapping( "/" )
     @ResponseStatus( HttpStatus.OK )
     public List<UnidadeResponseDTO> listarUnidades( @RequestParam( required = false ) String campus ) {
-        return mapper.mapAllToResponse( service.listarUnidades( campus ) );
+        return service.listarUnidades( campus ).stream().map( UnidadeResponseDTO::fromEntity ).toList();
     }
 
     @GetMapping( "/opcoes-campus" )
@@ -50,13 +48,13 @@ public class UnidadeController {
     @GetMapping( "/info" )
     @ResponseStatus( HttpStatus.OK )
     public List<UnidadeInfoDTO> obterContabilizacaoCampus( @RequestParam( required = true ) String campus ) {
-        return mapper.mapAllToUnidadeInfo( service.obterContabilizacaoPorCampus( campus ) );
+        return service.obterContabilizacaoPorCampus( campus ).stream().map( UnidadeInfoDTO::fromEntity ).toList();
     }
 
     @GetMapping( "/info/{codigo}" )
     @ResponseStatus( HttpStatus.OK )
     public UnidadeInfoDTO obterContabilizacaoUnidade( @PathVariable String codigo ) {
-        return mapper.mapToUnidadeInfo( service.obterContabilizacaoParaUnidade( codigo ) );
+        return UnidadeInfoDTO.fromEntity( service.obterContabilizacaoParaUnidade( codigo ) );
     }
 
 }

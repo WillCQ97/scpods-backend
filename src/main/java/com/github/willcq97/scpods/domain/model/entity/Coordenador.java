@@ -10,8 +10,6 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -29,15 +27,12 @@ public class Coordenador {
     @GeneratedValue( strategy = GenerationType.IDENTITY )
     private Long id;
 
-    @NotBlank( message = "Não foi informado o nome do coordenador" )
     private String nome;
 
-    @NotBlank( message = "Não foi informado o email do coordenador" )
     private String email;
 
     @Enumerated( EnumType.STRING )
     @Column( name = "tipo_vinculo" )
-    @NotNull( message = "Não foi informado o tipo do vínculo do coordenador" )
     private TipoVinculoEnum tipoVinculo;
 
     @Column( name = "ds_vinculo" )

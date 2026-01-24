@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.github.willcq97.scpods.api.dto.response.MetaResponseDTO;
 import com.github.willcq97.scpods.api.dto.response.ObjetivoResponseDTO;
-import com.github.willcq97.scpods.api.mapper.ObjetivoMapper;
 import com.github.willcq97.scpods.domain.service.ObjetivoService;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -24,24 +23,23 @@ import lombok.AllArgsConstructor;
 public class ObjetivoController {
 
     private final ObjetivoService objetivoService;
-    private final ObjetivoMapper mapper;
 
-    @GetMapping( "/" )
+    @GetMapping
     @ResponseStatus( HttpStatus.OK )
     public List<ObjetivoResponseDTO> listar() {
-        return mapper.mapAllToResponse( objetivoService.listar() );
+        return objetivoService.findAll().stream().map( ObjetivoResponseDTO::fromEntity ).toList();
     }
 
     @GetMapping( "/{codigo}" )
     @ResponseStatus( HttpStatus.OK )
     public ObjetivoResponseDTO buscarObjetivo( @PathVariable String codigo ) {
-        return mapper.mapToResponse( objetivoService.findObjetivoByCodigo( codigo ) );
+        return ObjetivoResponseDTO.fromEntity( objetivoService.findObjetivoByCodigo( codigo ) );
     }
 
     @GetMapping( "/meta/{codigo}" )
     @ResponseStatus( HttpStatus.OK )
     public MetaResponseDTO buscarMeta( @PathVariable String codigo ) {
-        return mapper.mapToResponse( objetivoService.findMetaByCodigo( codigo ) );
+        return MetaResponseDTO.fromEntity( objetivoService.findMetaByCodigo( codigo ) );
     }
 
 }

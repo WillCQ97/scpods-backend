@@ -10,8 +10,6 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -28,13 +26,10 @@ public class Unidade {
     @Id
     private Long id;
 
-    @NotBlank
     private String nome;
 
-    @NotBlank
     private String codigo;
 
-    @NotNull
     @Enumerated( EnumType.STRING )
     private CampusEnum campus;
 
