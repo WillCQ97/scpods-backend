@@ -18,7 +18,7 @@
     <description>Backend do sistema para cadastro de projetos relacionados aos ODS na Ufes.</description>
 
     <properties>
-        <modelmapper.version>3.0.0</modelmapper.version>
+        <modelmapper.version>3.2.4</modelmapper.version>
         <jackson.version>2.14</jackson.version>
         <java.version>25</java.version>
         <swagger.version>3.0.2</swagger.version>
