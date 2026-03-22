@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -45,17 +44,17 @@ public class SubmissaoController {
         return acaoService.search( options, false );
     }
 
-    @DeleteMapping( "/rejeitar" )
+    @DeleteMapping( "/rejeitar/{id}" )
     @ResponseStatus( HttpStatus.OK )
     @PreAuthorize( "hasRole('ADMIN')" )
-    public void rejeitar( @RequestParam( required = true ) Long id ) {
+    public void rejeitar( @PathVariable Long id ) {
         acaoService.excluirSubmissao( id );
     }
 
-    @PatchMapping( "/aceitar" )
+    @PatchMapping( "/aceitar/{id}" )
     @ResponseStatus( HttpStatus.OK )
     @PreAuthorize( "hasRole('ADMIN')" )
-    public void aceitar( @RequestParam( required = true ) Long id ) {
+    public void aceitar( @PathVariable Long id ) {
         acaoService.aceitarSubmissao( id );
     }
 
