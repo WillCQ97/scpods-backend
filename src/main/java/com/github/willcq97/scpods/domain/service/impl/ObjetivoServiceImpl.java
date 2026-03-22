@@ -7,8 +7,8 @@ import org.springframework.stereotype.Service;
 import com.github.willcq97.scpods.domain.exception.EntityNotFoundException;
 import com.github.willcq97.scpods.domain.model.entity.Meta;
 import com.github.willcq97.scpods.domain.model.entity.Objetivo;
-import com.github.willcq97.scpods.domain.model.repository.MetaRepository;
-import com.github.willcq97.scpods.domain.model.repository.ObjetivoRepository;
+import com.github.willcq97.scpods.domain.repository.MetaRepository;
+import com.github.willcq97.scpods.domain.repository.ObjetivoRepository;
 import com.github.willcq97.scpods.domain.service.ObjetivoService;
 
 import lombok.AllArgsConstructor;

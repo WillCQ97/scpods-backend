@@ -20,11 +20,11 @@ import com.github.willcq97.scpods.domain.model.entity.Meta;
 import com.github.willcq97.scpods.domain.model.entity.Objetivo;
 import com.github.willcq97.scpods.domain.model.entity.Unidade;
 import com.github.willcq97.scpods.domain.model.enums.CampusEnum;
-import com.github.willcq97.scpods.domain.model.repository.AcaoRepository;
-import com.github.willcq97.scpods.domain.model.repository.LocalRepository;
-import com.github.willcq97.scpods.domain.model.repository.LotacaoRepository;
-import com.github.willcq97.scpods.domain.model.repository.MetaRepository;
-import com.github.willcq97.scpods.domain.model.repository.UnidadeRepository;
+import com.github.willcq97.scpods.domain.repository.AcaoRepository;
+import com.github.willcq97.scpods.domain.repository.LocalRepository;
+import com.github.willcq97.scpods.domain.repository.LotacaoRepository;
+import com.github.willcq97.scpods.domain.repository.MetaRepository;
+import com.github.willcq97.scpods.domain.repository.UnidadeRepository;
 import com.github.willcq97.scpods.domain.service.AcaoService;
 import com.github.willcq97.scpods.utils.SpecificationUtil;
 

@@ -10,7 +10,7 @@ import com.github.willcq97.scpods.api.dto.select.SelectModelString;
 import com.github.willcq97.scpods.domain.exception.BusinessException;
 import com.github.willcq97.scpods.domain.model.entity.Unidade;
 import com.github.willcq97.scpods.domain.model.enums.CampusEnum;
-import com.github.willcq97.scpods.domain.model.repository.UnidadeRepository;
+import com.github.willcq97.scpods.domain.repository.UnidadeRepository;
 import com.github.willcq97.scpods.domain.service.UnidadeService;
 
 import jakarta.persistence.EntityNotFoundException;

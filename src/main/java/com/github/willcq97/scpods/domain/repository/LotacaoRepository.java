@@ -1,4 +1,4 @@
-package com.github.willcq97.scpods.domain.model.repository;
+package com.github.willcq97.scpods.domain.repository;
 
 import java.util.List;
 
