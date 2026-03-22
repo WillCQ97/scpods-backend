@@ -4,9 +4,11 @@ import com.github.willcq97.scpods.domain.model.enums.TipoVinculoEnum;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
+@Getter
+@Setter
 public class CoordenadorInputDTO {
 
     @NotBlank( message = "Não foi informado o nome do coordenador" )

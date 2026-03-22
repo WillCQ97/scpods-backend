@@ -4,9 +4,11 @@ import java.time.LocalDate;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
+@Getter
+@Setter
 public class SubmissaoInputDTO {
 
     @NotBlank( message = "Não foi informado o título da ação!" )

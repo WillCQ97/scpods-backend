@@ -1,9 +1,11 @@
 package com.github.willcq97.scpods.api.dto.input;
 
 import jakarta.validation.constraints.NotBlank;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
+@Getter
+@Setter
 public class LoginUsuarioDTO {
 
     @NotBlank( message = "Não foi informado o nome de usuário" )
