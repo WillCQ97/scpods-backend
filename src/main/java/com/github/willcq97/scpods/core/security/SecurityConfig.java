@@ -35,8 +35,8 @@ public class SecurityConfig {
         http.authorizeHttpRequests(
                 expressionIntercepterUrlRegistry -> expressionIntercepterUrlRegistry
                         .requestMatchers( "/api-docs/**", "/swagger-ui/**" ).permitAll()
-                        .requestMatchers( "/acoes/**", "/lotacoes/**", "/usuarios/validar-login-ufes", "/objetivos/**", "/unidades/**" ).permitAll()
-                        .requestMatchers( "/submissoes/**", "/usuarios/**" ).authenticated() )
+                        .requestMatchers( "v1/**", "v1/usuarios/validar-login-ufes" ).permitAll()
+                        .requestMatchers( "v1/submissoes/**", "v1/usuarios/**" ).authenticated() )
                 .csrf( csrf -> csrf.disable() )
                 .httpBasic( Customizer.withDefaults() );
         return http.build();
