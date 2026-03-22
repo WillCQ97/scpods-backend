@@ -15,7 +15,7 @@ app:
 
 server:
   servlet:
-    context-path: /acoes-ods/v1/
+    context-path: /acoes-ods/
 
 spring:
   jackson:

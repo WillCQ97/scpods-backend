@@ -23,7 +23,7 @@ import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 
 @RestController
-@RequestMapping( "/acoes" )
+@RequestMapping( "/v1/acoes" )
 @Tag( name = "Ações/Projetos" )
 @AllArgsConstructor
 public class AcaoController {

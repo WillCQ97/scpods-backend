@@ -17,7 +17,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 
 @RestController
-@RequestMapping( "/objetivos" )
+@RequestMapping( "/v1/objetivos" )
 @Tag( name = "Objetivos e Metas de Desenvolvimento Sustentável" )
 @AllArgsConstructor
 public class ObjetivoController {
