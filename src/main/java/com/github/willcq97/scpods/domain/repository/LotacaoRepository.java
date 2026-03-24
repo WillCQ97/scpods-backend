@@ -14,6 +14,6 @@ public interface LotacaoRepository extends ListCrudRepository<Lotacao, Long> {
     List<Lotacao> findByCampus( CampusEnum campus );
 
     @Query( "SELECT lt.id as value, lt.sigla || ' - ' || lt.descricao as description FROM Lotacao lt" )
-    List<SelectModel<Long>> listarOpcoesLotacao();
+    List<SelectModel<Long>> listarOpcoes();
 
 }

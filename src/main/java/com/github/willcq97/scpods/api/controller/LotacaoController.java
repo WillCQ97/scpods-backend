@@ -25,7 +25,7 @@ public class LotacaoController {
     @GetMapping( "/opcoes-lotacao" )
     @ResponseStatus( HttpStatus.OK )
     public List<SelectModel<Long>> listarOpcoes() {
-        return service.listarOpcoesLotacao();
+        return service.listarOpcoes();
     }
 
 }

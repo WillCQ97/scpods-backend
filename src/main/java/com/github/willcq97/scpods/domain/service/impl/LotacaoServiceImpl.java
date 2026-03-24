@@ -16,8 +16,8 @@ public class LotacaoServiceImpl implements LotacaoService {
 
     private final LotacaoRepository lotacaoRepository;
 
-    public List<SelectModel<Long>> listarOpcoesLotacao() {
-        return lotacaoRepository.listarOpcoesLotacao();
+    public List<SelectModel<Long>> listarOpcoes() {
+        return lotacaoRepository.listarOpcoes();
     }
 
 }

@@ -17,6 +17,6 @@ public interface UnidadeRepository extends ListCrudRepository<Unidade, Long> {
     Optional<Unidade> findByCodigo( String codigo );
 
     @Query( "SELECT u.codigo as value, u.nome as description FROM Unidade u" )
-    List<SelectModel<String>> listarOpcoesUnidades();
+    List<SelectModel<String>> listarOpcoes();
 
 }

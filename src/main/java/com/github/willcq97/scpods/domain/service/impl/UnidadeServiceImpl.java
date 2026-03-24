@@ -31,7 +31,7 @@ public class UnidadeServiceImpl implements UnidadeService {
 
     @Override
     public List<SelectModel<String>> listarOpcoesUnidades() {
-        return unidadeRepository.listarOpcoesUnidades();
+        return unidadeRepository.listarOpcoes();
     }
 
     @Override
