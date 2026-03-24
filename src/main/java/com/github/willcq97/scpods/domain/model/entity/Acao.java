@@ -84,6 +84,10 @@ public class Acao {
         return this.getCoordenador().getNome();
     }
 
+    public String getSiglaLotacao() {
+        return this.getLotacao().getSigla();
+    }
+
     public boolean isAceito() {
         return Boolean.TRUE.equals( this.aceito );
     }

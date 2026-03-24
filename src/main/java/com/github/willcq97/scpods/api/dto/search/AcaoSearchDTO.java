@@ -15,7 +15,7 @@ public record AcaoSearchDTO( Long id, String titulo, LocalDate dataCadastro, Str
                 acao.getCodigoMeta(),
                 acao.getNomeLocal(),
                 acao.getNomeCoordenador(),
-                acao.getLotacao().getSigla() );
+                acao.getSiglaLotacao() );
     }
 
 }
