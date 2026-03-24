@@ -1,4 +1,4 @@
-package com.github.willcq97.scpods.domain.model.repository;
+package com.github.willcq97.scpods.domain.repository;
 
 import java.util.List;
 import java.util.Optional;
@@ -19,7 +19,7 @@ public interface AcaoRepository extends ListCrudRepository<Acao, Long>, JpaSpeci
     List<Acao> findByAceito( Boolean aceito );
 
     @Modifying
-    @NativeQuery("UPDATE tb_acoes SET fl_aceito = TRUE WHERE id = :idAcao")
-    void aceitarSubmissao( Long idAcao );
+    @NativeQuery( value = "UPDATE tb_acoes SET fl_aceito = TRUE WHERE id = :idAcao" )
+    void aceitar( Long idAcao );
 
 }

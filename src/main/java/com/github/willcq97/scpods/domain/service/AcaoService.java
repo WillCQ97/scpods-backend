@@ -31,9 +31,9 @@ public interface AcaoService {
 
     public Acao atualizar( Acao acao );
 
-    public void inserirSubmissao( Acao acao );
+    public void inserir( Acao acao );
 
-    public void excluirSubmissao( @NotNull Long idAcao );
+    public void excluir( @NotNull Long idAcao );
 
-    public void aceitarSubmissao( @NotNull Long idAcao );
+    public void aceitar( @NotNull Long idAcao );
 }

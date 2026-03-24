@@ -23,7 +23,7 @@ import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 
 @RestController
-@RequestMapping( "/acoes" )
+@RequestMapping( "/v1/acoes" )
 @Tag( name = "Ações/Projetos" )
 @AllArgsConstructor
 public class AcaoController {
@@ -46,7 +46,7 @@ public class AcaoController {
     @PostMapping( "/submeter" )
     @ResponseStatus( HttpStatus.CREATED )
     public void salvarSubmissao( @Valid @RequestBody SubmissaoInputDTO submissao ) {
-        acaoService.inserirSubmissao( mapper.toEntity( submissao ) );
+        acaoService.inserir( mapper.toEntity( submissao ) );
     }
 
 }

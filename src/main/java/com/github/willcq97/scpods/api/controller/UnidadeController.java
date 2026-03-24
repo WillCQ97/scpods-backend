@@ -20,7 +20,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 
 @RestController
-@RequestMapping( "/unidades" )
+@RequestMapping( "/v1/unidades" )
 @Tag( name = "Campus, Locais e Unidades da Universidade" )
 @AllArgsConstructor
 public class UnidadeController {

@@ -1,5 +1,7 @@
 package com.github.willcq97.scpods.domain.model.enums;
 
+import com.github.willcq97.scpods.domain.exception.BusinessException;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -14,7 +16,7 @@ public enum CampusEnum {
 
     private String descricao;
 
-    public static CampusEnum obterEnum( String campus ) {
+    public static CampusEnum parse( String campus ) {
 
         if( campus == null || campus.isBlank() ) {
             return null;
@@ -27,5 +29,14 @@ public enum CampusEnum {
         }
 
         return null;
+    }
+
+    public static CampusEnum validatedParse( String campus ) {
+
+        var campusEnum = CampusEnum.parse( campus );
+        if( campusEnum == null ) {
+            throw new BusinessException( "O campus informado não é válido!" );
+        }
+        return campusEnum;
     }
 }

@@ -15,7 +15,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 
 @RestController
-@RequestMapping( "/lotacoes" )
+@RequestMapping( "/v1/lotacoes" )
 @Tag( name = "Lotações das Ações" )
 @AllArgsConstructor
 public class LotacaoController {
@@ -25,7 +25,7 @@ public class LotacaoController {
     @GetMapping( "/opcoes-lotacao" )
     @ResponseStatus( HttpStatus.OK )
     public List<SelectModel<Long>> listarOpcoes() {
-        return service.listarOpcoesLotacao();
+        return service.listarOpcoes();
     }
 
 }
