@@ -46,7 +46,7 @@ public class AcaoController {
     @PostMapping( "/submeter" )
     @ResponseStatus( HttpStatus.CREATED )
     public void salvarSubmissao( @Valid @RequestBody SubmissaoInputDTO submissao ) {
-        acaoService.inserirSubmissao( mapper.toEntity( submissao ) );
+        acaoService.inserir( mapper.toEntity( submissao ) );
     }
 
 }

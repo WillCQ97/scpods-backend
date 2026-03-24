@@ -48,14 +48,14 @@ public class SubmissaoController {
     @ResponseStatus( HttpStatus.OK )
     @PreAuthorize( "hasRole('ADMIN')" )
     public void rejeitar( @PathVariable Long id ) {
-        acaoService.excluirSubmissao( id );
+        acaoService.excluir( id );
     }
 
     @PatchMapping( "/aceitar/{id}" )
     @ResponseStatus( HttpStatus.OK )
     @PreAuthorize( "hasRole('ADMIN')" )
     public void aceitar( @PathVariable Long id ) {
-        acaoService.aceitarSubmissao( id );
+        acaoService.aceitar( id );
     }
 
 }

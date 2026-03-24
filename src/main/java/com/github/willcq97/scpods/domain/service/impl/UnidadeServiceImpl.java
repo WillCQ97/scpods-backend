@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 
 import com.github.willcq97.scpods.api.dto.select.SelectModel;
 import com.github.willcq97.scpods.api.dto.select.SelectModelString;
-import com.github.willcq97.scpods.domain.exception.BusinessException;
 import com.github.willcq97.scpods.domain.model.entity.Unidade;
 import com.github.willcq97.scpods.domain.model.enums.CampusEnum;
 import com.github.willcq97.scpods.domain.repository.UnidadeRepository;
@@ -40,12 +39,12 @@ public class UnidadeServiceImpl implements UnidadeService {
         if( campus == null ) {
             return unidadeRepository.findAll();
         }
-        return unidadeRepository.findByCampus( this.obterCampusEnum( campus ) );
+        return unidadeRepository.findByCampus( CampusEnum.validatedParse( campus ) );
     }
 
     @Override
     public List<Unidade> obterContabilizacaoPorCampus( String campus ) {
-        return unidadeRepository.findByCampus( this.obterCampusEnum( campus ) );
+        return unidadeRepository.findByCampus( CampusEnum.validatedParse( campus ) );
     }
 
     @Override
@@ -57,15 +56,6 @@ public class UnidadeServiceImpl implements UnidadeService {
         }
 
         throw new EntityNotFoundException( "Não foi encontrada uma unidade para o código informado!" );
-    }
-
-    private CampusEnum obterCampusEnum( String campus ) {
-
-        var campusEnum = CampusEnum.obterEnum( campus );
-        if( campusEnum == null ) {
-            throw new BusinessException( "O campus informado não é válido!" );
-        }
-        return campusEnum;
     }
 
 }
