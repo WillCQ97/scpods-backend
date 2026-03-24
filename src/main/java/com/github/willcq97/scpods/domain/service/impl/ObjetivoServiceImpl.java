@@ -11,10 +11,10 @@ import com.github.willcq97.scpods.domain.repository.MetaRepository;
 import com.github.willcq97.scpods.domain.repository.ObjetivoRepository;
 import com.github.willcq97.scpods.domain.service.ObjetivoService;
 
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class ObjetivoServiceImpl implements ObjetivoService {
 
     private final ObjetivoRepository objetivoRepository;

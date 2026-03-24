@@ -8,10 +8,10 @@ import com.github.willcq97.scpods.api.dto.select.SelectModel;
 import com.github.willcq97.scpods.domain.repository.LotacaoRepository;
 import com.github.willcq97.scpods.domain.service.LotacaoService;
 
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class LotacaoServiceImpl implements LotacaoService {
 
     private final LotacaoRepository lotacaoRepository;

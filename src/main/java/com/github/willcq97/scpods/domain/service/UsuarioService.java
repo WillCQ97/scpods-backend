@@ -4,10 +4,10 @@ import org.springframework.stereotype.Service;
 
 import com.github.willcq97.scpods.api.dto.input.LoginUsuarioDTO;
 
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class UsuarioService {
 
     private final LoginService loginService;

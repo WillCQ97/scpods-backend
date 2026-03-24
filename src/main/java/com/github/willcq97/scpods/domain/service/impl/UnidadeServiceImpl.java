@@ -13,10 +13,10 @@ import com.github.willcq97.scpods.domain.repository.UnidadeRepository;
 import com.github.willcq97.scpods.domain.service.UnidadeService;
 
 import jakarta.persistence.EntityNotFoundException;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class UnidadeServiceImpl implements UnidadeService {
 
     private final UnidadeRepository unidadeRepository;

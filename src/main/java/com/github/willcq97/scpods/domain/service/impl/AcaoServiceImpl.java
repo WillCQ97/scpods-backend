@@ -30,10 +30,10 @@ import com.github.willcq97.scpods.utils.SpecificationUtil;
 import com.github.willcq97.scpods.utils.ValidatorsUtil;
 
 import jakarta.persistence.criteria.Join;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 
 @Service
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class AcaoServiceImpl implements AcaoService {
 
     private final AcaoRepository acaoRepository;

@@ -20,12 +20,12 @@ import com.github.willcq97.scpods.api.dto.search.AcaoSearchOptionsDTO;
 import com.github.willcq97.scpods.domain.service.AcaoService;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequestMapping( "/v1/submissoes" )
 @Tag( name = "Submissões" )
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class SubmissaoController {
 
     private final AcaoService acaoService;

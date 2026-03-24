@@ -14,12 +14,12 @@ import com.github.willcq97.scpods.domain.service.UsuarioService;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequestMapping( "/v1/usuarios" )
 @Tag( name = "Usuários" )
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class UsuarioController {
 
     private final UsuarioService usuarioService;
