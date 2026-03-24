@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -21,12 +20,12 @@ import com.github.willcq97.scpods.api.dto.search.AcaoSearchOptionsDTO;
 import com.github.willcq97.scpods.domain.service.AcaoService;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 
 @RestController
-@RequestMapping( "/submissoes" )
+@RequestMapping( "/v1/submissoes" )
 @Tag( name = "Submissões" )
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class SubmissaoController {
 
     private final AcaoService acaoService;
@@ -45,18 +44,18 @@ public class SubmissaoController {
         return acaoService.search( options, false );
     }
 
-    @DeleteMapping( "/rejeitar" )
+    @DeleteMapping( "/rejeitar/{id}" )
     @ResponseStatus( HttpStatus.OK )
     @PreAuthorize( "hasRole('ADMIN')" )
-    public void rejeitar( @RequestParam( required = true ) Long id ) {
-        acaoService.excluirSubmissao( id );
+    public void rejeitar( @PathVariable Long id ) {
+        acaoService.excluir( id );
     }
 
-    @PatchMapping( "/aceitar" )
+    @PatchMapping( "/aceitar/{id}" )
     @ResponseStatus( HttpStatus.OK )
     @PreAuthorize( "hasRole('ADMIN')" )
-    public void aceitar( @RequestParam( required = true ) Long id ) {
-        acaoService.aceitarSubmissao( id );
+    public void aceitar( @PathVariable Long id ) {
+        acaoService.aceitar( id );
     }
 
 }

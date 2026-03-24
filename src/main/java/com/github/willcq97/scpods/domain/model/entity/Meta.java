@@ -32,4 +32,12 @@ public class Meta {
     @JoinColumn( name = "idObjetivo" )
     private Objetivo objetivo;
 
+    public Long getIdObjetivo() {
+        return this.getObjetivo().getId();
+    }
+
+    public String getCodigoObjetivo() {
+        return this.getObjetivo().getCodigo();
+    }
+
 }

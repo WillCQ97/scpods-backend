@@ -17,12 +17,12 @@ import com.github.willcq97.scpods.api.dto.select.SelectModelString;
 import com.github.willcq97.scpods.domain.service.UnidadeService;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 
 @RestController
-@RequestMapping( "/unidades" )
+@RequestMapping( "/v1/unidades" )
 @Tag( name = "Campus, Locais e Unidades da Universidade" )
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class UnidadeController {
 
     private final UnidadeService service;

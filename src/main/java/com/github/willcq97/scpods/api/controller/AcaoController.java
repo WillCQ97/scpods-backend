@@ -20,12 +20,12 @@ import com.github.willcq97.scpods.domain.service.AcaoService;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 
 @RestController
-@RequestMapping( "/acoes" )
+@RequestMapping( "/v1/acoes" )
 @Tag( name = "Ações/Projetos" )
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class AcaoController {
 
     private final AcaoService acaoService;
@@ -46,7 +46,7 @@ public class AcaoController {
     @PostMapping( "/submeter" )
     @ResponseStatus( HttpStatus.CREATED )
     public void salvarSubmissao( @Valid @RequestBody SubmissaoInputDTO submissao ) {
-        acaoService.inserirSubmissao( mapper.mapToEntity( submissao ) );
+        acaoService.inserir( mapper.toEntity( submissao ) );
     }
 
 }

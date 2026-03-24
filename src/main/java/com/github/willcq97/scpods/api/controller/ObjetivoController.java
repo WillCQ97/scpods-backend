@@ -14,12 +14,12 @@ import com.github.willcq97.scpods.api.dto.response.ObjetivoResponseDTO;
 import com.github.willcq97.scpods.domain.service.ObjetivoService;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 
 @RestController
-@RequestMapping( "/objetivos" )
+@RequestMapping( "/v1/objetivos" )
 @Tag( name = "Objetivos e Metas de Desenvolvimento Sustentável" )
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class ObjetivoController {
 
     private final ObjetivoService objetivoService;

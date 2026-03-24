@@ -65,10 +65,34 @@ public class Acao {
     private Lotacao lotacao;
 
     public Long getIdObjetivo() {
-        return this.getMeta().getObjetivo().getId();
+        return this.getMeta().getIdObjetivo();
     }
 
     public String getCodigoObjetivo() {
-        return this.getMeta().getObjetivo().getCodigo();
+        return this.getMeta().getCodigoObjetivo();
+    }
+
+    public String getCodigoMeta() {
+        return this.getMeta().getCodigo();
+    }
+
+    public String getNomeLocal() {
+        return this.getLocal().getNomePrincipal();
+    }
+
+    public String getNomeCoordenador() {
+        return this.getCoordenador().getNome();
+    }
+
+    public String getSiglaLotacao() {
+        return this.getLotacao().getSigla();
+    }
+
+    public boolean isAceito() {
+        return Boolean.TRUE.equals( this.aceito );
+    }
+
+    public boolean isSubmissao() {
+        return Boolean.FALSE.equals( this.aceito );
     }
 }

@@ -9,6 +9,6 @@ import com.github.willcq97.scpods.api.dto.select.SelectModel;
 @Validated
 public interface LotacaoService {
 
-    public List<SelectModel<Long>> listarOpcoesLotacao();
+    public List<SelectModel<Long>> listarOpcoes();
 
 }

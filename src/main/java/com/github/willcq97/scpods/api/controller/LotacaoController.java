@@ -12,12 +12,12 @@ import com.github.willcq97.scpods.api.dto.select.SelectModel;
 import com.github.willcq97.scpods.domain.service.LotacaoService;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 
 @RestController
-@RequestMapping( "/lotacoes" )
+@RequestMapping( "/v1/lotacoes" )
 @Tag( name = "Lotações das Ações" )
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class LotacaoController {
 
     private final LotacaoService service;
@@ -25,7 +25,7 @@ public class LotacaoController {
     @GetMapping( "/opcoes-lotacao" )
     @ResponseStatus( HttpStatus.OK )
     public List<SelectModel<Long>> listarOpcoes() {
-        return service.listarOpcoesLotacao();
+        return service.listarOpcoes();
     }
 
 }

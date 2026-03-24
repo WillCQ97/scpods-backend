@@ -113,7 +113,7 @@ public class LoginUfesServiceImpl implements LoginService {
             log.debug( "VerificarLoginUsuario. Response: " + response.getBody() );
             return HttpStatus.OK.equals( response.getStatusCode() );
 
-        } catch ( HttpClientErrorException.Unauthorized unauthorized ) {
+        } catch ( HttpClientErrorException.Unauthorized _ ) {
             return false;
         }
     }

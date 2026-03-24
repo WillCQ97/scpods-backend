@@ -70,7 +70,7 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
     }
 
     @ExceptionHandler( Exception.class )
-    public ResponseEntity<Object> handleAllExceptions( Exception ex, @NonNull WebRequest request ) {
+    public ResponseEntity<Object> handleAllExceptions( @NonNull Exception ex, @NonNull WebRequest request ) {
 
         var msg = "Erro inesperado! Entre em contato com o administrador do sistema com o código " + UUID.randomUUID();
         var status = HttpStatus.INTERNAL_SERVER_ERROR;
