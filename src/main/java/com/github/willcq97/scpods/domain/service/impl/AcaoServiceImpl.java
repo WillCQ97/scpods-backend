@@ -4,7 +4,6 @@ import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.data.jpa.domain.Specification;
-import org.springframework.lang.NonNull;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -31,6 +30,7 @@ import com.github.willcq97.scpods.utils.ValidatorsUtil;
 
 import jakarta.persistence.criteria.Join;
 import lombok.RequiredArgsConstructor;
+import org.jspecify.annotations.NonNull;
 
 @Service
 @RequiredArgsConstructor

@@ -1,9 +1,9 @@
 package com.github.willcq97.scpods.utils;
 
-import org.springframework.lang.NonNull;
-
 import com.github.willcq97.scpods.domain.exception.BusinessException;
 import com.github.willcq97.scpods.domain.model.enums.CampusEnum;
+
+import org.jspecify.annotations.NonNull;
 
 public class ValidatorsUtil {
 

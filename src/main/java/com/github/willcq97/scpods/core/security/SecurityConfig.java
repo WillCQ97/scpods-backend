@@ -22,7 +22,7 @@ public class SecurityConfig {
     private final AdminConfigProperties admin;
 
     @Bean
-    InMemoryUserDetailsManager userDetailsManager() throws Exception {
+    InMemoryUserDetailsManager userDetailsManager() {
         UserDetails user = User.withUsername( admin.getUsername() )
                 .password( passwordEncoder().encode( admin.getPassword() ) )
                 .roles( admin.getRoles().toArray( new String[0] ) )
@@ -31,12 +31,12 @@ public class SecurityConfig {
     }
 
     @Bean
-    SecurityFilterChain filterChain( HttpSecurity http ) throws Exception {
+    SecurityFilterChain filterChain( HttpSecurity http ) {
         http.authorizeHttpRequests(
                 expressionIntercepterUrlRegistry -> expressionIntercepterUrlRegistry
                         .requestMatchers( "/api-docs/**", "/swagger-ui/**" ).permitAll()
-                        .requestMatchers( "v1/**", "v1/usuarios/validar-login-ufes" ).permitAll()
-                        .requestMatchers( "v1/submissoes/**", "v1/usuarios/**" ).authenticated() )
+                        .requestMatchers( "/v1/**", "/v1/usuarios/validar-login-ufes" ).permitAll()
+                        .requestMatchers( "/v1/submissoes/**", "/v1/usuarios/**" ).authenticated() )
                 .csrf( csrf -> csrf.disable() )
                 .httpBasic( Customizer.withDefaults() );
         return http.build();

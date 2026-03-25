@@ -6,7 +6,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.5.12</version>
+        <version>4.0.4</version>
         <relativePath /> <!-- lookup parent from repository -->
     </parent>
 
@@ -17,26 +17,24 @@
     <description>Backend do sistema para cadastro de projetos relacionados aos ODS na Ufes.</description>
 
     <properties>
-        <jackson.version>2.21.0</jackson.version>
+        <jackson.version>3.0.1</jackson.version>
         <java.version>25</java.version>
-        <swagger.version>2.8.11</swagger.version>
+        <swagger.version>3.0.2</swagger.version>
     </properties>
 
     <dependencies>
 
-        <!-- Add-on module for Jackson (http://jackson.codehaus.org) to support JTS geometry types
-        using the GeoJSON standard. -->
+        <!-- Add-on module for Jackson to support JTS geometry types using the GeoJSON standard. -->
         <dependency>
-            <groupId>com.graphhopper.external</groupId>
+            <groupId>org.n52.jackson</groupId>
             <artifactId>jackson-datatype-jts</artifactId>
             <version>${jackson.version}</version>
         </dependency>
 
         <!-- Ferramenta para versionamento do banco -->
-        <!-- https://mvnrepository.com/artifact/org.flywaydb/flyway-core -->
         <dependency>
-            <groupId>org.flywaydb</groupId>
-            <artifactId>flyway-core</artifactId>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-flyway</artifactId>
         </dependency>
 
         <dependency>
@@ -44,14 +42,14 @@
             <artifactId>flyway-database-postgresql</artifactId>
         </dependency>
 
-        <!-- Suport for spatial datatypes -->
+        <!-- Support for spatial datatypes (PostGIS) -->
         <!-- https://mvnrepository.com/artifact/org.hibernate/hibernate-spatial -->
         <dependency>
             <groupId>org.hibernate.orm</groupId>
             <artifactId>hibernate-spatial</artifactId>
         </dependency>
 
-        <!-- Suport for access the postgreSQL database -->
+        <!-- Support for access the PostgreSQL database -->
         <dependency>
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
@@ -84,10 +82,15 @@
             <artifactId>spring-boot-starter-actuator</artifactId>
         </dependency>
 
-        <!-- Suport for Java Persistence API -->
+        <!-- Support for Java Persistence API -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-restclient</artifactId>
         </dependency>
 
         <dependency>
@@ -108,7 +111,7 @@
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-web</artifactId>
+            <artifactId>spring-boot-starter-webmvc</artifactId>
         </dependency>
 
     </dependencies>
